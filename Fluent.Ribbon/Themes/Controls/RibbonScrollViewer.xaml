@@ -210,7 +210,6 @@
             </Setter.Value>
         </Setter>
         <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
-
     </Style>
 
     <Style x:Key="Fluent.Ribbon.Styles.MenuScrollViewer"

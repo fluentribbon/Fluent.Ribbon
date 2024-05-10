@@ -14,6 +14,7 @@
     <CornerRadius x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
 
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
+
     <DropShadowEffect x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect"
                       x:Shared="False"
                       BlurRadius="3"
@@ -56,9 +57,6 @@
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Up">M 0 0 L -5 -5 L -10 0</PathGeometry>
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Right">M 0 0 L 5 -5 L -0 -10</PathGeometry>
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Down">M 0 0 L 5 5 L 10 0</PathGeometry>
-
-    <!-- <Geometry x:Key="Fluent.Ribbon.Data.UpArrow">M 0 4 L 8 4 L 4 0 Z</Geometry> -->
-    <!-- <Geometry x:Key="Fluent.Ribbon.Data.DownArrow">M 0 0 L 4 4 L 8 0 Z</Geometry> -->
 
     <Style x:Key="Fluent.Ribbon.Styles.Path.Arrow"
            TargetType="Path">

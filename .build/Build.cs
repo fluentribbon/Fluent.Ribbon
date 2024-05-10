@@ -1,4 +1,5 @@
-using GlobExpressions;
+// ReSharper disable AllUnderscoreLocalParameterName
+
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -40,9 +41,11 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
     
-    [Solution(GenerateProjects = true)] readonly Solution Solution = null!;
+    [Solution(GenerateProjects = true)]
+    readonly Solution Solution = null!;
     
-    [GitVersion(Framework = "net6.0", NoFetch = true)] readonly GitVersion? GitVersion;
+    [GitVersion(Framework = "net6.0", NoFetch = true)]
+    readonly GitVersion? GitVersion;
     
     string AssemblySemVer => GitVersion?.AssemblySemVer ?? "1.0.0";
     string SemVer => GitVersion?.SemVer ?? "1.0.0";
@@ -138,20 +141,12 @@ class Build : NukeBuild
             .SetVerbosity(DotNetVerbosity.normal));
     });
 
+    // ReSharper disable once UnusedMember.Local
     Target ResourceKeys => _ => _
         .After(Compile)
         .Executes(() =>
         {
             var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
-
-            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
-
-            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
-
-            if (resourceKeys.CheckKeys() is false)
-            {
-                Assert.Fail("Wrong resource keys found.");
-            }
 
             var vNextResourceKeys = resourceKeys.ElementsWithNonTypeKeys
                 .Select(x => x.Key)
@@ -159,7 +154,14 @@ class Build : NukeBuild
                 .OrderBy(x => x)
                 .ToList();
 
+            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
+            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
             Serilog.Log.Information($"Distinct keys: {vNextResourceKeys.Count}");
+
+            if (resourceKeys.CheckKeys() is false)
+            {
+                Assert.Fail("Wrong resource keys found.");
+            }
 
             File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
 
@@ -183,7 +185,6 @@ class Build : NukeBuild
         });
 
     // ReSharper disable once UnusedMember.Local
-    // ReSharper disable once InconsistentNaming
     Target CI => _ => _
         .DependsOn(Compile)
         .DependsOn(Test)
