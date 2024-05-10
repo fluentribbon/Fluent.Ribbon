@@ -46,6 +46,7 @@
     - Type for `Text` was changed from `string` to `object` to allow rich content (see [#716](../../issues/716))
   - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers.<br/>
     This provides more flexibility and also fixes the nested `MenuItem` issues.
+  - Removed default style assignment for `ScrollBar`
   - Themes
     - All
       - Quite a few colors/brushes changed
