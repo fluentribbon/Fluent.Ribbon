@@ -3485,6 +3485,7 @@
 
                     <TreeView x:Name="logicalTreeView"
                               Grid.Row="1"
+                              BorderThickness="0"
                               MouseDoubleClick="OnTreeDoubleClick" />
                 </Grid>
             </TabItem>
