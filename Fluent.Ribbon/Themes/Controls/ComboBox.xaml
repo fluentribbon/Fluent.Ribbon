@@ -24,7 +24,7 @@
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid HorizontalAlignment="Right">
                 <Path x:Name="path"
-                      Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                      Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                       Margin="2 0 2 0"
                       Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />

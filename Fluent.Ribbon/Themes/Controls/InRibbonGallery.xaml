@@ -273,7 +273,7 @@
                                   Stretch="Fill"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="2" />
-                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                                   Margin="0 0 0 4"
                                   VerticalAlignment="Bottom"
                                   Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"

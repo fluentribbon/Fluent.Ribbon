@@ -87,8 +87,8 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.LeftRight}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Left}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
@@ -124,8 +124,8 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.LeftRight}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Right}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                     </Grid>
@@ -175,8 +175,8 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.LeftRight}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Left}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
@@ -201,8 +201,8 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.LeftRight}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Right}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                     </Grid>
@@ -256,7 +256,7 @@
                                  RelativeSource="{RelativeSource TemplatedParent}" />
                     </MultiBinding>
                 </RepeatButton.Visibility>
-                <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                       Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
 
@@ -283,7 +283,7 @@
                                  RelativeSource="{RelativeSource TemplatedParent}" />
                     </MultiBinding>
                 </RepeatButton.Visibility>
-                <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                       Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
             </RepeatButton>
@@ -322,10 +322,6 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Rectangle x:Name="Corner"
-                           Grid.Row="1"
-                           Grid.Column="1"
-                           Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
                 <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
                                         Grid.Row="0"
                                         Grid.Column="0"
@@ -350,6 +346,7 @@
                            Style="{Binding Path=(Fluent:ScrollViewerAttachedProperties.ScrollBarStyle), RelativeSource={RelativeSource TemplatedParent}}"
                            Grid.Row="1"
                            Grid.Column="0"
+                           Grid.ColumnSpan="2"
                            AutomationProperties.AutomationId="Fluent.Ribbon.Templates.HorizontalScrollBar"
                            Cursor="Arrow"
                            Maximum="{TemplateBinding ScrollableWidth}"

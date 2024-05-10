@@ -16,10 +16,9 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Path x:Name="path"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.LeftRight}"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
-                              Fill="{TemplateBinding Foreground}" />
+                              Stroke="{TemplateBinding Foreground}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -104,7 +103,7 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Path x:Name="path"
-                              Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
                               Stroke="{TemplateBinding Foreground}" />
                     </Border>
@@ -229,7 +228,7 @@
                           Width="17"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineLeftCommand"
-                          Content="M 4 0 L 4 8 L 0 4 Z" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Left}" />
             <Track Name="PART_Track"
                    Grid.Column="1"
                    IsDirectionReversed="False"
@@ -253,7 +252,7 @@
                           Width="17"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineRightCommand"
-                          Content="M 0 0 L 4 4 L 0 8 Z" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Right}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

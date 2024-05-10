@@ -1,8 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
                     xmlns:theming="clr-namespace:Fluent.Theming">
     <theming:RibbonLibraryThemeProvider x:Key="{x:Static theming:RibbonLibraryThemeProvider.DefaultInstance}" />
 
@@ -20,7 +19,7 @@
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Right">M 0 0 L 5 -5 L -0 -10</PathGeometry>
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Down">M 0 0 L 5 5 L 10 0</PathGeometry>
 
-    <Style x:Key="Fluent.Ribbon.Styles.Path.Arrow"
+    <Style x:Key="Fluent.Ribbon.Styles.Path.Arrow.UpDown"
            TargetType="Path">
         <Setter Property="Height" Value="6" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -32,6 +31,20 @@
         <Setter Property="StrokeThickness" Value="2" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Width" Value="10" />
+    </Style>
+
+    <Style x:Key="Fluent.Ribbon.Styles.Path.Arrow.LeftRight"
+           TargetType="Path">
+        <Setter Property="Height" Value="10" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="StrokeDashCap" Value="Flat" />
+        <Setter Property="StrokeEndLineCap" Value="Flat" />
+        <Setter Property="StrokeLineJoin" Value="Round" />
+        <Setter Property="StrokeStartLineCap" Value="Flat" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Width" Value="6" />
     </Style>
 
     <DropShadowEffect x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect"
