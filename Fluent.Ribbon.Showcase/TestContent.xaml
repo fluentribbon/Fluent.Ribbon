@@ -2063,10 +2063,15 @@
                     <Fluent:TextBox Header="My short header" />
                     <Fluent:Spinner Header="My long long header" />
 
+                    <Separator Style="{DynamicResource Fluent.Ribbon.Styles.GroupBoxSeparator}" />
+
                     <Fluent:ComboBox Header="Excluded from size sharing"
                                      Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True" />
                     <Fluent:Spinner Header="My short header" />
                     <Fluent:ComboBox Header="My long long header" />
+
+                    <Separator Style="{DynamicResource Fluent.Ribbon.Styles.GroupBoxSeparator}"
+                               Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
@@ -2084,14 +2089,8 @@
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
 
-                    <Fluent:ComboBox Header="Test"
-                                     Fluent:InputControlProperties.InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
-                    <Fluent:ComboBox Header="Test"
-                                     Fluent:InputControlProperties.InputWidth="120" />
+                    <Separator Style="{DynamicResource Fluent.Ribbon.Styles.GroupBoxSeparator}"
+                               Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
@@ -2101,6 +2100,21 @@
                 <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
+
+                    <Separator Style="{DynamicResource Fluent.Ribbon.Styles.GroupBoxSeparator}"
+                               Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+
+                    <Fluent:ComboBox Header="Test"
+                                     Fluent:InputControlProperties.InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
+                    <Fluent:ComboBox Header="Test"
+                                     Fluent:InputControlProperties.InputWidth="120" />
+
+                    <Separator Style="{DynamicResource Fluent.Ribbon.Styles.GroupBoxSeparator}"
+                               Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
@@ -3313,7 +3327,7 @@
 
                                         <StackPanel Orientation="Horizontal">
                                             <Label>
-                                                WindowBackDropType
+                                                BackDropType
                                             </Label>
                                             <ComboBox VerticalAlignment="Center"
                                                       ItemsSource="{Binding Source={StaticResource WindowBackdropTypeEnumValues}}"
