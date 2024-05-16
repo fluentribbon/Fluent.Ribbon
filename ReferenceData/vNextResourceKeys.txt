@@ -243,6 +243,7 @@ Fluent.Ribbon.Styles.Gallery
 Fluent.Ribbon.Styles.GalleryDropDownButton
 Fluent.Ribbon.Styles.GalleryGroupContainer
 Fluent.Ribbon.Styles.GalleryItem
+Fluent.Ribbon.Styles.GroupBoxSeparator
 Fluent.Ribbon.Styles.HighlightColorGalleryListBox
 Fluent.Ribbon.Styles.InnerBackstageSeparatorTabItem
 Fluent.Ribbon.Styles.InnerBackstageTabControl
@@ -258,7 +259,8 @@ Fluent.Ribbon.Styles.MenuGroupSeparator
 Fluent.Ribbon.Styles.MenuItem
 Fluent.Ribbon.Styles.MenuScrollViewer
 Fluent.Ribbon.Styles.MenuSeparator
-Fluent.Ribbon.Styles.Path.Arrow
+Fluent.Ribbon.Styles.Path.Arrow.LeftRight
+Fluent.Ribbon.Styles.Path.Arrow.UpDown
 Fluent.Ribbon.Styles.QuickAccessToolbar
 Fluent.Ribbon.Styles.RadioButton
 Fluent.Ribbon.Styles.ResizeableContentControl
