@@ -154,7 +154,7 @@
                         <!-- Hidden TextBlock is used to prevent width differences due to FontWeight changes when item is selected -->
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   FontWeight="SemiBold"
+                                   FontWeight="Bold"
                                    Text="{Binding}"
                                    TextWrapping="NoWrap"
                                    Visibility="Hidden" />
@@ -167,7 +167,7 @@
                                 <Style>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Fluent:RibbonTabItem}}" Value="True">
-                                            <Setter Property="TextElement.FontWeight" Value="SemiBold" />
+                                            <Setter Property="TextElement.FontWeight" Value="Bold" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
