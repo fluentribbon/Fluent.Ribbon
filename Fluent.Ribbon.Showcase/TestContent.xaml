@@ -3796,7 +3796,7 @@
 
             <Fluent:StatusBarItem Title="Zoom"
                                   HorizontalAlignment="Right"
-                                  Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:P}}" />
+                                  Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:P0}}" />
 
             <Fluent:StatusBarItem Title="Test (no content, no value)"
                                   HorizontalAlignment="Right" />
