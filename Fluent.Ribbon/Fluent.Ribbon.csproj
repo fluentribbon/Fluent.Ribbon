@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <PackageReference Include="ControlzEx" />
+    <PackageReference Include="System.Memory" />
+
     <PackageReference Include="XAMLTools.MSBuild" PrivateAssets="all" IncludeAssets="build" />
 
     <PackageReference Include="Microsoft.Windows.CsWin32">
