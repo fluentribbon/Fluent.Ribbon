@@ -17,7 +17,7 @@
     <None Include="../License.txt" Pack="true" PackagePath="license/License.txt" />
     <None Include="../Images/Logo/Logo_128x128.png" Pack="true" PackagePath="Logo.png" />
   </ItemGroup>
-  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP)) == false">
+  <ItemGroup Condition="'$(IsBuildingForLegacyFramework)' == 'true'">
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="ControlzEx" />
-    <PackageReference Include="System.Memory" />
+    <PackageReference Include="System.Memory" Condition="'$(IsBuildingForLegacyFramework)' == 'true'" />
 
     <PackageReference Include="XAMLTools.MSBuild" PrivateAssets="all" IncludeAssets="build" />
 
