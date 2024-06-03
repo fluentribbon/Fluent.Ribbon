@@ -178,7 +178,7 @@
                 </Fluent:RibbonScrollViewer>
 
                 <StackPanel Grid.Column="3"
-                            Margin="0 0 0 1"
+                            Margin="0"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
                     <StackPanel x:Name="PART_ToolbarPanel"
