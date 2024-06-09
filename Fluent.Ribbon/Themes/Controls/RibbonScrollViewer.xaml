@@ -62,16 +62,13 @@
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false">
                             <Fluent:RibbonProperties.CornerRadius>
-                                <MultiBinding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}">
-                                    <Binding FallbackValue="0"
-                                             Path="(Fluent:RibbonProperties.CornerRadius).TopLeft"
-                                             RelativeSource="{RelativeSource TemplatedParent}" />
-                                    <Binding Source="0" />
-                                    <Binding Source="0" />
-                                    <Binding FallbackValue="0"
-                                             Path="(Fluent:RibbonProperties.CornerRadius).BottomLeft"
-                                             RelativeSource="{RelativeSource TemplatedParent}" />
-                                </MultiBinding>
+                                <Binding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}"
+                                         RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="(Fluent:RibbonProperties.CornerRadius)">
+                                    <Binding.ConverterParameter>
+                                        <converters:CornerRadiusPart>TopLeft,BottomLeft</converters:CornerRadiusPart>
+                                    </Binding.ConverterParameter>
+                                </Binding>
                             </Fluent:RibbonProperties.CornerRadius>
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
@@ -99,16 +96,13 @@
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false">
                             <Fluent:RibbonProperties.CornerRadius>
-                                <MultiBinding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}">
-                                    <Binding Source="0" />
-                                    <Binding FallbackValue="0"
-                                             Path="(Fluent:RibbonProperties.CornerRadius).TopRight"
-                                             RelativeSource="{RelativeSource TemplatedParent}" />
-                                    <Binding FallbackValue="0"
-                                             Path="(Fluent:RibbonProperties.CornerRadius).BottomRight"
-                                             RelativeSource="{RelativeSource TemplatedParent}" />
-                                    <Binding Source="0" />
-                                </MultiBinding>
+                                <Binding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}"
+                                         RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="(Fluent:RibbonProperties.CornerRadius)">
+                                    <Binding.ConverterParameter>
+                                        <converters:CornerRadiusPart>TopRight,BottomRight</converters:CornerRadiusPart>
+                                    </Binding.ConverterParameter>
+                                </Binding>
                             </Fluent:RibbonProperties.CornerRadius>
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
