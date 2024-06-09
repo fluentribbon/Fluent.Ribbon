@@ -5,7 +5,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Showcase">
-        <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="4.11.0" />
+        <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="5.0.0" />
         <PackageVersion Include="MahApps.Metro" version="3.0.0-alpha0492" />
     </ItemGroup>
 
@@ -15,7 +15,7 @@
 
         <PackageVersion Include="NUnit" version="4.1.0" />
 
-        <PackageVersion Include="System.Text.Json" version="8.0.0" />
+        <PackageVersion Include="System.Text.Json" version="8.0.3" />
 
         <!--<PackageVersion Include="Google.Cloud.Translate.V3" Version="2.4.0" />-->
     </ItemGroup>
