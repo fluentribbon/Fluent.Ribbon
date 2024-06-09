@@ -45,15 +45,15 @@ steps:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
 
-- task: PublishBuildArtifacts@1
-  displayName: Save package artifacts
-  inputs:
-    PathtoPublish: $(Build.ArtifactStagingDirectory)
-    ArtifactName: Package
+#- task: PublishBuildArtifacts@1
+#  displayName: Save package artifacts
+#  inputs:
+#    PathtoPublish: $(Build.ArtifactStagingDirectory)
+#    ArtifactName: Package
 
-- task: NuGetCommand@2
-  displayName: Publish to internal nuget feed
-  inputs:
-    command: push
-    nuGetFeedType: internal
-    publishVstsFeed: Fluent.Ribbon
+#- task: NuGetCommand@2
+#  displayName: Publish to internal nuget feed
+#  inputs:
+#    command: push
+#    nuGetFeedType: internal
+#    publishVstsFeed: Fluent.Ribbon
