@@ -2636,7 +2636,7 @@
                                        IsLauncherVisible="False">
                     <Fluent:DropDownButton Header="Test3"
                                            Fluent:KeyTip.Keys="C"
-                                           Size="Middle">
+                                           SizeDefinition="Middle">
                         <Fluent:Button Header="Test4"
                                        Fluent:KeyTip.Keys="A"
                                        Size="Middle" />
