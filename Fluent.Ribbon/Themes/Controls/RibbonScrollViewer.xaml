@@ -63,8 +63,8 @@
                                       Focusable="false">
                             <Fluent:RibbonProperties.CornerRadius>
                                 <Binding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}"
-                                         RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="(Fluent:RibbonProperties.CornerRadius)">
+                                         Path="(Fluent:RibbonProperties.CornerRadius)"
+                                         RelativeSource="{RelativeSource TemplatedParent}">
                                     <Binding.ConverterParameter>
                                         <converters:CornerRadiusPart>TopLeft,BottomLeft</converters:CornerRadiusPart>
                                     </Binding.ConverterParameter>
@@ -97,8 +97,8 @@
                                       Focusable="false">
                             <Fluent:RibbonProperties.CornerRadius>
                                 <Binding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}"
-                                         RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="(Fluent:RibbonProperties.CornerRadius)">
+                                         Path="(Fluent:RibbonProperties.CornerRadius)"
+                                         RelativeSource="{RelativeSource TemplatedParent}">
                                     <Binding.ConverterParameter>
                                         <converters:CornerRadiusPart>TopRight,BottomRight</converters:CornerRadiusPart>
                                     </Binding.ConverterParameter>
