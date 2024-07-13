@@ -85,17 +85,9 @@ public class ThemeManagerFromThread
         }
         else
         {
-            var newTheme = ThemeManager.Current.GetTheme("Light." + themeColor.ToString());
-            if (newTheme is not null)
-            {
-                ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
+            var newTheme = ThemeManager.Current.ChangeThemeColorScheme(Application.Current, themeColor.ToString());
 
-                this.Info($"Change theme: NewTheme: {newTheme.Name} Theme changed.");
-            }
-            else
-            {
-                this.Info($"Change theme: Theme not found: {themeColor}.");
-            }
+            this.Info($"Change theme: NewTheme: {newTheme?.Name} Theme changed.");
         }
     }
 
