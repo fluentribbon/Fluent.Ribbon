@@ -215,8 +215,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid x:Name="PART_ItemsPanelContainer"
-                  VerticalAlignment="Stretch"
-                  Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                  VerticalAlignment="Stretch">
                 <Grid Background="{TemplateBinding ItemsPanelBackground}"
                       KeyboardNavigation.DirectionalNavigation="Cycle">
                     <Grid.RowDefinitions>
