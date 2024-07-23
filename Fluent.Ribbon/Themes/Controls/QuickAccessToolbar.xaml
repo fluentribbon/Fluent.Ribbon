@@ -137,7 +137,6 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.QuickAccessToolbar"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
-        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.QuickAccessToolbar}" />
     </Style>
 
