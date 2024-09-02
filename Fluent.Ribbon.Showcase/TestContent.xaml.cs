@@ -512,7 +512,7 @@ public partial class TestContent
             return;
         }
 
-        var textFormattingMode = e.NewValue >= 1.0 || DoubleUtil.AreClose(e.NewValue, 1.0) ? TextFormattingMode.Ideal : TextFormattingMode.Display;
+        var textFormattingMode = DoubleUtil.AreClose(e.NewValue, 1.0) ? TextFormattingMode.Display : TextFormattingMode.Ideal;
         TextOptions.SetTextFormattingMode(window, textFormattingMode);
     }
 
