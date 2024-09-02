@@ -238,22 +238,29 @@
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
                     BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
-                    Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}"
                     KeyboardNavigation.DirectionalNavigation="Contained"
                     KeyboardNavigation.TabIndex="2"
                     KeyboardNavigation.TabNavigation="Local"
                     TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
-                <ContentControl x:Name="mainContentControl"
-                                Margin="0"
-                                Focusable="False">
-                    <Fluent:TransitioningControl x:Name="PART_SelectedContent"
-                                                 HorizontalAlignment="Stretch"
-                                                 VerticalAlignment="Stretch"
-                                                 HorizontalContentAlignment="Stretch"
-                                                 VerticalContentAlignment="Stretch"
-                                                 NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
-                                                 TransitionStoryboard="{DynamicResource Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition}" />
-                </ContentControl>
+                <Grid>
+                    <Border Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
+                            BorderThickness="0"
+                            CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                            Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}" />
+
+                    <ContentControl x:Name="mainContentControl"
+                                    Margin="0"
+                                    Focusable="False">
+                        <Fluent:TransitioningControl x:Name="PART_SelectedContent"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    VerticalContentAlignment="Stretch"
+                                                    NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    TransitionStoryboard="{DynamicResource Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition}" />
+                    </ContentControl>
+                </Grid>
             </Border>
 
             <!-- Placement target must be the selected item. Otherwise things like DPI and monitor are selected wrong if the tabcontrol 0,0 is on a different screen than the selected tabs 0,0 -->
