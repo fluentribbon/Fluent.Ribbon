@@ -10,7 +10,6 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.SpinnerButton"
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="Transparent"
@@ -49,8 +48,7 @@
     <!-- Spinner Style -->
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner"
                      TargetType="{x:Type Fluent:Spinner}">
-        <Grid Width="Auto"
-              Height="22"
+        <Grid Height="22"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -63,10 +61,10 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="4 0 0 0"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
@@ -107,9 +105,9 @@
                              Padding="2 0 2 0"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
                              BorderThickness="0"
                              CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
-                             Foreground="{TemplateBinding Foreground}"
                              SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                     <Path x:Name="path"
@@ -127,7 +125,6 @@
 
                     <Path x:Name="path1"
                           Grid.Column="1"
-                          Width="Auto"
                           Height="1"
                           Margin="0 0 -1 0"
                           HorizontalAlignment="Left"
@@ -142,36 +139,19 @@
                     <RepeatButton x:Name="PART_ButtonUp"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                   Grid.Row="0"
-                                  Grid.Column="1"
-                                  HorizontalAlignment="Stretch"
-                                  RenderTransformOrigin="0,0.5">
-                        <Path Width="5"
-                              Height="3"
-                              Margin="1 2 0 1"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Data="M0,0L1,-1 2,0"
-                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              RenderOptions.EdgeMode="Aliased"
-                              Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              StrokeThickness="0" />
+                                  Grid.Column="1">
+                        <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
+                              Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                     </RepeatButton>
                     <RepeatButton x:Name="PART_ButtonDown"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                   Grid.Row="1"
                                   Grid.Column="1">
-                        <Path Width="5"
-                              Height="3"
-                              Margin="1 -1 0 0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Data="M0,0L1,1 2,0"
-                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              RenderOptions.EdgeMode="Aliased"
-                              Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              StrokeThickness="0" />
+                        <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
+                              Margin="0 0 0 1"
+                              Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                     </RepeatButton>
                 </Grid>
             </Border>
@@ -225,9 +205,7 @@
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Width="Auto"
-                  Height="Auto"
-                  Background="Transparent">
+            <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -238,10 +216,10 @@
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 0 4 0"
                                           VerticalAlignment="Center"
-                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <Grid>
                         <ContentControl x:Name="PART_HeaderContentHost"
@@ -280,9 +258,9 @@
                                  Padding="2 0 2 0"
                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                 Foreground="{TemplateBinding Foreground}"
                                  BorderThickness="0"
                                  CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
-                                 Foreground="{TemplateBinding Foreground}"
                                  SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                         <Path x:Name="path"
@@ -300,7 +278,6 @@
 
                         <Path x:Name="path1"
                               Grid.Column="1"
-                              Width="Auto"
                               Height="1"
                               Margin="-1 0 -1 -0.5"
                               HorizontalAlignment="Left"
@@ -318,14 +295,13 @@
                                       Grid.Column="1"
                                       HorizontalAlignment="Stretch"
                                       RenderTransformOrigin="0,0.5">
-                            <Path Width="5"
-                                  Height="3"
-                                  Margin="1 2 0 1"
+                            <Path Width="7"
+                                  Height="5"
+                                  Margin="0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M0,0L1,-1 2,0"
                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  RenderOptions.EdgeMode="Aliased"
                                   Stretch="Fill"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="0" />
@@ -334,14 +310,13 @@
                                       Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                       Grid.Row="1"
                                       Grid.Column="1">
-                            <Path Width="5"
-                                  Height="3"
-                                  Margin="1 -1 0 0"
+                            <Path Width="7"
+                                  Height="5"
+                                  Margin="0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M0,0L1,1 2,0"
                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  RenderOptions.EdgeMode="Aliased"
                                   Stretch="Fill"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="0" />
@@ -404,6 +379,7 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
@@ -420,7 +396,6 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="6 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner.Simplified}" />

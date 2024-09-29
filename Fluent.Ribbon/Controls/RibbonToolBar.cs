@@ -44,8 +44,8 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
     /// </summary>
     public Style? SeparatorStyle
     {
-        get { return (Style?)this.GetValue(SeparatorStyleProperty); }
-        set { this.SetValue(SeparatorStyleProperty, value); }
+        get => (Style?)this.GetValue(SeparatorStyleProperty);
+        set => this.SetValue(SeparatorStyleProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SeparatorStyle"/> dependency property.</summary>
@@ -69,12 +69,11 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
-    private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
-        DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonToolBar), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
+    private static readonly DependencyPropertyKey IsSimplifiedPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonToolBar), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
     /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
     public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
@@ -119,14 +118,23 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
             }
         }
 
-        if (element is ContentPresenter)
+        // Bound items
+        if (element is ContentPresenter contentPresenter)
         {
-            element = UIHelper.GetFirstVisualChild(element) ?? element;
+            contentPresenter.WhenLoaded(x => UpdateValues(UIHelper.GetFirstVisualChild(x) ?? x, isSimplified));
+            return;
         }
 
-        if (element is ISimplifiedStateControl simplifiedStateControl)
+        UpdateValues(element, isSimplified);
+
+        return;
+
+        static void UpdateValues(DependencyObject element, bool isSimplified)
         {
-            simplifiedStateControl.UpdateSimplifiedState(isSimplified);
+            if (element is ISimplifiedStateControl simplifiedStateControl)
+            {
+                simplifiedStateControl.UpdateSimplifiedState(isSimplified);
+            }
         }
     }
     #endregion

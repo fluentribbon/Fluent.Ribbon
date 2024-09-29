@@ -12,7 +12,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid HorizontalAlignment="Left"
-                  VerticalAlignment="Center">
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                 <Border x:Name="border"
                         Width="13"
                         Height="13"
@@ -24,7 +24,7 @@
                               Width="7.5"
                               Height="6.9"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
@@ -50,8 +50,6 @@
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                   ContentSource="Header"
-                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                   RecognizesAccessKey="True" />
             </ContentControl>
         </Grid>
@@ -108,7 +106,7 @@
                               Width="7.5"
                               Height="6.9"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
@@ -127,19 +125,18 @@
                 <ContentControl Margin="2 0 0 0"
                                 Foreground="{TemplateBinding Foreground}"
                                 IsTabStop="False">
-                    <StackPanel Width="Auto"
-                                Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
                         <Grid x:Name="iconImageGrid"
                               Margin="0 0 2 0"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Visibility="Collapsed">
                             <Fluent:IconPresenter x:Name="iconImage"
-                                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                                  CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                                  LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                                   MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                  LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
                             <Border x:Name="iconImageBorder"
                                     Width="{Binding ActualWidth, ElementName=iconImage}"
                                     Height="{Binding ActualHeight, ElementName=iconImage}"
@@ -152,8 +149,6 @@
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           ContentSource="Header"
-                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                           RecognizesAccessKey="True" />
                     </StackPanel>
                 </ContentControl>
@@ -237,16 +232,16 @@
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
-        <Setter Property="Margin" Value="2 2 2 2" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCheckBox}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Padding" Value="6 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.CheckBox.Simplified}" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

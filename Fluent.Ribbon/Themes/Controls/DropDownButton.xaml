@@ -11,7 +11,7 @@
                              Text="{Binding}">
             <Fluent:TwoLineLabel.Style>
                 <Style TargetType="Fluent:TwoLineLabel"
-                       BasedOn="{StaticResource {x:Type Fluent:TwoLineLabel}}">
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.TwoLineLabel}">
                     <Setter Property="HasGlyph" Value="{Binding HasTriangle, RelativeSource={RelativeSource AncestorType=Fluent:DropDownButton}}" />
                     <Setter Property="HasTwoLines" Value="True" />
                     <Style.Triggers>
@@ -54,9 +54,10 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
+        <Setter Property="Padding" Value="{DynamicResource Fluent.Ribbon.Values.Default.Padding}" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonDropDownButton}" />
-        <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
@@ -71,7 +72,7 @@
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Height" Value="22" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Width" Value="32" />
+                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
@@ -79,7 +80,6 @@
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
-                <Setter Property="Padding" Value="6 2 2 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.DropDownButton.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />
@@ -102,25 +102,23 @@
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    Height="Auto"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}">
                 <StackPanel x:Name="stackPanel"
-                            Width="Auto"
                             Margin="{TemplateBinding Padding}"
                             Orientation="Vertical">
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 2 0 0"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <ContentControl x:Name="PART_HeaderContentHost"
                                     Margin="2 0 2 2"
@@ -157,17 +155,17 @@
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 1" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="10" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 0 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ButtonBorder" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 1" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
                 <Setter TargetName="stackPanel" Property="Width" Value="Auto" />
@@ -199,15 +197,12 @@
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    Height="Auto"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}">
                 <Grid x:Name="stackPanel"
-                      Width="Auto"
-                      Height="Auto"
                       Margin="{TemplateBinding Padding}"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch">
@@ -222,11 +217,11 @@
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center">
                         <Fluent:IconPresenter x:Name="iconImage"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                              LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
                         <Border x:Name="iconImageBorder"
                                 Width="{Binding ActualWidth, ElementName=iconImage}"
                                 Height="{Binding ActualHeight, ElementName=iconImage}"
@@ -245,7 +240,7 @@
 
                     <Fluent:TwoLineLabel x:Name="controlLabel2"
                                          Grid.Column="2"
-                                         Margin="0"
+                                         Margin="2 0 0 0"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          HasGlyph="{TemplateBinding HasTriangle}"

@@ -64,7 +64,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
 
             for (var i = 0; i < 5; i++)
             {
@@ -75,7 +75,7 @@ public class InRibbonGalleryIntegrationTests
                 Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
                 Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-                Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
 
                 // open and close first
                 {
@@ -87,7 +87,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(0));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
 
                     firstInRibbonGallery.IsDropDownOpen = false;
                     UIHelper.DoEvents();
@@ -97,7 +97,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
                 }
 
                 // open and close second
@@ -110,7 +110,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(0));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
 
                     secondInRibbonGallery.IsDropDownOpen = false;
                     UIHelper.DoEvents();
@@ -120,7 +120,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
                 }
 
                 ++ribbonGroupsContainer.Width;
@@ -133,7 +133,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(450));
 
             ribbonGroupsContainer.Width = 560;
 
@@ -143,7 +143,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(269));
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(5));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(5));
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(556));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(550));
         }
     }
 
@@ -201,7 +201,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
 
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
 
             for (var i = 0; i < 5; i++)
             {
@@ -212,7 +212,7 @@ public class InRibbonGalleryIntegrationTests
                 Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
                 Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
 
-                Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+                Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
 
                 // open and close first
                 {
@@ -224,7 +224,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(0));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
 
                     firstInRibbonGallery.IsDropDownOpen = false;
                     UIHelper.DoEvents();
@@ -234,7 +234,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
                 }
 
                 // open and close second
@@ -247,7 +247,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(0));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
 
                     secondInRibbonGallery.IsDropDownOpen = false;
                     UIHelper.DoEvents();
@@ -257,7 +257,7 @@ public class InRibbonGalleryIntegrationTests
                     Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
                     Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
 
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+                    Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
                 }
 
                 ++ribbonGroupsContainer.Width;
@@ -270,7 +270,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(3));
 
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(512));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
 
             ribbonGroupsContainer.Width = 670;
 
@@ -280,7 +280,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(323));
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(664));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(658));
 
             ribbonGroupsContainer.Width = 900;
 
@@ -290,7 +290,7 @@ public class InRibbonGalleryIntegrationTests
             Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(399));
             Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(5));
             Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(5));
-            Assert.That(groupBox.ActualWidth, Is.EqualTo(816));
+            Assert.That(groupBox.ActualWidth, Is.EqualTo(810));
         }
     }
 

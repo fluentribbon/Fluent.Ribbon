@@ -41,8 +41,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -55,8 +55,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -69,8 +69,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -94,13 +94,12 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public string? Description
     {
-        get { return (string?)this.GetValue(DescriptionProperty); }
-        set { this.SetValue(DescriptionProperty, value); }
+        get => (string?)this.GetValue(DescriptionProperty);
+        set => this.SetValue(DescriptionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Description"/> dependency property.</summary>
-    public static readonly DependencyProperty DescriptionProperty =
-        DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new PropertyMetadata(default(string)));
+    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new PropertyMetadata(default(string)));
 
     #endregion
 
@@ -109,8 +108,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public bool IsDropDownOpen
     {
-        get { return this.IsSubmenuOpen; }
-        set { this.IsSubmenuOpen = value; }
+        get => this.IsSubmenuOpen;
+        set => this.IsSubmenuOpen = value;
     }
 
     #endregion
@@ -122,13 +121,12 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public bool IsDefinitive
     {
-        get { return (bool)this.GetValue(IsDefinitiveProperty); }
-        set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDefinitiveProperty);
+        set => this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
-    public static readonly DependencyProperty IsDefinitiveProperty =
-        DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+    public static readonly DependencyProperty IsDefinitiveProperty = DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     #endregion
 
@@ -139,14 +137,12 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public ContextMenuResizeMode ResizeMode
     {
-        get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
-        set { this.SetValue(ResizeModeProperty, value); }
+        get => (ContextMenuResizeMode)this.GetValue(ResizeModeProperty);
+        set => this.SetValue(ResizeModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
-    public static readonly DependencyProperty ResizeModeProperty =
-        DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
-            typeof(MenuItem), new PropertyMetadata(ContextMenuResizeMode.None));
+    public static readonly DependencyProperty ResizeModeProperty = DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode), typeof(MenuItem), new PropertyMetadata(ContextMenuResizeMode.None));
 
     #endregion
 
@@ -157,30 +153,28 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public double MaxDropDownHeight
     {
-        get { return (double)this.GetValue(MaxDropDownHeightProperty); }
-        set { this.SetValue(MaxDropDownHeightProperty, value); }
+        get => (double)this.GetValue(MaxDropDownHeightProperty);
+        set => this.SetValue(MaxDropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
-    public static readonly DependencyProperty MaxDropDownHeightProperty =
-        DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+    public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new FrameworkPropertyMetadata(double.NaN, null, DropDownHelper.CoerceMaxDropDownHeight));
 
     #endregion
 
-    #region IsSplited
+    #region IsSplit
 
     /// <summary>
-    /// Gets or sets a value indicating whether menu item is splited
+    /// Gets or sets a value indicating whether menu item is split.
     /// </summary>
-    public bool IsSplited
+    public bool IsSplit
     {
-        get { return (bool)this.GetValue(IsSplitedProperty); }
-        set { this.SetValue(IsSplitedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSplitProperty);
+        set => this.SetValue(IsSplitProperty, BooleanBoxes.Box(value));
     }
 
-    /// <summary>Identifies the <see cref="IsSplited"/> dependency property.</summary>
-    public static readonly DependencyProperty IsSplitedProperty =
-        DependencyProperty.Register(nameof(IsSplited), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
+    /// <summary>Identifies the <see cref="IsSplit"/> dependency property.</summary>
+    public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(nameof(IsSplit), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
     #endregion
 
@@ -189,15 +183,15 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public string? GroupName
     {
-        get { return (string?)this.GetValue(GroupNameProperty); }
-        set { this.SetValue(GroupNameProperty, value); }
+        get => (string?)this.GetValue(GroupNameProperty);
+        set => this.SetValue(GroupNameProperty, value);
     }
 
     /// <inheritdoc />
     bool? IToggleButton.IsChecked
     {
-        get { return this.IsChecked; }
-        set { this.IsChecked = value == true; }
+        get => this.IsChecked;
+        set => this.IsChecked = value == true;
     }
 
     /// <summary>Identifies the <see cref="GroupName"/> dependency property.</summary>
@@ -254,8 +248,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     #endregion
 
     /// <summary>Identifies the <see cref="RecognizesAccessKey"/> dependency property.</summary>
-    public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.RegisterAttached(
-        nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+    public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.RegisterAttached(nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     /// <summary>Helper for setting <see cref="RecognizesAccessKeyProperty"/> on <paramref name="element"/>.</summary>
     /// <param name="element"><see cref="DependencyObject"/> to set <see cref="RecognizesAccessKeyProperty"/> on.</param>
@@ -278,8 +271,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public bool RecognizesAccessKey
     {
-        get { return (bool)this.GetValue(RecognizesAccessKeyProperty); }
-        set { this.SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(RecognizesAccessKeyProperty);
+        set => this.SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value));
     }
 
     #region QuickAccess
@@ -289,15 +282,15 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     {
         if (this.HasItems)
         {
-            if (this.IsSplited)
+            if (this.IsSplit)
             {
                 var button = new SplitButton
                 {
                     CanAddButtonToQuickAccessToolBar = false
                 };
                 RibbonControl.BindQuickAccessItem(this, button);
-                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
+                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
@@ -311,8 +304,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
             {
                 var button = new DropDownButton();
                 RibbonControl.BindQuickAccessItem(this, button);
-                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
+                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
@@ -376,8 +369,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
@@ -524,7 +517,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     {
         if (e.ClickCount == 1)
         {
-            if (this.IsSplited)
+            if (this.IsSplit)
             {
                 if (this.GetTemplateChild("PART_ButtonBorder") is Border buttonBorder
                     && PopupService.IsMousePhysicallyOver(buttonBorder))
@@ -542,7 +535,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     {
         // Close popup on click
         if (this.IsDefinitive
-            && (!this.HasItems || this.IsSplited))
+            && (!this.HasItems || this.IsSplit))
         {
             PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
         }

@@ -3,10 +3,11 @@
   <PropertyGroup>
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
-    
-    <NoWarn>$(NoWarn);SA0001;SA1601;SA1602</NoWarn>
-    <InlcudeMahAppsMetro>true</InlcudeMahAppsMetro>
 
+    <NoWarn>$(NoWarn);SA0001;SA1601;SA1602;WPF0060</NoWarn>
+    <Nullable>enable</Nullable>
+
+    <InlcudeMahAppsMetro>true</InlcudeMahAppsMetro>
     <DefineConstants Condition="$(InlcudeMahAppsMetro)">$(DefineConstants);MahApps_Metro</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
@@ -34,7 +35,7 @@
     <PackageReference Include="MahApps.Metro" Condition="$(InlcudeMahAppsMetro)" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP)) == false">
+  <ItemGroup Condition="'$(IsBuildingForLegacyFramework)' == 'true'">
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />

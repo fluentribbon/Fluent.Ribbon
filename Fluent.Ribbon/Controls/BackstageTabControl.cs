@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal;
@@ -44,19 +45,6 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
         get => (string?)this.GetValue(BackButtonUidProperty);
         set => this.SetValue(BackButtonUidProperty, value);
     }
-
-    /// <summary>
-    /// Gets or sets the margin which is used to render selected content.
-    /// </summary>
-    public Thickness SelectedContentMargin
-    {
-        get => (Thickness)this.GetValue(SelectedContentMarginProperty);
-        set => this.SetValue(SelectedContentMarginProperty, value);
-    }
-
-    /// <summary>Identifies the <see cref="SelectedContentMargin"/> dependency property.</summary>
-    public static readonly DependencyProperty SelectedContentMarginProperty =
-        DependencyProperty.Register(nameof(SelectedContentMargin), typeof(Thickness), typeof(BackstageTabControl), new PropertyMetadata(default(Thickness)));
 
     // Dependency property key for SelectedContent
     private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
@@ -208,19 +196,6 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
         DependencyProperty.Register(nameof(ParentBackstage), typeof(Backstage), typeof(BackstageTabControl), new PropertyMetadata());
 
     /// <summary>
-    /// Defines if the <see cref="WindowSteeringHelperControl"/> is enabled in this control
-    /// </summary>
-    public bool IsWindowSteeringHelperEnabled
-    {
-        get => (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty);
-        set => this.SetValue(IsWindowSteeringHelperEnabledProperty, BooleanBoxes.Box(value));
-    }
-
-    /// <summary>Identifies the <see cref="IsWindowSteeringHelperEnabled"/> dependency property.</summary>
-    public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
-        DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(BackstageTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
-
-    /// <summary>
     /// Defines if the back button is visible or not.
     /// </summary>
     public bool IsBackButtonVisible
@@ -245,7 +220,6 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
 
         KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-        KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
     }
 
     /// <summary>
@@ -261,10 +235,12 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
             HasDropShadow = false
         };
 
-        this.ContextMenu.Opened += (sender, args) => this.ContextMenu.IsOpen = false;
+        this.ContextMenu.Opened += (_, _) => this.ContextMenu.IsOpen = false;
 
         this.Loaded += this.HandleLoaded;
         this.Unloaded += this.HandleUnloaded;
+
+        SelectorHelper.SetCanSelectMultiple(this, false);
     }
 
     private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -294,9 +270,29 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     {
         base.OnApplyTemplate();
 
+        if (this.SelectedContentHost is not null)
+        {
+            this.SelectedContentHost.LostFocus -= this.SelectedContentHostOnLostFocus;
+        }
+
         this.ItemsPanelContainer = this.GetTemplateChild("PART_ItemsPanelContainer") as UIElement;
         this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
         this.BackButton = this.GetTemplateChild("PART_BackButton") as UIElement;
+
+        if (this.SelectedContentHost is not null)
+        {
+            this.SelectedContentHost.LostFocus += this.SelectedContentHostOnLostFocus;
+        }
+    }
+
+    private void SelectedContentHostOnLostFocus(object sender, RoutedEventArgs e)
+    {
+        this.ItemsPanelContainer?.ClearValue(KeyboardNavigation.TabNavigationProperty);
+
+        if (this.ItemContainerGenerator.ContainerFromIndex(this.SelectedIndex) is BackstageTabItem tabItem)
+        {
+            tabItem.ClearValue(TabIndexProperty);
+        }
     }
 
     /// <inheritdoc />
@@ -331,7 +327,7 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
         base.OnItemsChanged(e);
 
         if (e.Action == NotifyCollectionChangedAction.Remove
-            && this.SelectedIndex == -1)
+            && this.SelectedIndex is -1)
         {
             var startIndex = e.OldStartingIndex + 1;
             if (startIndex > this.Items.Count)
@@ -367,24 +363,38 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
             return;
         }
 
-        // Handle [Ctrl][Shift]Tab
-
         switch (e.Key)
         {
+            case Key.Tab:
+                if (this.SelectedContentHost?.IsKeyboardFocusWithin is true)
+                {
+                    this.ItemsPanelContainer?.SetCurrentValue(KeyboardNavigation.TabNavigationProperty, KeyboardNavigationMode.Once);
+
+                    if (this.ItemContainerGenerator.ContainerFromIndex(this.SelectedIndex) is BackstageTabItem tabItem)
+                    {
+                        tabItem.SetCurrentValue(TabIndexProperty, IntBoxes.Zero);
+                    }
+                }
+                else
+                {
+                    e.Handled = this.SelectedContentHost?.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)) is true;
+                }
+
+                break;
+
             case Key.F6:
-            case Key.Tab when (e.KeyboardDevice.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
             {
                 var focusNavigationDirection = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift
                     ? FocusNavigationDirection.Last
                     : FocusNavigationDirection.First;
 
-                if (this.SelectedContentHost?.IsKeyboardFocusWithin == true)
+                if (this.SelectedContentHost?.IsKeyboardFocusWithin is true)
                 {
-                    e.Handled = this.ItemsPanelContainer?.MoveFocus(new TraversalRequest(focusNavigationDirection)) == true;
+                    e.Handled = this.ItemsPanelContainer?.MoveFocus(new TraversalRequest(focusNavigationDirection)) is true;
                 }
                 else
                 {
-                    e.Handled = this.SelectedContentHost?.MoveFocus(new TraversalRequest(focusNavigationDirection)) == true;
+                    e.Handled = this.SelectedContentHost?.MoveFocus(new TraversalRequest(focusNavigationDirection)) is true;
                 }
             }
 
@@ -508,9 +518,10 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
         }
 
         if (this.HasItems
-            && this.SelectedIndex == -1)
+            && this.SelectedIndex is -1)
         {
-            this.SelectedIndex = 0;
+            // We have to run this async as the control might not be fully initialized yet
+            this.RunInDispatcherAsync(() => this.SetCurrentValue(SelectedIndexProperty, IntBoxes.Zero), DispatcherPriority.Loaded);
         }
 
         this.UpdateSelectedContent();

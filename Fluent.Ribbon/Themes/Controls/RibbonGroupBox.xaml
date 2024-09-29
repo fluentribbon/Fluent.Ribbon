@@ -65,21 +65,18 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplateSelector" Value="{Binding Source={x:Static templateSelectors:RibbonGroupBoxHeaderTemplateSelector.Instance}}" />
-        <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="4 2 4 2" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox}" />
-        <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
-                <Setter Property="Padding" Value="6 0" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox.Simplified}" />
+                <Setter Property="Padding" Value="2 0" />
             </Trigger>
             <Trigger Property="State" Value="QuickAccess">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="Height" Value="22" />
-                <Setter Property="SnapsToDevicePixels" Value="False" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBoxDropDownButton}" />
                 <Setter Property="Width" Value="22" />
             </Trigger>
@@ -88,225 +85,55 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBoxDropDownButton"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
-        <Grid Width="22">
+        <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    Height="Auto"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Stretch"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
-                                      IconSize="Small"
-                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="Small" />
             </Border>
 
             <Popup x:Name="PART_Popup"
-                   Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
                    VerticalAlignment="Top"
                    AllowsTransparency="True"
                    Focusable="False"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    Placement="Bottom"
-                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="0 20">
-                    <Border x:Name="border"
-                            Height="Auto"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
-                            BorderThickness="1"
-                            d:LayoutOverrides="Width">
-                        <Grid x:Name="PART_ParentPanel"
-                              Height="85"
-                              Margin="0 1 0 2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid x:Name="PART_UpPanel"
-                                  Width="Auto"
-                                  Height="Auto"
-                                  Margin="2 0 4 0"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="Stretch">
-                                <Fluent:RibbonGroupBoxWrapPanel x:Name="PART_NormalUpPanel"
-                                                                IsItemsHost="True"
-                                                                Visibility="Visible" />
-                                <StackPanel x:Name="PART_SimplifiedUpPanel"
-                                            IsItemsHost="False"
-                                            Orientation="Horizontal"
-                                            Visibility="Collapsed" />
-                            </Grid>
-
-                            <Grid x:Name="PART_DownGrid"
-                                  Grid.Row="1"
-                                  Height="Auto"
-                                  MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}"
-                                  Margin="0 -2 2 2"
-                                  VerticalAlignment="Bottom">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <ContentControl x:Name="PART_HeaderContentControl"
-                                                Margin="2 0"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Center"
-                                                Content="{TemplateBinding Header}"
-                                                ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-                                                ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                                KeyboardNavigation.IsTabStop="False" />
-
-                                <Fluent:Button x:Name="PART_DialogLauncherButton"
-                                               Header="{TemplateBinding LauncherText}"
-                                               Grid.Column="1"
-                                               Width="15"
-                                               Height="14"
-                                               Margin="0 0 1 1"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Bottom"
-                                               Fluent:RibbonProperties.IconSize="Small"
-                                               Background="Transparent"
-                                               BorderBrush="Transparent"
-                                               Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                               CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
-                                               CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                               Focusable="False"
-                                               Icon="{TemplateBinding LauncherIcon}"
-                                               IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                               IsTabStop="False"
-                                               Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
-                                               ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
-                                               Visibility="Collapsed" />
-                            </Grid>
-                            <Fluent:Button x:Name="PART_SimplifiedDialogLauncherButton"
-                                           Header="{TemplateBinding LauncherText}"
-                                           Grid.Column="1"
-                                           Width="15"
-                                           Height="14"
-                                           Margin="-4 0 2 0"
-                                           HorizontalAlignment="Stretch"
-                                           VerticalAlignment="Bottom"
-                                           Fluent:RibbonProperties.IconSize="Small"
-                                           Background="Transparent"
-                                           BorderBrush="Transparent"
-                                           Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                           CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
-                                           CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Focusable="False"
-                                           Icon="{TemplateBinding LauncherIcon}"
-                                           IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                           IsTabStop="False"
-                                           Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
-                                           ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Visibility="Collapsed" />
-                        </Grid>
-                    </Border>
-                </Grid>
-            </Popup>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsSimplified" Value="True">
-                <Setter TargetName="PART_DownGrid" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_NormalUpPanel" Property="IsItemsHost" Value="False" />
-                <Setter TargetName="PART_NormalUpPanel" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_ParentPanel" Property="Height" Value="Auto" />
-                <Setter TargetName="PART_SimplifiedUpPanel" Property="IsItemsHost" Value="True" />
-                <Setter TargetName="PART_SimplifiedUpPanel" Property="Visibility" Value="Visible" />
-            </Trigger>
-
-            <Trigger Property="IsDropDownOpen" Value="True">
-                <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" />
-                    <Condition Property="IsDropDownOpen" Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
-            </MultiTrigger>
-
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsLauncherVisible" Value="True" />
-                    <Condition Property="IsSimplified" Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="PART_DialogLauncherButton" Property="Visibility" Value="Visible" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsLauncherVisible" Value="True" />
-                    <Condition Property="IsSimplified" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="PART_SimplifiedDialogLauncherButton" Property="Visibility" Value="Visible" />
-            </MultiTrigger>
-
-            <Trigger Property="LauncherToolTip" Value="{x:Null}">
-                <Setter TargetName="PART_DialogLauncherButton" Property="ToolTip" Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="PART_SimplifiedDialogLauncherButton" Property="ToolTip" Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox"
-                     TargetType="{x:Type Fluent:RibbonGroupBox}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style TargetType="Separator"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.GroupBoxSeparator}" />
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
-
-        <Grid x:Name="grid2"
-              HorizontalAlignment="Stretch">
-            <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}" />
-
-            <Grid>
-                <ContentControl x:Name="nonCollapsedStateBorder"
-                                Focusable="False">
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                   StaysOpen="True">
+                <Border x:Name="border"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
+                        BorderThickness="1">
                     <Grid x:Name="PART_ParentPanel"
-                          Height="Auto"
-                          Margin="0 1 0 2">
+                          Height="{Binding ContentHeight, RelativeSource={RelativeSource AncestorType=Fluent:RibbonTabControl}, FallbackValue=100}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
                         <Fluent:RibbonGroupBoxWrapPanel x:Name="PART_UpPanel"
-                                                        Width="Auto"
-                                                        Height="Auto"
-                                                        Margin="4 0 4 0"
+                                                        Margin="{TemplateBinding Padding}"
                                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                         VerticalAlignment="Stretch"
-                                                        IsItemsHost="True" />
+                                                        IsItemsHost="True"
+                                                        IsSimplified="{TemplateBinding IsSimplified}" />
 
                         <Grid x:Name="PART_DownGrid"
                               Grid.Row="1"
-                              Height="Auto"
-                              MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}"
-                              Margin="0 -2 2 2"
+                              Grid.Column="0"
+                              MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}"
                               VerticalAlignment="Bottom">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -317,269 +144,211 @@
                                             Margin="2 0"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
+                                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                             Content="{TemplateBinding Header}"
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                             KeyboardNavigation.IsTabStop="False" />
 
                             <Fluent:Button x:Name="PART_DialogLauncherButton"
                                            Header="{TemplateBinding LauncherText}"
                                            Grid.Column="1"
-                                           Width="15"
-                                           Height="14"
-                                           Margin="0 0 1 1"
+                                           Width="16"
+                                           Height="16"
+                                           Margin="0 0 2 0"
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Bottom"
-                                           Fluent:RibbonProperties.IconSize="Small"
                                            Background="Transparent"
+                                           Icon="{TemplateBinding LauncherIcon}"
+                                           Fluent:RibbonProperties.IconSize="Small"
                                            BorderBrush="Transparent"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Icon="{TemplateBinding LauncherIcon}"
+                                           Focusable="False"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                           IsTabStop="False"
                                            Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                            ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Visibility="Visible" />
+                                           Visibility="Collapsed" />
                         </Grid>
                     </Grid>
-                </ContentControl>
-
-                <Grid x:Name="collapsedStateGrid"
-                      Grid.RowSpan="2"
-                      Width="Auto"
-                      Height="Auto"
-                      Margin="0"
-                      Visibility="Collapsed">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Border Grid.Row="0"
-                            Margin="5 3 5 0"
-                            Padding="4"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
-                            BorderThickness="1">
-                        <Fluent:IconPresenter x:Name="iconImage"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                    </Border>
-
-                    <ContentControl x:Name="PART_CollapsedHeaderContentControl"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
-                                    Grid.Row="1"
-                                    Margin="5 0 5 0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Top"
-                                    Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
-                                    Content="{TemplateBinding Header}"
-                                    ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                    KeyboardNavigation.IsTabStop="False" />
-
-                    <Popup x:Name="PART_Popup"
-                           Width="Auto"
-                           Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
-                           AllowsTransparency="True"
-                           IsOpen="{TemplateBinding IsDropDownOpen}"
-                           PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}">
-                        <Border x:Name="border"
-                                Height="Auto"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
-                                BorderThickness="1"
-                                d:LayoutOverrides="Width">
-                            <ContentControl x:Name="popupContent"
-                                            Focusable="False" />
-                        </Border>
-                    </Popup>
-                </Grid>
-
-                <Rectangle x:Name="separator"
-                           Grid.RowSpan="2"
-                           Width="1"
-                           Height="Auto"
-                           Margin="0 4"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Stretch"
-                           Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-            </Grid>
-
-            <Image x:Name="PART_SnappedImage"
-                   Stretch="Uniform"
-                   Visibility="Collapsed" />
+                </Border>
+            </Popup>
         </Grid>
-
         <ControlTemplate.Triggers>
-            <Trigger Property="State" Value="Collapsed">
-                <Setter TargetName="collapsedStateGrid" Property="Visibility" Value="Visible" />
-                <Setter TargetName="grid2" Property="HorizontalAlignment" Value="Left" />
-                <Setter TargetName="nonCollapsedStateBorder" Property="Content" Value="{x:Null}" />
-                <Setter TargetName="nonCollapsedStateBorder" Property="UIElement.Visibility" Value="Collapsed" />
-                <Setter TargetName="popupContent" Property="Content" Value="{Binding ElementName=PART_ParentPanel}" />
+            <Trigger Property="IsSimplified" Value="True">
+                <Setter TargetName="PART_DownGrid" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_ParentPanel" Property="Height" Value="Auto" />
+                <Setter TargetName="PART_UpPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
+
+            <Trigger Property="IsDropDownOpen" Value="True">
+                <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
+            </Trigger>
+
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="State" Value="Collapsed" />
                     <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsDropDownOpen" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background}" />
+                <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
-            <Trigger Property="IsDropDownOpen" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background}" />
+
+            <Trigger Property="IsLauncherVisible" Value="True">
+                <Setter TargetName="PART_DialogLauncherButton" Property="Visibility" Value="Visible" />
             </Trigger>
 
-            <Trigger Property="IsLauncherVisible" Value="False">
-                <Setter TargetName="PART_DialogLauncherButton" Property="Visibility" Value="Collapsed" />
-            </Trigger>
             <Trigger Property="LauncherToolTip" Value="{x:Null}">
                 <Setter TargetName="PART_DialogLauncherButton" Property="ToolTip" Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox.Simplified"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style TargetType="Separator"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.GroupBoxSeparator}" />
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
-
-        <Grid x:Name="grid2"
+        <Grid x:Name="rootGrid"
               HorizontalAlignment="Stretch">
             <Border Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}" />
 
-            <Grid>
-                <ContentControl x:Name="nonCollapsedStateBorder"
-                                Focusable="False">
-                    <Grid x:Name="PART_ParentPanel"
-                          Height="Auto"
-                          Margin="0 1 0 2">
+            <ContentControl x:Name="nonCollapsedStateContainer"
+                            Focusable="False">
+                <Grid x:Name="PART_ParentPanel">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Fluent:RibbonGroupBoxWrapPanel x:Name="PART_UpPanel"
+                                                    Margin="{TemplateBinding Padding}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="Stretch"
+                                                    IsItemsHost="True"
+                                                    IsSimplified="{TemplateBinding IsSimplified}" />
+
+                    <Grid x:Name="PART_DownGrid"
+                          Grid.Row="1"
+                          MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}"
+                          Margin="0 0 2 2"
+                          VerticalAlignment="Bottom">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel x:Name="PART_UpPanel"
-                                    Width="Auto"
-                                    Height="Auto"
-                                    Margin="4 0 4 0"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="Stretch"
-                                    IsItemsHost="True"
-                                    Orientation="Horizontal" />
+                        <ContentControl x:Name="PART_HeaderContentControl"
+                                        Margin="2 0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
+                                        Content="{TemplateBinding Header}"
+                                        ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                        KeyboardNavigation.IsTabStop="False" />
 
                         <Fluent:Button x:Name="PART_DialogLauncherButton"
                                        Header="{TemplateBinding LauncherText}"
                                        Grid.Column="1"
-                                       Width="15"
-                                       Height="14"
-                                       Margin="-4 0 2 0"
+                                       Width="16"
+                                       Height="16"
+                                       Margin="0 0 2 0"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Bottom"
-                                       Fluent:RibbonProperties.IconSize="Small"
                                        Background="Transparent"
+                                       Icon="{TemplateBinding LauncherIcon}"
+                                       Fluent:RibbonProperties.IconSize="Small"
                                        BorderBrush="Transparent"
                                        Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                       Focusable="False"
-                                       Icon="{TemplateBinding LauncherIcon}"
                                        IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                       IsTabStop="False"
                                        Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                        ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                        Visibility="Visible" />
                     </Grid>
-                </ContentControl>
-
-                <Grid x:Name="collapsedStateGrid"
-                      Grid.RowSpan="2"
-                      Width="Auto"
-                      Height="Auto"
-                      Margin="{TemplateBinding Padding}"
-                      Visibility="Collapsed">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid x:Name="iconImageGrid"
-                          Grid.Column="0"
-                          Margin="0"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          IsHitTestVisible="False">
-                        <Fluent:IconPresenter x:Name="iconImage"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <Border Margin="0"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
-                                BorderThickness="1" />
-                    </Grid>
-
-                    <ContentControl x:Name="PART_CollapsedHeaderContentControl"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
-                                    Grid.Column="1"
-                                    Margin="2 0 0 0"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Center"
-                                    Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
-                                    Content="{TemplateBinding Header}"
-                                    ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                    KeyboardNavigation.IsTabStop="False" />
-
-                    <Popup x:Name="PART_Popup"
-                           Width="Auto"
-                           Height="Auto"
-                           AllowsTransparency="True"
-                           IsOpen="{TemplateBinding IsDropDownOpen}"
-                           PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}">
-                        <Border x:Name="border"
-                                Height="Auto"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
-                                BorderThickness="1"
-                                d:LayoutOverrides="Width">
-                            <ContentControl x:Name="popupContent" />
-                        </Border>
-                    </Popup>
                 </Grid>
+            </ContentControl>
 
-                <Rectangle x:Name="separator"
-                           Grid.RowSpan="2"
-                           Width="1"
-                           Height="Auto"
-                           Margin="0 4"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Stretch"
-                           Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+            <Grid x:Name="collapsedStateGrid"
+                  Grid.RowSpan="2"
+                  Margin="{TemplateBinding Padding}"
+                  VerticalAlignment="Center"
+                  Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="collapsedIconBorder"
+                        Grid.Row="0"
+                        Grid.RowSpan="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="5 3 5 0"
+                        Padding="4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
+                        BorderThickness="1">
+                    <Fluent:IconPresenter x:Name="iconImage"
+                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
+                </Border>
+
+                <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
+                                Grid.Row="1"
+                                Grid.RowSpan="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Margin="5 0 5 0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
+                                Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
+                                Content="{TemplateBinding Header}"
+                                ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                KeyboardNavigation.IsTabStop="False" />
+
+                <Popup x:Name="PART_Popup"
+                       Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                       AllowsTransparency="True"
+                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                       PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}">
+                    <Border x:Name="border"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
+                            BorderThickness="1"
+                            d:LayoutOverrides="Width">
+                        <ContentControl x:Name="popupContent"
+                                        Margin="{TemplateBinding Padding}"
+                                        Focusable="False" />
+                    </Border>
+                </Popup>
             </Grid>
+
+            <Rectangle x:Name="separator"
+                       Grid.RowSpan="2"
+                       Width="1"
+                       Margin="0 4"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Stretch"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
+                       Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
             <Image x:Name="PART_SnappedImage"
                    Stretch="Uniform"
@@ -587,23 +356,39 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="State" Value="Collapsed">
-                <Setter TargetName="PART_UpPanel" Property="Orientation" Value="Vertical" />
-                <Setter TargetName="collapsedStateGrid" Property="Visibility" Value="Visible" />
-                <Setter TargetName="grid2" Property="HorizontalAlignment" Value="Left" />
-                <Setter TargetName="nonCollapsedStateBorder" Property="Content" Value="{x:Null}" />
-                <Setter TargetName="nonCollapsedStateBorder" Property="UIElement.Visibility" Value="Collapsed" />
-                <Setter TargetName="popupContent" Property="Content" Value="{Binding ElementName=PART_ParentPanel}" />
+            <Trigger Property="IsSimplified" Value="True">
+                <Setter TargetName="PART_CollapsedHeaderContentControl" Property="Grid.Column" Value="1" />
+                <Setter TargetName="PART_CollapsedHeaderContentControl" Property="Grid.ColumnSpan" Value="1" />
+
+                <Setter TargetName="PART_CollapsedHeaderContentControl" Property="Grid.RowSpan" Value="2" />
+                <Setter TargetName="PART_DownGrid" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_ParentPanel" Property="Height" Value="Auto" />
+                <Setter TargetName="PART_UpPanel" Property="Margin" Value="0" />
+                <Setter TargetName="PART_UpPanel" Property="Orientation" Value="Horizontal" />
+                <Setter TargetName="collapsedIconBorder" Property="Grid.ColumnSpan" Value="1" />
+                <Setter TargetName="collapsedIconBorder" Property="Grid.RowSpan" Value="2" />
+
+                <Setter TargetName="collapsedIconBorder" Property="Margin" Value="0" />
             </Trigger>
+
+            <Trigger Property="State" Value="Collapsed">
+                <Setter TargetName="collapsedStateGrid" Property="Visibility" Value="Visible" />
+                <Setter TargetName="nonCollapsedStateContainer" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="nonCollapsedStateContainer" Property="UIElement.Visibility" Value="Collapsed" />
+                <Setter TargetName="popupContent" Property="Content" Value="{Binding ElementName=PART_ParentPanel}" />
+                <Setter TargetName="rootGrid" Property="HorizontalAlignment" Value="Left" />
+            </Trigger>
+
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="State" Value="Collapsed" />
                     <Condition Property="IsMouseOver" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background}" />
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
             </MultiTrigger>
+
             <Trigger Property="IsDropDownOpen" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background}" />
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
 
             <Trigger Property="IsLauncherVisible" Value="False">
@@ -623,10 +408,10 @@
             <Fluent:IconPresenter x:Name="iconImage"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  CustomSize="8,8"
-                                  IconSize="Custom"
+                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  CustomSize="8,8"
+                                  IconSize="Custom" />
         </Border>
         <ControlTemplate.Triggers>
             <MultiTrigger>

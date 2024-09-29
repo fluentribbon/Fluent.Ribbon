@@ -94,6 +94,66 @@ public class RibbonGroupBoxTests
         }
     }
 
+    [Test]
+    public void TestStateDefinition()
+    {
+        var panel = new RibbonGroupsContainer();
+
+        var ribbonGroupBox = new RibbonGroupBox { Name = "MyGroup" };
+
+        panel.Children.Add(ribbonGroupBox);
+
+        ribbonGroupBox.Items.Add(new Fluent.Button() { Width = 200 });
+
+        using (var testWindow = new TestRibbonWindow(panel))
+        {
+            {
+                Assert.That(ribbonGroupBox.State, Is.EqualTo(RibbonGroupBoxState.Large));
+                Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Large));
+            }
+
+            {
+                {
+                    ribbonGroupBox.StateDefinition = RibbonGroupBoxStateDefinition.FromString("Middle,Collapsed");
+                    UIHelper.DoEvents();
+                }
+
+                Assert.That(ribbonGroupBox.State, Is.EqualTo(RibbonGroupBoxState.Middle));
+                Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Middle));
+            }
+
+            {
+                {
+                    ribbonGroupBox.State = RibbonGroupBoxState.Large;
+                    UIHelper.DoEvents();
+                }
+
+                Assert.That(ribbonGroupBox.State, Is.EqualTo(RibbonGroupBoxState.Middle));
+                Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Middle));
+            }
+
+            {
+                {
+                    testWindow.Width = 10;
+                    UIHelper.DoEvents();
+                }
+
+                Assert.That(ribbonGroupBox.State, Is.EqualTo(RibbonGroupBoxState.Middle));
+                Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Middle));
+            }
+
+            {
+                {
+                    panel.ReduceOrder = "MyGroup";
+                    UIHelper.DoEvents();
+                }
+
+                Assert.That(ribbonGroupBox.State, Is.EqualTo(RibbonGroupBoxState.Collapsed));
+                Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Large));
+            }
+        }
+    }
+
     private static DataTemplate CreateDataTemplateForItemViewModel()
     {
         var dataTemplate = new DataTemplate(typeof(ItemViewModel));

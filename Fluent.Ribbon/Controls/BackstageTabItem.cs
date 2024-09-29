@@ -8,7 +8,6 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
 
@@ -73,13 +72,7 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <summary>
     /// Gets parent tab control
     /// </summary>
-    internal BackstageTabControl? TabControlParent
-    {
-        get
-        {
-            return ItemsControlHelper.ItemsControlFromItemContainer(this) as BackstageTabControl;
-        }
-    }
+    internal BackstageTabControl? TabControlParent => ItemsControlHelper.ItemsControlFromItemContainer(this) as BackstageTabControl;
 
     /// <summary>
     /// Gets or sets tab items text
@@ -147,8 +140,15 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     }
 
     /// <inheritdoc />
-    protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+    protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
+        base.OnMouseLeftButtonDown(e);
+
+        if (e.Handled)
+        {
+            return;
+        }
+
         if (ReferenceEquals(e.Source, this)
             || this.IsSelected == false)
         {
@@ -157,17 +157,11 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     }
 
     /// <inheritdoc />
-    protected override void OnKeyUp(KeyEventArgs e)
+    protected override void OnGotFocus(RoutedEventArgs e)
     {
-        if ((e.Key == Key.Space || e.Key == Key.Enter) 
-            && (ReferenceEquals(e.Source, this) || this.IsSelected == false))
-        {
-            this.IsSelected = true;
-        }
-        else
-        {
-            base.OnKeyUp(e);
-        }
+        base.OnGotFocus(e);
+
+        this.IsSelected = true;
     }
 
     #endregion
@@ -182,32 +176,11 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
 
         if (newValue)
         {
-            if (container.TabControlParent is not null
-                && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(container.TabControlParent.SelectedItem), container) == false)
-            {
-                UnselectSelectedItem(container.TabControlParent);
-
-                container.TabControlParent.SelectedItem = container.TabControlParent.ItemContainerGenerator.ItemFromContainerOrContainerContent(container);
-            }
-
             container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
         }
         else
         {
             container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
-        }
-    }
-
-    private static void UnselectSelectedItem(BackstageTabControl? backstageTabControl)
-    {
-        if (backstageTabControl?.SelectedItem is null)
-        {
-            return;
-        }
-
-        if (backstageTabControl.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(backstageTabControl.SelectedItem) is BackstageTabItem backstageTabItem)
-        {
-            backstageTabItem.IsSelected = false;
         }
     }
 
@@ -219,6 +192,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <param name="e">The event data.</param>
     protected virtual void OnSelected(RoutedEventArgs e)
     {
+        this.Focus();
+
         this.HandleIsSelectedChanged(e);
     }
 
@@ -247,8 +222,6 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <inheritdoc />
     public KeyTipPressedResult OnKeyTipPressed()
     {
-        UnselectSelectedItem(this.TabControlParent);
-
         this.IsSelected = true;
 
         return KeyTipPressedResult.Empty;

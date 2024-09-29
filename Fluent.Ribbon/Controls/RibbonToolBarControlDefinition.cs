@@ -27,8 +27,8 @@ public sealed class RibbonToolBarControlDefinition : DependencyObject, INotifyPr
     /// </summary>
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -43,8 +43,8 @@ public sealed class RibbonToolBarControlDefinition : DependencyObject, INotifyPr
     /// </summary>
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -59,8 +59,8 @@ public sealed class RibbonToolBarControlDefinition : DependencyObject, INotifyPr
     /// </summary>
     public string? Target
     {
-        get { return (string?)this.GetValue(TargetProperty); }
-        set { this.SetValue(TargetProperty, value); }
+        get => (string?)this.GetValue(TargetProperty);
+        set => this.SetValue(TargetProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>
@@ -83,8 +83,8 @@ public sealed class RibbonToolBarControlDefinition : DependencyObject, INotifyPr
     /// </summary>
     public double Width
     {
-        get { return (double)this.GetValue(WidthProperty); }
-        set { this.SetValue(WidthProperty, value); }
+        get => (double)this.GetValue(WidthProperty);
+        set => this.SetValue(WidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Width"/> dependency property.</summary>

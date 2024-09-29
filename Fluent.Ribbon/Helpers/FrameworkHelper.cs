@@ -4,7 +4,6 @@ namespace Fluent;
 using System;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Media;
 using Fluent.Internal.KnownBoxes;
 
 /// <summary>

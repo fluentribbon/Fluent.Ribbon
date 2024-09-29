@@ -36,8 +36,8 @@ public class TwoLineLabel : Control
     /// </summary>
     public bool HasTwoLines
     {
-        get { return (bool)this.GetValue(HasTwoLinesProperty); }
-        set { this.SetValue(HasTwoLinesProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasTwoLinesProperty);
+        set => this.SetValue(HasTwoLinesProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasTwoLines"/> dependency property.</summary>
@@ -59,8 +59,8 @@ public class TwoLineLabel : Control
     /// </summary>
     public bool HasGlyph
     {
-        get { return (bool)this.GetValue(HasGlyphProperty); }
-        set { this.SetValue(HasGlyphProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasGlyphProperty);
+        set => this.SetValue(HasGlyphProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasGlyph"/> dependency property.</summary>

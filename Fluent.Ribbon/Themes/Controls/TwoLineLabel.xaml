@@ -29,20 +29,13 @@
                             TextWrapping="Wrap" />
 
                 <Border x:Name="border"
-                        Width="5"
-                        Height="Auto"
                         Margin="0"
                         HorizontalAlignment="Center">
                     <Path x:Name="path"
-                          Width="5"
-                          Height="3"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                           Margin="0 2 0 0"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          Data="M0,0L5,0 2.5,3z"
-                          Fill="{TemplateBinding Foreground}"
-                          SnapsToDevicePixels="True"
-                          StrokeThickness="0" />
+                          Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
+                          Stroke="{TemplateBinding Foreground}" />
                 </Border>
             </StackPanel>
         </StackPanel>
@@ -54,12 +47,18 @@
                 <Setter TargetName="stackPanel" Property="HorizontalAlignment" Value="Left" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
                 <Setter TargetName="stackPanel" Property="VerticalAlignment" Value="Center" />
-                <Setter TargetName="stackPanel1" Property="Margin" Value="3 0 0 0" />
+                <Setter TargetName="stackPanel1" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="stackPanel1" Property="VerticalAlignment" Value="Center" />
             </Trigger>
             <Trigger Property="HasGlyph" Value="False">
                 <Setter TargetName="border" Property="Width" Value="0.1" />
                 <Setter TargetName="path" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger SourceName="PART_TextRun" Property="Text" Value="">
+                <Setter TargetName="PART_TextRun" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger SourceName="PART_TextRun" Property="Text" Value="{x:Null}">
+                <Setter TargetName="PART_TextRun" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger SourceName="PART_TextRun2" Property="Text" Value="">
                 <Setter TargetName="PART_TextRun2" Property="Visibility" Value="Hidden" />

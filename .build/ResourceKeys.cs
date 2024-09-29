@@ -38,8 +38,10 @@ public class ResourceKeys
 
     public IReadOnlyList<(XElement Element, string Key)> ElementsWithNonTypeKeys { get; }
 
-    public IEnumerable<(string Key, string expectedKey)> CheckKeys()
+    public bool CheckKeys()
     {
+        var result = true;
+        
         foreach (var elementWithNonTypeKey in this.ElementsWithNonTypeKeys)
         {
             var requiredPrefix = GetFullPrefix(elementWithNonTypeKey.Element.Name);
@@ -52,10 +54,11 @@ public class ResourceKeys
 
             var expectedKey = BuildExpectedKey(requiredPrefix, elementWithNonTypeKey.Key);
 
-            //Serilog.Log.Warning($"Wrong key.{Environment.NewLine}Current : {elementWithNonTypeKey.Key}{Environment.NewLine}Expected: {expectedKey}");
-
-            yield return (elementWithNonTypeKey.Key, expectedKey);
+            Serilog.Log.Error($"Wrong key.{Environment.NewLine}Current : {elementWithNonTypeKey.Key}{Environment.NewLine}Expected: {expectedKey}");
+            result = false;
         }
+
+        return result;
     }
 
     string BuildExpectedKey(string requiredPrefix, string key)
@@ -98,7 +101,6 @@ public class ResourceKeys
     static string GetPrefixPart(XName name) =>
         name.LocalName switch
         {
-            "Thickness" => "Values", 
             "ApplicationMenuRightScrollViewerExtractorConverter" => "Converters",
             "Storyboard" => "Storyboards",
             "Style" => "Styles",
@@ -109,43 +111,15 @@ public class ResourceKeys
             "BooleanToVisibilityConverter" => "Converters",
             "MenuScrollingVisibilityConverter" => "Converters",
             "DrawingImage" => "Images",
-            "String" => "Values",
             "Color" => "Colors",
             "SolidColorBrush" => "Brushes",
-            "Boolean" => "Values",
             "LinearGradientBrush" => "Brushes",
-            _ => throw new ArgumentOutOfRangeException(nameof(name), name, null)
+            "Thickness" => "Values",
+            "String" => "Values",
+            "Boolean" => "Values",
+            "CornerRadius" => "Values",
+            "DropShadowEffect" => "Values",
+            "PathGeometry" => "Values",
+            _ => throw new ArgumentOutOfRangeException(nameof(name), name.LocalName, null)
         };
-
-    public void FixKeys(params string[] targetFiles)
-    {
-        var keysToFix = this.CheckKeys()
-            .ToArray();
-
-        if (keysToFix.Length == 0)
-        {
-            return;
-        }
-
-        foreach (var targetFile in targetFiles)
-        {
-            Serilog.Log.Information(targetFile);
-
-            var content = File.ReadAllText(targetFile);
-            var contentBefore = content;
-
-            foreach (var keyToFix in keysToFix)
-            {
-                content = content.Replace($"\"{keyToFix.Key}\"", $"\"{keyToFix.expectedKey}\"");
-                content = content.Replace($" {keyToFix.Key}}}", $" {keyToFix.expectedKey}}}");
-                content = content.Replace($" {keyToFix.Key}, ", $" {keyToFix.expectedKey}, ");
-                content = content.Replace($"{{{keyToFix.Key}}}", $"{{{keyToFix.expectedKey}}}");
-            }
-
-            if (contentBefore != content)
-            {
-                File.WriteAllText(targetFile, content, Encoding.UTF8);
-            }
-        }
-    }
 }

@@ -124,6 +124,7 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
         {
             foreach (var item in e.NewItems.OfType<FrameworkElement>())
             {
+                item.Margin = new Thickness(1, 0, 1, 0);
                 item.SizeChanged += this.OnChildSizeChanged;
             }
         }
@@ -160,8 +161,8 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     /// </summary>
     public bool HasOverflowItems
     {
-        get { return (bool)this.GetValue(HasOverflowItemsProperty); }
-        private set { this.SetValue(HasOverflowItemsPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasOverflowItemsProperty);
+        private set => this.SetValue(HasOverflowItemsPropertyKey, BooleanBoxes.Box(value));
     }
 
     // ReSharper disable once InconsistentNaming
@@ -252,8 +253,8 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     /// </summary>
     public bool ShowAboveRibbon
     {
-        get { return (bool)this.GetValue(ShowAboveRibbonProperty); }
-        set { this.SetValue(ShowAboveRibbonProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(ShowAboveRibbonProperty);
+        set => this.SetValue(ShowAboveRibbonProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="ShowAboveRibbon"/> dependency property.</summary>
@@ -270,8 +271,8 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     /// </summary>
     public bool CanQuickAccessLocationChanging
     {
-        get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
-        set { this.SetValue(CanQuickAccessLocationChangingProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanQuickAccessLocationChangingProperty);
+        set => this.SetValue(CanQuickAccessLocationChangingProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanQuickAccessLocationChanging"/> dependency property.</summary>
@@ -287,8 +288,8 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     /// </summary>
     public bool IsMenuDropDownVisible
     {
-        get { return (bool)this.GetValue(IsMenuDropDownVisibleProperty); }
-        set { this.SetValue(IsMenuDropDownVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMenuDropDownVisibleProperty);
+        set => this.SetValue(IsMenuDropDownVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMenuDropDownVisible"/> dependency property.</summary>
@@ -524,9 +525,7 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     {
         var newValue = this.cachedNonOverflowItemsCount < this.Items.Count;
 
-        // ReSharper disable RedundantCheckBeforeAssignment
         if (this.HasOverflowItems != newValue)
-            // ReSharper restore RedundantCheckBeforeAssignment
         {
             // todo: code runs very often on startup
             this.HasOverflowItems = newValue;
@@ -565,8 +564,8 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     /// </summary>
     public Action<QuickAccessToolBar>? UpdateKeyTipsAction
     {
-        get { return (Action<QuickAccessToolBar>?)this.GetValue(UpdateKeyTipsActionProperty); }
-        set { this.SetValue(UpdateKeyTipsActionProperty, value); }
+        get => (Action<QuickAccessToolBar>?)this.GetValue(UpdateKeyTipsActionProperty);
+        set => this.SetValue(UpdateKeyTipsActionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="UpdateKeyTipsAction"/> dependency property.</summary>

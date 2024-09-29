@@ -2,8 +2,8 @@
 
 public class GalleryItemViewModel : ViewModel
 {
-    private string text;
-    private string group;
+    private string text = null!;
+    private string group = null!;
 
     public GalleryItemViewModel(string group, string text)
     {
@@ -13,7 +13,7 @@ public class GalleryItemViewModel : ViewModel
 
     public string Text
     {
-        get { return this.text; }
+        get => this.text;
 
         set
         {
@@ -29,7 +29,7 @@ public class GalleryItemViewModel : ViewModel
 
     public string Group
     {
-        get { return this.group; }
+        get => this.group;
 
         set
         {

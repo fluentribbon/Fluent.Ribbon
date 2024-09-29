@@ -18,8 +18,8 @@ public class StartScreenTabControl : BackstageTabControl
     /// </summary>
     public object? LeftContent
     {
-        get { return this.GetValue(LeftContentProperty); }
-        set { this.SetValue(LeftContentProperty, value); }
+        get => this.GetValue(LeftContentProperty);
+        set => this.SetValue(LeftContentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LeftContent"/> dependency property.</summary>
@@ -30,8 +30,8 @@ public class StartScreenTabControl : BackstageTabControl
     /// </summary>
     public Thickness LeftContentMargin
     {
-        get { return (Thickness)this.GetValue(LeftContentMarginProperty); }
-        set { this.SetValue(LeftContentMarginProperty, value); }
+        get => (Thickness)this.GetValue(LeftContentMarginProperty);
+        set => this.SetValue(LeftContentMarginProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LeftContentMargin"/> dependency property.</summary>
@@ -43,8 +43,8 @@ public class StartScreenTabControl : BackstageTabControl
     /// </summary>
     public object? RightContent
     {
-        get { return this.GetValue(RightContentProperty); }
-        set { this.SetValue(RightContentProperty, value); }
+        get => this.GetValue(RightContentProperty);
+        set => this.SetValue(RightContentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="RightContent"/> dependency property.</summary>

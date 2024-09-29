@@ -3,7 +3,6 @@ namespace Fluent.Tests.Themes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +24,7 @@ public class MouseOverAndKeyboardFocusTriggerTest
 
         var templatesToStyles = new Dictionary<ControlTemplate, Dictionary<string, Style>>();
         var invalidStylesAndTemplates = new List<string>();
+        var unusedTemplates = new List<string>();
 
         foreach (DictionaryEntry item in generic)
         {
@@ -90,7 +90,7 @@ public class MouseOverAndKeyboardFocusTriggerTest
                     }
                     else
                     {
-                        invalidStylesAndTemplates.Add(resourceKey);
+                        unusedTemplates.Add(resourceKey);
                     }
                 }
             }
@@ -98,7 +98,12 @@ public class MouseOverAndKeyboardFocusTriggerTest
 
         if (invalidStylesAndTemplates.Count > 0)
         {
-            Assert.Fail(string.Join(Environment.NewLine, invalidStylesAndTemplates));
+            Assert.Fail($"Invalid styles and templates:{Environment.NewLine}{string.Join(Environment.NewLine, invalidStylesAndTemplates)}");
+        }
+
+        if (unusedTemplates.Count > 0)
+        {
+            Assert.Fail($"Unused templates:{Environment.NewLine}{string.Join(Environment.NewLine, unusedTemplates)}");
         }
     }
 

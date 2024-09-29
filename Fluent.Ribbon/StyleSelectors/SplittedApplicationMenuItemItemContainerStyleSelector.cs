@@ -7,12 +7,12 @@ using MenuItem = Fluent.MenuItem;
 /// <summary>
 /// <see cref="StyleSelector"/> for <see cref="ItemsControl.ItemContainerStyle"/> in <see cref="MenuItem"/> with style SplitedApplicationMenuItem.
 /// </summary>
-public class SplitedApplicationMenuItemItemContainerStyleSelector : StyleSelector
+public class SplitApplicationMenuItemItemContainerStyleSelector : StyleSelector
 {
     /// <summary>
-    ///     A singleton instance for <see cref="HeaderApplicationMenuItemItemContainerStyleSelector" />.
+    ///     A singleton instance for <see cref="SplitApplicationMenuItemItemContainerStyleSelector" />.
     /// </summary>
-    public static SplitedApplicationMenuItemItemContainerStyleSelector Instance { get; } = new();
+    public static SplitApplicationMenuItemItemContainerStyleSelector Instance { get; } = new();
 
     /// <inheritdoc />
     public override Style? SelectStyle(object item, DependencyObject container)

@@ -21,8 +21,8 @@ public partial class TestIcon : UserControl
     /// </summary>
     public double IconSize
     {
-        get { return (double)this.GetValue(IconSizeProperty); }
-        set { this.SetValue(IconSizeProperty, value); }
+        get => (double)this.GetValue(IconSizeProperty);
+        set => this.SetValue(IconSizeProperty, value);
     }
 
 #pragma warning disable WPF0060
@@ -40,8 +40,8 @@ public partial class TestIcon : UserControl
     /// </summary>
     public Thickness IconBorderThickness
     {
-        get { return (Thickness)this.GetValue(IconBorderThicknessProperty); }
-        set { this.SetValue(IconBorderThicknessProperty, value); }
+        get => (Thickness)this.GetValue(IconBorderThicknessProperty);
+        set => this.SetValue(IconBorderThicknessProperty, value);
     }
 
 #pragma warning disable WPF0060
@@ -59,8 +59,8 @@ public partial class TestIcon : UserControl
     /// </summary>
     public Brush IconBrush
     {
-        get { return (Brush)this.GetValue(IconBrushProperty); }
-        set { this.SetValue(IconBrushProperty, value); }
+        get => (Brush)this.GetValue(IconBrushProperty);
+        set => this.SetValue(IconBrushProperty, value);
     }
 
 #pragma warning disable WPF0060

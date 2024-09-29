@@ -16,7 +16,12 @@
             <Style x:Key="{x:Type CheckBox}"
                    TargetType="CheckBox">
                 <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
+
+            <Style TargetType="{x:Type ScrollViewer}"
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

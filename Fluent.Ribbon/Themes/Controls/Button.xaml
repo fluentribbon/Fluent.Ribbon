@@ -15,14 +15,15 @@
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               RecognizesAccessKey="True"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              Opacity=".75" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
-            <Trigger Property="IsMouseOver" Value="False">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.75" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
@@ -33,6 +34,8 @@
     <Style x:Key="Fluent.Ribbon.Styles.WindowCommands.CaptionButton"
            TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+        <Setter Property="Fluent:RibbonProperties.PressedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />
@@ -42,16 +45,16 @@
         <Setter Property="Width" Value="46" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.PressedBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
-            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
-            <Trigger Property="controlzex:NonClientControlProperties.IsNCPressed" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCPressed" Value="True">
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.PressedBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -59,23 +62,21 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <StackPanel x:Name="stackPanel"
-                        Width="Auto"
                         Margin="{TemplateBinding Padding}"
                         Orientation="Vertical">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="0 2 0 0"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <ContentControl x:Name="PART_HeaderContentHost"
                                 Margin="2 0 0 0"
@@ -89,14 +90,14 @@
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
                 <Setter TargetName="stackPanel" Property="Width" Value="Auto" />
@@ -124,15 +125,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button.Simplified"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <StackPanel x:Name="stackPanel"
-                        Width="Auto"
-                        Height="Auto"
                         Margin="{TemplateBinding Padding}"
                         VerticalAlignment="Stretch"
                         Orientation="Horizontal">
@@ -141,11 +139,11 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center">
                     <Fluent:IconPresenter x:Name="iconImage"
-                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
                     <Border x:Name="iconImageBorder"
                             Width="{Binding ActualWidth, ElementName=iconImage}"
                             Height="{Binding ActualHeight, ElementName=iconImage}"
@@ -220,7 +218,7 @@
                              Text="{Binding}">
             <Fluent:TwoLineLabel.Style>
                 <Style TargetType="Fluent:TwoLineLabel"
-                       BasedOn="{StaticResource {x:Type Fluent:TwoLineLabel}}">
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.TwoLineLabel}">
                     <Setter Property="HasTwoLines" Value="True" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Size, RelativeSource={RelativeSource AncestorType=Fluent:IRibbonControl}}" Value="Middle">
@@ -251,9 +249,10 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
+        <Setter Property="Padding" Value="{DynamicResource Fluent.Ribbon.Values.Default.Padding}" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
-        <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Height" Value="68" />
@@ -267,14 +266,13 @@
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Height" Value="22" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Width" Value="22" />
+                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
-                <Setter Property="Padding" Value="6 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />

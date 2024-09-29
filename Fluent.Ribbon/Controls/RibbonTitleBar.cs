@@ -13,7 +13,6 @@ using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal;
 using Fluent.Internal.KnownBoxes;
-using WindowChrome = ControlzEx.WindowChrome;
 
 /// <summary>
 /// Represents title bar
@@ -50,8 +49,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public FrameworkElement? QuickAccessToolBar
     {
-        get { return (FrameworkElement?)this.GetValue(QuickAccessToolBarProperty); }
-        set { this.SetValue(QuickAccessToolBarProperty, value); }
+        get => (FrameworkElement?)this.GetValue(QuickAccessToolBarProperty);
+        set => this.SetValue(QuickAccessToolBarProperty, value);
     }
 
     /// <summary>Identifies the <see cref="QuickAccessToolBar"/> dependency property.</summary>
@@ -69,8 +68,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public HorizontalAlignment HeaderAlignment
     {
-        get { return (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty); }
-        set { this.SetValue(HeaderAlignmentProperty, value); }
+        get => (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty);
+        set => this.SetValue(HeaderAlignmentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderAlignment"/> dependency property.</summary>
@@ -82,8 +81,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public bool IsCollapsed
     {
-        get { return (bool)this.GetValue(IsCollapsedProperty); }
-        set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCollapsedProperty);
+        set => this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -94,15 +93,15 @@ public class RibbonTitleBar : HeaderedItemsControl
 
     /// <summary>Identifies the <see cref="HideContextTabs"/> dependency property.</summary>
     public static readonly DependencyProperty HideContextTabsProperty =
-        DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+        DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     /// <summary>
     ///  Gets or sets whether context tabs are hidden.
     /// </summary>
     public bool HideContextTabs
     {
-        get { return (bool)this.GetValue(HideContextTabsProperty); }
-        set { this.SetValue(HideContextTabsProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HideContextTabsProperty);
+        set => this.SetValue(HideContextTabsProperty, BooleanBoxes.Box(value));
     }
 
     #endregion
@@ -161,8 +160,7 @@ public class RibbonTitleBar : HeaderedItemsControl
         }
 
         // Contextual groups shall handle mouse events
-        if (e.Source is RibbonContextualGroupsContainer
-            || e.Source is RibbonContextualTabGroup)
+        if (e.Source is RibbonContextualGroupsContainer or RibbonContextualTabGroup)
         {
             return;
         }
@@ -294,14 +292,16 @@ public class RibbonTitleBar : HeaderedItemsControl
     // Update items size and positions
     private void Update(Size constraint)
     {
-        var visibleGroups = this.Items.OfType<RibbonContextualTabGroup>()
-            .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
-            .ToList();
+        var visibleGroups = this.HideContextTabs
+            ? Array.Empty<RibbonContextualTabGroup>()
+            : this.Items.OfType<RibbonContextualTabGroup>()
+                .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
+                .ToArray();
 
         var canRibbonTabControlScroll = false;
 
         // Defensively try to find out if the RibbonTabControl can scroll
-        if (visibleGroups.Count > 0)
+        if (visibleGroups.Length > 0)
         {
             var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
 
@@ -324,7 +324,7 @@ public class RibbonTitleBar : HeaderedItemsControl
 
             this.headerRect = this.GetHeaderRect(constraint, left, allTextWidth, headerHolderWidth);
         }
-        else if (visibleGroups.Count == 0
+        else if (visibleGroups.Length is 0
                  || canRibbonTabControlScroll)
         {
             // Collapse itemRect

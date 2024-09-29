@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using Fluent.Extensions;
-using Fluent.Internal;
 
 /// <summary>
 ///     Automation peer for <see cref="BackstageTabControl" />.

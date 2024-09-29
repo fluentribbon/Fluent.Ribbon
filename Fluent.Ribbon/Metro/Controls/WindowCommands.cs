@@ -4,7 +4,6 @@ namespace Fluent;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,7 +11,6 @@ using System.Windows.Media;
 using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
 using Windows.Win32;
-using Windows.Win32.Foundation;
 
 /// <summary>
 /// Contains commands for <see cref="RibbonWindow"/>
@@ -174,8 +172,8 @@ public class WindowCommands : ItemsControl, IDisposable
     /// </summary>
     public Visibility ItemsPanelVisibility
     {
-        get { return (Visibility)this.GetValue(ItemsPanelVisibilityProperty); }
-        set { this.SetValue(ItemsPanelVisibilityProperty, value); }
+        get => (Visibility)this.GetValue(ItemsPanelVisibilityProperty);
+        set => this.SetValue(ItemsPanelVisibilityProperty, value);
     }
 
     /// <summary>
@@ -183,8 +181,8 @@ public class WindowCommands : ItemsControl, IDisposable
     /// </summary>
     public Brush ButtonBrush
     {
-        get { return (Brush)this.GetValue(ButtonBrushProperty); }
-        set { this.SetValue(ButtonBrushProperty, value); }
+        get => (Brush)this.GetValue(ButtonBrushProperty);
+        set => this.SetValue(ButtonBrushProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ButtonBrush"/> dependency property.</summary>
@@ -202,7 +200,7 @@ public class WindowCommands : ItemsControl, IDisposable
             //PWSTR str = new PWSTR()
             if (PInvoke.LoadString(this.user32, id, pchars, 256) == 0)
             {
-                return string.Format("String with id '{0}' could not be found.", id);
+                return $"String with id '{id}' could not be found.";
             }
 #pragma warning disable CA1307 // Specify StringComparison for clarity
             return new string(pchars).Replace("&", string.Empty);

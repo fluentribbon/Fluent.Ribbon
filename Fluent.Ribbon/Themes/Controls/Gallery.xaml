@@ -44,13 +44,9 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                         BorderThickness="1"
                                         SnapsToDevicePixels="True">
-                                    <Grid Width="Auto"
-                                          Height="Auto"
-                                          HorizontalAlignment="Stretch"
+                                    <Grid HorizontalAlignment="Stretch"
                                           VerticalAlignment="Top">
-                                        <Border Width="Auto"
-                                                Height="Auto"
-                                                VerticalAlignment="Top"
+                                        <Border VerticalAlignment="Top"
                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                                 BorderThickness="1" />
                                         <Grid Margin="1"
@@ -58,7 +54,6 @@
                                               VerticalAlignment="Top">
                                             <Rectangle Grid.RowSpan="2"
                                                        Width="1"
-                                                       Height="Auto"
                                                        Margin="24 0 0 0"
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Stretch"
@@ -66,7 +61,8 @@
                                                        Stretch="Fill"
                                                        Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                                        Visibility="Visible" />
-                                            <ScrollViewer Margin="1"
+                                            <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                                          Margin="1"
                                                           HorizontalScrollBarVisibility="Disabled"
                                                           SnapsToDevicePixels="True"
                                                           VerticalScrollBarVisibility="Auto">
@@ -93,20 +89,10 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Gallery"
                      TargetType="{x:Type Fluent:Gallery}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Width="Auto">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -124,10 +110,11 @@
                                            VerticalAlignment="Top" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                               Grid.Row="1"
                               Grid.RowSpan="1"
                               Focusable="False">
-                    <Fluent:GalleryPanel Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                    <Fluent:GalleryPanel Margin="{TemplateBinding Padding}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
@@ -136,7 +123,6 @@
                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          ItemHeight="{TemplateBinding ItemHeight}"
                                          ItemWidth="{TemplateBinding ItemWidth}"
-                                         Margin="{TemplateBinding Padding}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          Orientation="{TemplateBinding Orientation}" />

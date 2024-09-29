@@ -17,24 +17,17 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonComboButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Height="Auto"
-                  HorizontalAlignment="Right">
+            <Grid HorizontalAlignment="Right">
                 <Path x:Name="path"
-                      Width="7"
-                      Height="5"
-                      Margin="3 0 3 0"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Data="M 0 0 L 4 4 L 8 0 Z"
-                      Fill="{DynamicResource Fluent.Ribbon.Brushes.LabelText}"
-                      IsHitTestVisible="False"
-                      Stretch="Fill" />
+                      Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
+                      Margin="2 0 2 0"
+                      Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
+                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
@@ -63,20 +56,7 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonCombobox"
                      TargetType="{x:Type Fluent:ComboBox}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
-
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="Transparent">
+        <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -88,10 +68,10 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 0 0 0"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -120,7 +100,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="13" />
+                        <ColumnDefinition Width="14" />
                     </Grid.ColumnDefinitions>
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
@@ -145,8 +125,6 @@
                                       ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                       IsHitTestVisible="False" />
                     <Image x:Name="PART_SelectedImage"
-                           Width="Auto"
-                           Height="Auto"
                            Margin="0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
@@ -159,10 +137,10 @@
                              VerticalAlignment="Stretch"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
                              BorderThickness="0"
                              CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
                              Focusable="True"
-                             Foreground="{TemplateBinding Foreground}"
                              IsReadOnly="{TemplateBinding IsReadOnly}"
                              SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}"
                              TextWrapping="NoWrap"
@@ -180,13 +158,6 @@
                    Placement="Bottom"
                    PlacementTarget="{Binding ElementName=PART_ContentBorder}"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <Popup.Resources>
-                    <ResourceDictionary>
-                        <Style x:Key="{x:Type ScrollBar}"
-                               TargetType="{x:Type ScrollBar}"
-                               BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                    </ResourceDictionary>
-                </Popup.Resources>
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                  MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
                                                  MinHeight="{Binding ActualHeight, ElementName=PART_ContentBorder}"
@@ -204,10 +175,10 @@
                                           ContentSource="TopPopupContent" />
 
                         <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                                       Grid.Row="1"
                                       Margin="1"
                                       VerticalAlignment="Stretch"
-                                      Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                       BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                       BorderThickness="0 0 0 1"
                                       Focusable="False"
@@ -307,6 +278,7 @@
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ComboBox.Header}" />
         <Setter Property="Height" Value="22" />
         <Setter Property="IsEditable" Value="True" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />

@@ -76,8 +76,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsDefaultContextMenuEnabled
     {
-        get { return (bool)this.GetValue(IsDefaultContextMenuEnabledProperty); }
-        set { this.SetValue(IsDefaultContextMenuEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDefaultContextMenuEnabledProperty);
+        set => this.SetValue(IsDefaultContextMenuEnabledProperty, BooleanBoxes.Box(value));
     }
 
     private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new();
@@ -104,101 +104,59 @@ public class Ribbon : Control, ILogicalChildSupport
     // Context menu items
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem AddToQuickAccessMenuItem
-    {
-        get { return addToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem AddToQuickAccessMenuItem => addToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGroupToQuickAccessMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem AddGroupToQuickAccessMenuItem
-    {
-        get { return addGroupToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem AddGroupToQuickAccessMenuItem => addGroupToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addMenuToQuickAccessMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem AddMenuToQuickAccessMenuItem
-    {
-        get { return addMenuToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem AddMenuToQuickAccessMenuItem => addMenuToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGalleryToQuickAccessMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem AddGalleryToQuickAccessMenuItem
-    {
-        get { return addGalleryToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem AddGalleryToQuickAccessMenuItem => addGalleryToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> removeFromQuickAccessMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem RemoveFromQuickAccessMenuItem
-    {
-        get { return removeFromQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem RemoveFromQuickAccessMenuItem => removeFromQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarBelowTheRibbonMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarBelowTheRibbonMenuItem
-    {
-        get { return showQuickAccessToolbarBelowTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarBelowTheRibbonMenuItem => showQuickAccessToolbarBelowTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarAboveTheRibbonMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarAboveTheRibbonMenuItem
-    {
-        get { return showQuickAccessToolbarAboveTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarAboveTheRibbonMenuItem => showQuickAccessToolbarAboveTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> minimizeTheRibbonMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem MinimizeTheRibbonMenuItem
-    {
-        get { return minimizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem MinimizeTheRibbonMenuItem => minimizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> useTheClassicRibbonMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem UseTheClassicRibbonMenuItem
-    {
-        get { return useTheClassicRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem UseTheClassicRibbonMenuItem => useTheClassicRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> useTheSimplifiedRibbonMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem UseTheSimplifiedRibbonMenuItem
-    {
-        get { return useTheSimplifiedRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem UseTheSimplifiedRibbonMenuItem => useTheSimplifiedRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeQuickAccessToolbarMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem CustomizeQuickAccessToolbarMenuItem
-    {
-        get { return customizeQuickAccessToolbarMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem CustomizeQuickAccessToolbarMenuItem => customizeQuickAccessToolbarMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeTheRibbonMenuItemDictionary = new();
 
-    private static System.Windows.Controls.MenuItem CustomizeTheRibbonMenuItem
-    {
-        get { return customizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static System.Windows.Controls.MenuItem CustomizeTheRibbonMenuItem => customizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, Separator> firstSeparatorDictionary = new();
 
-    private static Separator FirstSeparator
-    {
-        get { return firstSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static Separator FirstSeparator => firstSeparatorDictionary[Thread.CurrentThread.ManagedThreadId];
 
     private static readonly Dictionary<int, Separator> secondSeparatorDictionary = new();
 
-    private static Separator SecondSeparator
-    {
-        get { return secondSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
-    }
+    private static Separator SecondSeparator => secondSeparatorDictionary[Thread.CurrentThread.ManagedThreadId];
 
     // Initialize ribbon context menu
     private static void InitRibbonContextMenu()
@@ -567,8 +525,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public FrameworkElement? Menu
     {
-        get { return (FrameworkElement?)this.GetValue(MenuProperty); }
-        set { this.SetValue(MenuProperty, value); }
+        get => (FrameworkElement?)this.GetValue(MenuProperty);
+        set => this.SetValue(MenuProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
@@ -580,6 +538,24 @@ public class Ribbon : Control, ILogicalChildSupport
         AddOrRemoveLogicalChildOnPropertyChanged(d, e);
     }
 
+    /// <summary>Identifies the <see cref="IsBackstageOrStartScreenOpen"/> dependency property.</summary>
+    public static readonly DependencyProperty IsBackstageOrStartScreenOpenProperty = DependencyProperty.Register(nameof(IsBackstageOrStartScreenOpen), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsBackstageOrStartScreenOpenChanged));
+
+    /// <summary>
+    /// Defines if the backstage or startscreen is currently open or not.
+    /// </summary>
+    public bool IsBackstageOrStartScreenOpen
+    {
+        get => (bool)this.GetValue(IsBackstageOrStartScreenOpenProperty);
+        set => this.SetValue(IsBackstageOrStartScreenOpenProperty, value);
+    }
+
+    private static void OnIsBackstageOrStartScreenOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var ribbon = (Ribbon)d;
+        ribbon.TitleBar?.ScheduleForceMeasureAndArrange();
+    }
+
     #endregion
 
     #region StartScreen
@@ -589,8 +565,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public StartScreen? StartScreen
     {
-        get { return (StartScreen?)this.GetValue(StartScreenProperty); }
-        set { this.SetValue(StartScreenProperty, value); }
+        get => (StartScreen?)this.GetValue(StartScreenProperty);
+        set => this.SetValue(StartScreenProperty, value);
     }
 
     /// <summary>Identifies the <see cref="StartScreen"/> dependency property.</summary>
@@ -612,8 +588,8 @@ public class Ribbon : Control, ILogicalChildSupport
     [EditorBrowsable(EditorBrowsableState.Never)]
     public QuickAccessToolBar? QuickAccessToolBar
     {
-        get { return (QuickAccessToolBar?)this.GetValue(QuickAccessToolBarProperty); }
-        private set { this.SetValue(QuickAccessToolBarPropertyKey, value); }
+        get => (QuickAccessToolBar?)this.GetValue(QuickAccessToolBarProperty);
+        private set => this.SetValue(QuickAccessToolBarPropertyKey, value);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -638,8 +614,8 @@ public class Ribbon : Control, ILogicalChildSupport
     [EditorBrowsable(EditorBrowsableState.Never)]
     public RibbonTabControl? TabControl
     {
-        get { return (RibbonTabControl?)this.GetValue(TabControlProperty); }
-        private set { this.SetValue(TabControlPropertyKey, value); }
+        get => (RibbonTabControl?)this.GetValue(TabControlProperty);
+        private set => this.SetValue(TabControlPropertyKey, value);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -658,8 +634,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        set { this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        set => this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
@@ -683,8 +659,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public RibbonTabItem? SelectedTabItem
     {
-        get { return (RibbonTabItem?)this.GetValue(SelectedTabItemProperty); }
-        set { this.SetValue(SelectedTabItemProperty, value); }
+        get => (RibbonTabItem?)this.GetValue(SelectedTabItemProperty);
+        set => this.SetValue(SelectedTabItemProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedTabItem"/> dependency property.</summary>
@@ -715,8 +691,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public int SelectedTabIndex
     {
-        get { return (int)this.GetValue(SelectedTabIndexProperty); }
-        set { this.SetValue(SelectedTabIndexProperty, value); }
+        get => (int)this.GetValue(SelectedTabIndexProperty);
+        set => this.SetValue(SelectedTabIndexProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedTabIndex"/> dependency property.</summary>
@@ -785,8 +761,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public RibbonTitleBar? TitleBar
     {
-        get { return (RibbonTitleBar?)this.GetValue(TitleBarProperty); }
-        set { this.SetValue(TitleBarProperty, value); }
+        get => (RibbonTitleBar?)this.GetValue(TitleBarProperty);
+        set => this.SetValue(TitleBarProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TitleBar"/> dependency property.</summary>
@@ -821,8 +797,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool ShowQuickAccessToolBarAboveRibbon
     {
-        get { return (bool)this.GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
-        set { this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(ShowQuickAccessToolBarAboveRibbonProperty);
+        set => this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="ShowQuickAccessToolBarAboveRibbon"/> dependency property.</summary>
@@ -860,8 +836,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public double QuickAccessToolBarHeight
     {
-        get { return (double)this.GetValue(QuickAccessToolBarHeightProperty); }
-        set { this.SetValue(QuickAccessToolBarHeightProperty, value); }
+        get => (double)this.GetValue(QuickAccessToolBarHeightProperty);
+        set => this.SetValue(QuickAccessToolBarHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="QuickAccessToolBarHeight"/> dependency property.</summary>
@@ -998,8 +974,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool CanCustomizeQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarProperty); }
-        set { this.SetValue(CanCustomizeQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanCustomizeQuickAccessToolBarProperty);
+        set => this.SetValue(CanCustomizeQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanCustomizeQuickAccessToolBar"/> dependency property.</summary>
@@ -1012,8 +988,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool CanCustomizeQuickAccessToolBarItems
     {
-        get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarItemsProperty); }
-        set { this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanCustomizeQuickAccessToolBarItemsProperty);
+        set => this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanCustomizeQuickAccessToolBarItems"/> dependency property.</summary>
@@ -1025,8 +1001,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsQuickAccessToolBarMenuDropDownVisible
     {
-        get { return (bool)this.GetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty); }
-        set { this.SetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty);
+        set => this.SetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsQuickAccessToolBarMenuDropDownVisible"/> dependency property.</summary>
@@ -1038,8 +1014,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool CanCustomizeRibbon
     {
-        get { return (bool)this.GetValue(CanCustomizeRibbonProperty); }
-        set { this.SetValue(CanCustomizeRibbonProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanCustomizeRibbonProperty);
+        set => this.SetValue(CanCustomizeRibbonProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanCustomizeRibbon"/> dependency property.</summary>
@@ -1052,8 +1028,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool CanMinimize
     {
-        get { return (bool)this.GetValue(CanMinimizeProperty); }
-        set { this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanMinimizeProperty);
+        set => this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>
@@ -1061,8 +1037,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsMinimized
     {
-        get { return (bool)this.GetValue(IsMinimizedProperty); }
-        set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMinimizedProperty);
+        set => this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
@@ -1092,8 +1068,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool CanUseSimplified
     {
-        get { return (bool)this.GetValue(CanUseSimplifiedProperty); }
-        set { this.SetValue(CanUseSimplifiedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanUseSimplifiedProperty);
+        set => this.SetValue(CanUseSimplifiedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanUseSimplified"/> dependency property.</summary>
@@ -1109,8 +1085,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsDisplayOptionsButtonVisible
     {
-        get { return (bool)this.GetValue(IsDisplayOptionsButtonVisibleProperty); }
-        set { this.SetValue(IsDisplayOptionsButtonVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDisplayOptionsButtonVisibleProperty);
+        set => this.SetValue(IsDisplayOptionsButtonVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>
@@ -1118,8 +1094,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public double ContentGapHeight
     {
-        get { return (double)this.GetValue(ContentGapHeightProperty); }
-        set { this.SetValue(ContentGapHeightProperty, value); }
+        get => (double)this.GetValue(ContentGapHeightProperty);
+        set => this.SetValue(ContentGapHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ContentGapHeight"/> dependency property.</summary>
@@ -1131,8 +1107,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public double ContentHeight
     {
-        get { return (double)this.GetValue(ContentHeightProperty); }
-        set { this.SetValue(ContentHeightProperty, value); }
+        get => (double)this.GetValue(ContentHeightProperty);
+        set => this.SetValue(ContentHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ContentHeight"/> dependency property.</summary>
@@ -1146,8 +1122,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsCollapsed
     {
-        get { return (bool)this.GetValue(IsCollapsedProperty); }
-        set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCollapsedProperty);
+        set => this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -1166,8 +1142,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsAutomaticCollapseEnabled
     {
-        get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
-        set { this.SetValue(IsAutomaticCollapseEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsAutomaticCollapseEnabledProperty);
+        set => this.SetValue(IsAutomaticCollapseEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
@@ -1179,21 +1155,27 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsQuickAccessToolBarVisible
     {
-        get { return (bool)this.GetValue(IsQuickAccessToolBarVisibleProperty); }
-        set { this.SetValue(IsQuickAccessToolBarVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsQuickAccessToolBarVisibleProperty);
+        set => this.SetValue(IsQuickAccessToolBarVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsQuickAccessToolBarVisible"/> dependency property.</summary>
     public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
-        DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+        DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsQuickAccessToolBarVisibleChanged));
+
+    private static void OnIsQuickAccessToolBarVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var ribbon = (Ribbon)d;
+        ribbon.TitleBar?.ScheduleForceMeasureAndArrange();
+    }
 
     /// <summary>
     /// Gets or sets whether user can change location of QAT
     /// </summary>
     public bool CanQuickAccessLocationChanging
     {
-        get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
-        set { this.SetValue(CanQuickAccessLocationChangingProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanQuickAccessLocationChangingProperty);
+        set => this.SetValue(CanQuickAccessLocationChangingProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanQuickAccessLocationChanging"/> dependency property.</summary>
@@ -1208,8 +1190,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool AreTabHeadersVisible
     {
-        get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
-        set { this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(AreTabHeadersVisibleProperty);
+        set => this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
@@ -1220,8 +1202,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsToolBarVisible
     {
-        get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
-        set { this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsToolBarVisibleProperty);
+        set => this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
@@ -1232,8 +1214,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsMouseWheelScrollingEnabled
     {
-        get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
-        set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty);
+        set => this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabledEverywhere"/> dependency property.</summary>
@@ -1244,8 +1226,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsMouseWheelScrollingEnabledEverywhere
     {
-        get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledEverywhereProperty); }
-        set { this.SetValue(IsMouseWheelScrollingEnabledEverywhereProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMouseWheelScrollingEnabledEverywhereProperty);
+        set => this.SetValue(IsMouseWheelScrollingEnabledEverywhereProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>
@@ -1261,8 +1243,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool IsKeyTipHandlingEnabled
     {
-        get { return (bool)this.GetValue(IsKeyTipHandlingEnabledProperty); }
-        set { this.SetValue(IsKeyTipHandlingEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsKeyTipHandlingEnabledProperty);
+        set => this.SetValue(IsKeyTipHandlingEnabledProperty, BooleanBoxes.Box(value));
     }
 
     private static void OnIsKeyTipHandlingEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1967,8 +1949,8 @@ public class Ribbon : Control, ILogicalChildSupport
     /// </summary>
     public bool AutomaticStateManagement
     {
-        get { return (bool)this.GetValue(AutomaticStateManagementProperty); }
-        set { this.SetValue(AutomaticStateManagementProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(AutomaticStateManagementProperty);
+        set => this.SetValue(AutomaticStateManagementProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="AutomaticStateManagement"/> dependency property.</summary>

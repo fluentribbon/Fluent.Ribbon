@@ -14,17 +14,9 @@ using System.Windows.Markup;
 [SuppressMessage("Microsoft.Naming", "CA1702", Justification = "We mean here 'bar row' instead of 'barrow'")]
 public class RibbonToolBarRow : DependencyObject
 {
-    #region Properties
-
     /// <summary>
-    /// Gets rows
+    /// Gets children.
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public ObservableCollection<DependencyObject> Children { get; } = new();
-
-    #endregion
-
-    #region Initialization
-
-    #endregion
 }

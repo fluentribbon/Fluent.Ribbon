@@ -3,6 +3,7 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
     <Style x:Key="Fluent.Ribbon.Styles.ScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -13,14 +14,11 @@
                             Margin="0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
-                            BorderThickness="1">
+                            BorderThickness="{TemplateBinding BorderThickness}">
                         <Path x:Name="path"
-                              Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.LeftRight}"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
-                              Fill="{TemplateBinding Foreground}" />
+                              Stroke="{TemplateBinding Foreground}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -28,8 +26,8 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsPressed" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Background}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Border}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
@@ -63,6 +61,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollBarThumb"
            TargetType="{x:Type Thumb}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -73,7 +72,7 @@
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Border}"
-                            BorderThickness="1" />
+                            BorderThickness="{TemplateBinding BorderThickness}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
@@ -91,6 +90,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.VerticalScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -101,14 +101,11 @@
                             Margin="0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
-                            BorderThickness="1">
+                            BorderThickness="{TemplateBinding BorderThickness}">
                         <Path x:Name="path"
-                              Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
-                              Fill="{TemplateBinding Foreground}" />
+                              Stroke="{TemplateBinding Foreground}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -136,6 +133,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.VerticalScrollBarThumb"
            TargetType="{x:Type Thumb}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -146,7 +144,7 @@
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Border}"
-                            BorderThickness="1" />
+                            BorderThickness="{TemplateBinding BorderThickness}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
@@ -166,9 +164,9 @@
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="18" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="0.00001*" />
-                <RowDefinition MaxHeight="18" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollBar.Background}" />
@@ -176,32 +174,20 @@
                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
                           Grid.Row="0"
                           Height="17"
-                          Margin="1 1 1 0"
                           VerticalAlignment="Top"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineUpCommand"
-                          Content="M 0 4 L 8 4 L 4 0 Z" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}" />
             <Track Name="PART_Track"
                    Grid.Row="1"
                    IsDirectionReversed="true"
                    ViewportSize="{TemplateBinding ViewportSize}">
-                <Track.Resources>
-                    <!--
-                        Set the Thumb's minimum height to 50.
-                        The Thumb's minimum height is half the
-                        value of VerticalScrollBarButtonHeightKey.
-                    -->
-                    <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
-                        36
-                    </System:Double>
-                </Track.Resources>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}"
                                   Command="ScrollBar.PageUpCommand" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarThumb}"
-                           Margin="1 0 1 0"
                            RenderTransformOrigin="0.5,0.5" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
@@ -211,12 +197,11 @@
             </Track>
             <RepeatButton x:Name="repeatButton1"
                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
-                          Grid.Row="3"
+                          Grid.Row="2"
                           Height="17"
-                          Margin="1 0 1 1"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineDownCommand"
-                          Content="M 0 0 L 4 4 L 8 0 Z" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -230,9 +215,9 @@
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="18" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="0.00001*" />
-                <ColumnDefinition MaxWidth="18" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="3"
                     Margin="0"
@@ -241,25 +226,13 @@
                           Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarLineButton}"
                           Grid.Column="0"
                           Width="17"
-                          Margin="1 1 0 1"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineLeftCommand"
-                          Content="M 4 0 L 4 8 L 0 4 Z" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Left}" />
             <Track Name="PART_Track"
                    Grid.Column="1"
-                   Margin="0 1 0 1"
                    IsDirectionReversed="False"
                    ViewportSize="{TemplateBinding ViewportSize}">
-                <Track.Resources>
-                    <!--
-                        Set the Thumb's minimum height to 50.
-                        The Thumb's minimum height is half the
-                        value of VerticalScrollBarButtonHeightKey.
-                    -->
-                    <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
-                        36
-                    </System:Double>
-                </Track.Resources>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}"
                                   Command="ScrollBar.PageLeftCommand" />
@@ -275,12 +248,11 @@
             </Track>
             <RepeatButton x:Name="repeatButton1"
                           Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarLineButton}"
-                          Grid.Column="3"
+                          Grid.Column="2"
                           Width="17"
-                          Margin="0 1 1 1"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineRightCommand"
-                          Content="M 0 0 L 4 4 L 0 8 Z" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Right}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -306,6 +278,24 @@
                 <Setter Property="Width" Value="17" />
             </Trigger>
         </Style.Triggers>
+        <Style.Resources>
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
+            <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
+                36
+            </System:Double>
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
+            <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
+                36
+            </System:Double>
+        </Style.Resources>
     </Style>
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollBarWhite"
@@ -324,5 +314,23 @@
                 <Setter Property="Width" Value="17" />
             </Trigger>
         </Style.Triggers>
+        <Style.Resources>
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
+            <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
+                36
+            </System:Double>
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
+            <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
+                36
+            </System:Double>
+        </Style.Resources>
     </Style>
 </ResourceDictionary>

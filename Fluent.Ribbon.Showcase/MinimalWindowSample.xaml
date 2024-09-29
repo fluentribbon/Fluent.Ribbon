@@ -31,8 +31,8 @@
             <fluent:RibbonContextualTabGroup x:Name="contextGroup1"
                                              Header="Generic context"
                                              Background="Magenta"
-                                             BorderBrush="Magenta"
                                              Foreground="Purple"
+                                             BorderBrush="Magenta"
                                              Visibility="Visible" />
         </fluent:Ribbon.ContextualGroups>
 

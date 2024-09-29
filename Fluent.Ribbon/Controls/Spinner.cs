@@ -43,8 +43,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// <inheritdoc />
     public RibbonControlSizeDefinition SimplifiedSizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
-        set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty);
+        set => this.SetValue(SimplifiedSizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
@@ -57,8 +57,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// <inheritdoc />
     public object? MediumIcon
     {
-        get { return this.GetValue(MediumIconProperty); }
-        set { this.SetValue(MediumIconProperty, value); }
+        get => this.GetValue(MediumIconProperty);
+        set => this.SetValue(MediumIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
@@ -73,8 +73,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public double Value
     {
-        get { return (double)this.GetValue(ValueProperty); }
-        set { this.SetValue(ValueProperty, value); }
+        get => (double)this.GetValue(ValueProperty);
+        set => this.SetValue(ValueProperty, value);
     }
 
     /// <summary>
@@ -132,8 +132,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public string? Text
     {
-        get { return (string?)this.GetValue(TextProperty); }
-        private set { this.SetValue(TextPropertyKey, value); }
+        get => (string?)this.GetValue(TextProperty);
+        private set => this.SetValue(TextPropertyKey, value);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -151,8 +151,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public double Increment
     {
-        get { return (double)this.GetValue(IncrementProperty); }
-        set { this.SetValue(IncrementProperty, value); }
+        get => (double)this.GetValue(IncrementProperty);
+        set => this.SetValue(IncrementProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Increment"/> dependency property.</summary>
@@ -168,8 +168,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public double Minimum
     {
-        get { return (double)this.GetValue(MinimumProperty); }
-        set { this.SetValue(MinimumProperty, value); }
+        get => (double)this.GetValue(MinimumProperty);
+        set => this.SetValue(MinimumProperty, value);
     }
 
     /// <summary>
@@ -211,8 +211,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public double Maximum
     {
-        get { return (double)this.GetValue(MaximumProperty); }
-        set { this.SetValue(MaximumProperty, value); }
+        get => (double)this.GetValue(MaximumProperty);
+        set => this.SetValue(MaximumProperty, value);
     }
 
     /// <summary>
@@ -254,8 +254,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public string Format
     {
-        get { return (string)this.GetValue(FormatProperty); }
-        set { this.SetValue(FormatProperty, value); }
+        get => (string)this.GetValue(FormatProperty);
+        set => this.SetValue(FormatProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Format"/> dependency property.</summary>
@@ -279,8 +279,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public int Delay
     {
-        get { return (int)this.GetValue(DelayProperty); }
-        set { this.SetValue(DelayProperty, value); }
+        get => (int)this.GetValue(DelayProperty);
+        set => this.SetValue(DelayProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Delay"/> dependency property.</summary>
@@ -299,8 +299,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public int Interval
     {
-        get { return (int)this.GetValue(IntervalProperty); }
-        set { this.SetValue(IntervalProperty, value); }
+        get => (int)this.GetValue(IntervalProperty);
+        set => this.SetValue(IntervalProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Interval"/> dependency property.</summary>
@@ -316,8 +316,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public IValueConverter TextToValueConverter
     {
-        get { return (IValueConverter)this.GetValue(TextToValueConverterProperty); }
-        set { this.SetValue(TextToValueConverterProperty, value); }
+        get => (IValueConverter)this.GetValue(TextToValueConverterProperty);
+        set => this.SetValue(TextToValueConverterProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TextToValueConverter"/> dependency property.</summary>
@@ -333,8 +333,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public bool SelectAllTextOnFocus
     {
-        get { return (bool)this.GetValue(SelectAllTextOnFocusProperty); }
-        set { this.SetValue(SelectAllTextOnFocusProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(SelectAllTextOnFocusProperty);
+        set => this.SetValue(SelectAllTextOnFocusProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="SelectAllTextOnFocus"/> dependency property.</summary>
@@ -348,8 +348,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =

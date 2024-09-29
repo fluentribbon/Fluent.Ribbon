@@ -11,10 +11,10 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.Rectangle"
            TargetType="{x:Type Rectangle}">
-        <Setter Property="Margin" Value="-1" />
+        <Setter Property="Margin" Value="0" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
-        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="StrokeThickness" Value="1" />
     </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.FocusVisual"

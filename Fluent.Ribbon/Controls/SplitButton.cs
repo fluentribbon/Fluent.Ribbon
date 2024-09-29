@@ -46,15 +46,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     [Bindable(true)]
     public ICommand Command
     {
-        get
-        {
-            return (ICommand)this.GetValue(CommandProperty);
-        }
+        get => (ICommand)this.GetValue(CommandProperty);
 
-        set
-        {
-            this.SetValue(CommandProperty, value);
-        }
+        set => this.SetValue(CommandProperty, value);
     }
 
     /// <inheritdoc />
@@ -63,15 +57,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     [Category("Action")]
     public object CommandParameter
     {
-        get
-        {
-            return this.GetValue(CommandParameterProperty);
-        }
+        get => this.GetValue(CommandParameterProperty);
 
-        set
-        {
-            this.SetValue(CommandParameterProperty, value);
-        }
+        set => this.SetValue(CommandParameterProperty, value);
     }
 
     /// <inheritdoc />
@@ -79,15 +67,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     [Category("Action")]
     public IInputElement CommandTarget
     {
-        get
-        {
-            return (IInputElement)this.GetValue(CommandTargetProperty);
-        }
+        get => (IInputElement)this.GetValue(CommandTargetProperty);
 
-        set
-        {
-            this.SetValue(CommandTargetProperty, value);
-        }
+        set => this.SetValue(CommandTargetProperty, value);
     }
 
     /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
@@ -106,8 +88,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// <inheritdoc />
     public string? GroupName
     {
-        get { return (string?)this.GetValue(GroupNameProperty); }
-        set { this.SetValue(GroupNameProperty, value); }
+        get => (string?)this.GetValue(GroupNameProperty);
+        set => this.SetValue(GroupNameProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupName"/> dependency property.</summary>
@@ -120,8 +102,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// <inheritdoc />
     public bool? IsChecked
     {
-        get { return (bool?)this.GetValue(IsCheckedProperty); }
-        set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
+        get => (bool?)this.GetValue(IsCheckedProperty);
+        set => this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
@@ -169,8 +151,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public bool IsCheckable
     {
-        get { return (bool)this.GetValue(IsCheckableProperty); }
-        set { this.SetValue(IsCheckableProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCheckableProperty);
+        set => this.SetValue(IsCheckableProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsCheckable"/> dependency property.</summary>
@@ -186,8 +168,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public object? DropDownToolTip
     {
-        get { return this.GetValue(DropDownToolTipProperty); }
-        set { this.SetValue(DropDownToolTipProperty, value); }
+        get => this.GetValue(DropDownToolTipProperty);
+        set => this.SetValue(DropDownToolTipProperty, value);
     }
 
     /// <summary>Identifies the <see cref="DropDownToolTip"/> dependency property.</summary>
@@ -204,8 +186,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public bool IsButtonEnabled
     {
-        get { return (bool)this.GetValue(IsButtonEnabledProperty); }
-        set { this.SetValue(IsButtonEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsButtonEnabledProperty);
+        set => this.SetValue(IsButtonEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsButtonEnabled"/> dependency property.</summary>
@@ -221,8 +203,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public bool IsDefinitive
     {
-        get { return (bool)this.GetValue(IsDefinitiveProperty); }
-        set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDefinitiveProperty);
+        set => this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -241,8 +223,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public string PrimaryActionKeyTipPostfix
     {
-        get { return (string)this.GetValue(PrimaryActionKeyTipPostfixProperty); }
-        set { this.SetValue(PrimaryActionKeyTipPostfixProperty, value); }
+        get => (string)this.GetValue(PrimaryActionKeyTipPostfixProperty);
+        set => this.SetValue(PrimaryActionKeyTipPostfixProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SecondaryActionKeyTipPostfix"/> dependency property.</summary>
@@ -253,8 +235,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public string SecondaryActionKeyTipPostfix
     {
-        get { return (string)this.GetValue(SecondaryActionKeyTipPostfixProperty); }
-        set { this.SetValue(SecondaryActionKeyTipPostfixProperty, value); }
+        get => (string)this.GetValue(SecondaryActionKeyTipPostfixProperty);
+        set => this.SetValue(SecondaryActionKeyTipPostfixProperty, value);
     }
 
     #endregion KeyTipPostfix
@@ -267,8 +249,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public string SecondaryKeyTip
     {
-        get { return (string)this.GetValue(SecondaryKeyTipProperty); }
-        set { this.SetValue(SecondaryKeyTipProperty, value); }
+        get => (string)this.GetValue(SecondaryKeyTipProperty);
+        set => this.SetValue(SecondaryKeyTipProperty, value);
     }
 
     #endregion
@@ -285,15 +267,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public event RoutedEventHandler Click
     {
-        add
-        {
-            this.AddHandler(ClickEvent, value);
-        }
+        add => this.AddHandler(ClickEvent, value);
 
-        remove
-        {
-            this.RemoveHandler(ClickEvent, value);
-        }
+        remove => this.RemoveHandler(ClickEvent, value);
     }
 
     /// <summary>
@@ -306,15 +282,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public event RoutedEventHandler Checked
     {
-        add
-        {
-            this.AddHandler(CheckedEvent, value);
-        }
+        add => this.AddHandler(CheckedEvent, value);
 
-        remove
-        {
-            this.RemoveHandler(CheckedEvent, value);
-        }
+        remove => this.RemoveHandler(CheckedEvent, value);
     }
 
     /// <summary>
@@ -327,15 +297,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public event RoutedEventHandler Unchecked
     {
-        add
-        {
-            this.AddHandler(UncheckedEvent, value);
-        }
+        add => this.AddHandler(UncheckedEvent, value);
 
-        remove
-        {
-            this.RemoveHandler(UncheckedEvent, value);
-        }
+        remove => this.RemoveHandler(UncheckedEvent, value);
     }
 
     /// <summary>
@@ -348,15 +312,9 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public event RoutedEventHandler Indeterminate
     {
-        add
-        {
-            this.AddHandler(IndeterminateEvent, value);
-        }
+        add => this.AddHandler(IndeterminateEvent, value);
 
-        remove
-        {
-            this.RemoveHandler(IndeterminateEvent, value);
-        }
+        remove => this.RemoveHandler(IndeterminateEvent, value);
     }
 
     #endregion
@@ -519,7 +477,6 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
         RibbonControl.Bind(this, element, nameof(this.ContextMenu), ContextMenuProperty, BindingMode.Default);
 
         RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-        RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
         RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.Default);
 
         RibbonControl.BindQuickAccessItem(this, element);
@@ -530,8 +487,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// </summary>
     public bool CanAddButtonToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddButtonToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddButtonToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddButtonToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddButtonToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddButtonToQuickAccessToolBar"/> dependency property.</summary>

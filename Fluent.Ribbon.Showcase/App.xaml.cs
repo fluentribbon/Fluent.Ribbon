@@ -40,6 +40,21 @@ public partial class App
         ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
         ThemeManager.Current.SyncTheme();
 
+        ThemeManager.Current.ThemeChanged += HandleThemeChanged;
+
+#pragma warning disable CS0618 // Type or member is obsolete
+        AppModeHelper.SyncAppMode();
+#pragma warning restore CS0618 // Type or member is obsolete
+
         base.OnStartup(e);
+
+        return;
+
+        void HandleThemeChanged(object? sender, ThemeChangedEventArgs themeChangedEventArgs)
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            AppModeHelper.SyncAppMode();
+#pragma warning restore CS0618 // Type or member is obsolete
+        }
     }
 }

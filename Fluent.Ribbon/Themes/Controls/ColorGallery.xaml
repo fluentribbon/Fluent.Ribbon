@@ -77,7 +77,7 @@
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row1}" />
     </Style>
 
-    <Style x:Key="Fluent.Ribbon.Styles.HightlightColorGalleryListBox"
+    <Style x:Key="Fluent.Ribbon.Styles.HighlightColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ColorGallery.ListBox.ItemContainer}" />
@@ -131,7 +131,8 @@
                                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                        <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                      HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="0 1 0 1"
                                         Background="{TemplateBinding Background}"
@@ -183,8 +184,7 @@
                         <Separator x:Name="separator">
                             <Separator.Template>
                                 <ControlTemplate>
-                                    <Rectangle Width="Auto"
-                                               Height="1"
+                                    <Rectangle Height="1"
                                                Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
                                 </ControlTemplate>
                             </Separator.Template>
@@ -210,7 +210,7 @@
                             <Setter Property="Columns" Value="5" />
                             <Setter TargetName="PART_RecentColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.HighlightColors}" />
-                            <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource Fluent.Ribbon.Styles.HightlightColorGalleryListBox}" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource Fluent.Ribbon.Styles.HighlightColorGalleryListBox}" />
                             <Setter TargetName="PART_StandardGradientColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_ThemeColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_ThemeGradientColorsListBox" Property="Visibility" Value="Collapsed" />

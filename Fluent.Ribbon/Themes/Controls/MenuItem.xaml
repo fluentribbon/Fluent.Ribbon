@@ -17,7 +17,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -26,13 +25,9 @@
                     Visibility="Collapsed" />
             <ContentPresenter x:Name="textBlock"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
@@ -41,9 +36,9 @@
                                       Margin="3 2 2 2"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    Width="16"
@@ -56,8 +51,6 @@
                    Visibility="Collapsed" />
             <TextBlock x:Name="gestureTextBlock"
                        Grid.Column="2"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="3 3 15 3"
                        VerticalAlignment="Center"
                        Text="{TemplateBinding InputGestureText}" />
@@ -112,7 +105,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -121,13 +113,9 @@
                     Visibility="Collapsed" />
             <ContentPresenter x:Name="textBlock"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
@@ -136,9 +124,9 @@
                                       Margin="3 2 2 2"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    Width="16"
@@ -217,8 +205,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedMenuItem"
+    <!-- Split Menu Item Template -->
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitMenuItem"
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
@@ -235,7 +223,6 @@
 
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
-                  Width="Auto"
                   Margin="0"
                   HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
@@ -251,7 +238,6 @@
                         Visibility="Collapsed" />
                 <Border x:Name="Submenu_Border"
                         Grid.Column="1"
-                        Width="Auto"
                         Margin="0"
                         HorizontalAlignment="Stretch"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -261,13 +247,9 @@
             </Grid>
             <ContentPresenter x:Name="textBlock"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
@@ -276,9 +258,9 @@
                                       Margin="3 2 2 2"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    Width="16"
@@ -375,7 +357,6 @@
                     Grid.RowSpan="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -384,8 +365,6 @@
                     Visibility="Collapsed" />
             <ContentControl x:Name="textBlock"
                             Grid.Column="1"
-                            Width="Auto"
-                            Height="Auto"
                             Margin="0 3 3 3"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}"
@@ -396,8 +375,6 @@
             <ContentPresenter x:Name="descriptionPresenter"
                               Grid.Row="1"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="0 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Description"
@@ -409,9 +386,9 @@
                                       Margin="3 2 2 2"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    Width="16"
@@ -424,8 +401,6 @@
                    Visibility="Collapsed" />
             <TextBlock x:Name="gestureTextBlock"
                        Grid.Column="2"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="3 3 15 3"
                        VerticalAlignment="Center"
                        Text="{TemplateBinding InputGestureText}" />
@@ -479,14 +454,14 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedMenuItem}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitMenuItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HeaderMenuItem}" />

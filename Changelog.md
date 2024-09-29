@@ -1,5 +1,87 @@
 # Changelog for Fluent.Ribbon
 
+## 11.0.0 (preview)
+
+- ### Breaking changes
+
+  - Dropped support for .NET 5.0 and .NET 3.1. Added .NET 6.0 and .NET 8.0 instead
+  - **Aligned theming with current office versions**
+  - `Backstage`
+    - Removed default `MinWidth` on the button responsible for opening
+    - Saving and restoring window sizes were removed
+  - `BackstageTabControl`
+    - `IsWindowSteeringHelperEnabled` and `SelectedContentMargin` were removed
+  - `BackstageTabItem`
+    - Selection now happens on left mouse button down instead of up
+    - Selection now happens on focus retrieval instead of `Space` or `Enter` key press
+  - `RibbonContextualTabGroup`
+    - Width is now always the width of it's containing tabs
+  - `RibbonGroupBox`
+    - Changed default `Padding` from `0` to `0 4 0 0`
+    - Removed method `ClearCache`
+  - `RibbonTabItem`
+    - Changed default `HeaderPadding` from `8 5 8 5` to `9 7 9 7`.<br/>
+      `Padding` is gradually increased/decreased when the available space changes.<br/>
+      Down to a minimum of `5` for left/right.
+    - Replaced `IsSeparatorVisible` by `SeparatorOpacity`
+    - Changed default `Padding` from `0` to `4 0 4 0`
+    - `Padding` is now forwarded to the `Margin` of the content
+    - Active border thickness (underline) can be changed by overwriting `Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness`
+    - Default `HeaderTemplate` now contains two `TextBlock`
+  - `RibbonTabControl`
+    - `PART_SelectedContentPresenter` was renamed to `PART_SelectedContent` and can be of type `FrameworkElement`.<br/>
+      The default template uses the new `TransitioningControl`.<br/>
+      The used transition can be changed by overwriting the resource `Fluent.Ribbon.Values.RibbonTabControl.Content.Transition`.
+    - `DefaultContentGapHeight` changed from `1` to `3`
+    - `DefaultContentHeight` changed from `94` to `100`
+    - Corner radius for item display can be changed by `Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius`
+    - Drop shadow can be changed by overwriting `Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect`
+    - Content margin can be changed by overwriting `Fluent.Ribbon.Values.RibbonTabControl.Content.Margin`
+  - `RibbonTitleBar`
+    - Changed default `HideContextTabs`  from `false` to `true`
+  - `RibbonWindow`
+    - Default `Background` is now `Fluent.Ribbon.Brushes.RibbonWindow.Background`
+  - `ScreenTip`
+    - Type for `Image` was changed from `ImageSource` to `object` to allow any image content
+    - Type for `Text` was changed from `string` to `object` to allow rich content (see [#716](../../issues/716))
+  - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers.<br/>
+    This provides more flexibility and also fixes the nested `MenuItem` issues.
+  - Removed default style assignment for `ScrollBar`
+  - Themes
+    - All
+      - Quite a few colors/brushes changed
+    - Dark
+      - `Fluent.Ribbon.Colors.White` changed from `#FF252525` to `#FF000000`
+
+- ### Enhancements/Features
+
+  - Added `TabItemForeground` to `RibbonContextualTabGroup`
+  - Added resource `Fluent.Ribbon.Brushes.RibbonWindow.Background`
+  - Added `TransitioningControl` to animate content changes
+  - Added `IsBackstageOrStartScreenOpen` on `Ribbon`
+  - [#716](../../issues/716) - Unable to use rich content for ScreenTip
+    - Changed text from `string` to `object` and added `TextTemplate` to `ScreenTip` to support this
+  - [#719](../../issues/719) - Make StatusBarItems always visible
+    - Added `IsCheckable` to `StatusBarItem` which defaults to `true`
+  - `RibbonProperties`
+    - Added `PressedBackground` (used in `Fluent.Ribbon.Styles.WindowCommands.CaptionButton` etc.)
+    - Added `CornerRadius` (used for `RibbonTabControl`, `Fluent.Ribbon.Templates.ScrollButton` etc.)
+  - Selecting an `RibbonTabItem` brings it into view now
+  - Improved keyboard navigation inside `BackstageTabControl`
+  - Improved mouse wheel selection on `RibbonTabControl`
+
+- ### Bug fixes
+
+  - [#1162](../../issues/1162) - Maximum dropdown height is not screen aware
+  - [#1196](../../issues/1196) - GroupName causes the selected ToggleButton to no longer trigger the click event
+  - Value of `HideContextTabs` are now properly restored when `Backstage` is closed
+  - `RibbonTitleBar`
+    - Fixed rendering when `HideContextTabs` is `true`
+    - Rendering now updates when QAT is shown/hidden
+  - Opening `Backstage`/`StartScreen` now properly sets the focus to it's content (`BackstageTabControl`, `StartScreenTabControl` etc.)
+  - Fixed mouse over for `Fluent.Ribbon.Templates.WindowCommands.CaptionButton`
+  - Fixed selection events for `BackstageTabControl`, `BackstageTabItem`, `GalleryItem`, `InRibbonGallery`, `RibbonTabControl` and `RibbonTabItem`
+
 ## 10.1.0
 
 - ### Bug fixes
@@ -55,7 +137,6 @@
 - ### Breaking changes
 
   - Dropped support for .NET 4.5.2. The lowest support .NET version is now 4.6.2.
-  - Dropped support for .NET 5.0 and add .NET 6.0 instead.
   - Resizing popups should now work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
     Resize code was moved from single controls to the new control.

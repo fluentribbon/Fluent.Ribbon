@@ -4,7 +4,6 @@
     <Style x:Key="Fluent.Ribbon.Styles.StatusBar"
            TargetType="{x:Type Fluent:StatusBar}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
-        <Setter Property="Height" Value="Auto" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -36,11 +35,9 @@
                             </Setter>
                         </Style>
                     </ControlTemplate.Resources>
-                    <Border Height="Auto"
-                            Background="{TemplateBinding Background}"
+                    <Border Background="{TemplateBinding Background}"
                             BorderThickness="0">
-                        <ItemsPresenter x:Name="itemsPresenter"
-                                        Height="Auto" />
+                        <ItemsPresenter x:Name="itemsPresenter" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="CanResizeWithGrip">
@@ -75,7 +72,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.StatusBarMenuItem"
            TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
-        <Setter Property="IsCheckable" Value="True" />
+        <Setter Property="IsCheckable" Value="{Binding StatusBarItem.IsCheckable, RelativeSource={RelativeSource Self}}" />
         <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonStatusBarContextMenuItem}" />
     </Style>
@@ -83,9 +80,7 @@
     <!-- Menu Item Template -->
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonStatusBarContextMenuItem"
                      TargetType="{x:Type Fluent:StatusBarMenuItem}">
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="Transparent">
+        <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -94,7 +89,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -103,8 +97,6 @@
                     Visibility="Collapsed" />
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="5 3 3 3"
                        VerticalAlignment="Center"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
@@ -126,8 +118,6 @@
                                   VerticalAlignment="Center"
                                   SmallIcon="{TemplateBinding Icon}" />
             <TextBlock Grid.Column="2"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 3 3 3"
                        VerticalAlignment="Center"
                        Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}"

@@ -7,6 +7,7 @@
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="22" />
+        <Setter Property="Margin" Value="1 0 1 0" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ToolbarDropDownButton}" />
         <Setter Property="Width" Value="14" />
     </Style>
@@ -23,9 +24,9 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="8,8"
-                                      IconSize="Custom"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      IconSize="Custom" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
@@ -48,13 +49,9 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Top">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Top"
+                            <Border VerticalAlignment="Top"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1" />
                             <Grid HorizontalAlignment="Stretch"
@@ -63,7 +60,8 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                              MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               Margin="1"
                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -83,7 +81,6 @@
                                         BorderThickness="0 1 0 0">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
-                                               Width="Auto"
                                                Height="10"
                                                Margin="0 0 0 -90"
                                                HorizontalAlignment="Stretch"
@@ -140,7 +137,6 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.QuickAccessToolbar"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
-        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.QuickAccessToolbar}" />
     </Style>
 
@@ -156,9 +152,9 @@
                                        Style="{DynamicResource Fluent.Ribbon.Styles.ToolbarDropDownButton}"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Stretch"
+                                       Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarDropDown}"
                                        CanAddToQuickAccessToolBar="False"
                                        DockPanel.Dock="Right"
-                                       Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarDropDown}"
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        KeyboardNavigation.TabIndex="3"
                                        Size="Small"
@@ -183,9 +179,9 @@
                                    Style="{DynamicResource Fluent.Ribbon.Styles.ToolbarDropDownButton}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Stretch"
+                                   Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarExtender}"
                                    Fluent:KeyTip.Keys="00"
                                    DockPanel.Dock="Right"
-                                   Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarExtender}"
                                    IsEnabled="{TemplateBinding IsEnabled}"
                                    KeyboardNavigation.TabIndex="2"
                                    KeyboardNavigation.TabNavigation="Local"
@@ -196,14 +192,11 @@
                     <ContextMenu />
                 </Fluent:DropDownButton.ContextMenu>
 
-                <StackPanel Width="Auto"
-                            Height="26"
+                <StackPanel Height="26"
                             Margin="-1"
                             Background="{TemplateBinding Background}"
                             Orientation="Horizontal">
                     <StackPanel x:Name="PART_ToolBarOverflowPanel"
-                                Width="Auto"
-                                Height="Auto"
                                 Margin="1 0 0 0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -219,8 +212,6 @@
             </Fluent:DropDownButton>
 
             <StackPanel x:Name="PART_ToolBarPanel"
-                        Width="Auto"
-                        Height="Auto"
                         VerticalAlignment="Stretch"
                         KeyboardNavigation.TabIndex="1"
                         KeyboardNavigation.TabNavigation="Local"

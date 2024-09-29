@@ -80,8 +80,7 @@ public class StatusBar : System.Windows.Controls.Primitives.StatusBar
             if (dataTemplate is not null)
             {
                 var dataTemplateContent = (object)dataTemplate.LoadContent();
-                if (dataTemplateContent is StatusBarItem
-                    || dataTemplateContent is Separator)
+                if (dataTemplateContent is StatusBarItem or Separator)
                 {
                     return (DependencyObject)dataTemplateContent;
                 }

@@ -15,8 +15,8 @@ public class StatusBarMenuItem : MenuItem
     /// </summary>
     public StatusBarItem? StatusBarItem
     {
-        get { return (StatusBarItem?)this.GetValue(StatusBarItemProperty); }
-        set { this.SetValue(StatusBarItemProperty, value); }
+        get => (StatusBarItem?)this.GetValue(StatusBarItemProperty);
+        set => this.SetValue(StatusBarItemProperty, value);
     }
 
     /// <summary>Identifies the <see cref="StatusBarItem"/> dependency property.</summary>

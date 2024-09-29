@@ -201,8 +201,8 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.Description("Title of the screen tip")]
     public string Title
     {
-        get { return (string)this.GetValue(TitleProperty); }
-        set { this.SetValue(TitleProperty, value); }
+        get => (string)this.GetValue(TitleProperty);
+        set => this.SetValue(TitleProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
@@ -221,19 +221,32 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.DisplayName("Text")]
     [System.ComponentModel.Category("Screen Tip")]
     [System.ComponentModel.Description("Main text of the screen tip")]
-    public string Text
+    public object? Text
     {
-        get { return (string)this.GetValue(TextProperty); }
-        set { this.SetValue(TextProperty, value); }
+        get => (object?)this.GetValue(TextProperty);
+        set => this.SetValue(TextProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
     public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
-        DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+        DependencyProperty.Register(nameof(Text), typeof(object), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 #pragma warning restore WPF0010 // Default value type must match registered type.
 
     #endregion
+
+    /// <summary>Identifies the <see cref="TextTemplate"/> dependency property.</summary>
+    public static readonly DependencyProperty TextTemplateProperty = DependencyProperty.Register(
+        nameof(TextTemplate), typeof(DataTemplate), typeof(ScreenTip), new PropertyMetadata(default(DataTemplate)));
+
+    /// <summary>
+    /// Defines the <see cref="DataTemplate"/> being used to render <see cref="Text"/>.
+    /// </summary>
+    public DataTemplate? TextTemplate
+    {
+        get => (DataTemplate?)this.GetValue(TextTemplateProperty);
+        set => this.SetValue(TextTemplateProperty, value);
+    }
 
     #region DisableReason Property
 
@@ -245,8 +258,8 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.Description("Describe here what would cause disable of the control")]
     public string DisableReason
     {
-        get { return (string)this.GetValue(DisableReasonProperty); }
-        set { this.SetValue(DisableReasonProperty, value); }
+        get => (string)this.GetValue(DisableReasonProperty);
+        set => this.SetValue(DisableReasonProperty, value);
     }
 
     /// <summary>Identifies the <see cref="DisableReason"/> dependency property.</summary>
@@ -267,8 +280,8 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.Description("Help topic (it will be used to execute help)")]
     public object? HelpTopic
     {
-        get { return this.GetValue(HelpTopicProperty); }
-        set { this.SetValue(HelpTopicProperty, value); }
+        get => this.GetValue(HelpTopicProperty);
+        set => this.SetValue(HelpTopicProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HelpTopic"/> dependency property.</summary>
@@ -285,15 +298,15 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.DisplayName("Image")]
     [System.ComponentModel.Category("Screen Tip")]
     [System.ComponentModel.Description("Image of the screen tip")]
-    public ImageSource? Image
+    public object? Image
     {
-        get { return (ImageSource?)this.GetValue(ImageProperty); }
-        set { this.SetValue(ImageProperty, value); }
+        get => (object?)this.GetValue(ImageProperty);
+        set => this.SetValue(ImageProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Image"/> dependency property.</summary>
     public static readonly DependencyProperty ImageProperty =
-        DependencyProperty.Register(nameof(Image), typeof(ImageSource), typeof(ScreenTip), new PropertyMetadata());
+        DependencyProperty.Register(nameof(Image), typeof(object), typeof(ScreenTip), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
     #endregion
 
@@ -307,8 +320,8 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.Description("Sets the visibility of the F1 Help Label")]
     public Visibility HelpLabelVisibility
     {
-        get { return (Visibility)this.GetValue(HelpLabelVisibilityProperty); }
-        set { this.SetValue(HelpLabelVisibilityProperty, VisibilityBoxes.Box(value)); }
+        get => (Visibility)this.GetValue(HelpLabelVisibilityProperty);
+        set => this.SetValue(HelpLabelVisibilityProperty, VisibilityBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HelpLabelVisibility"/> dependency property.</summary>
@@ -332,8 +345,8 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     /// </summary>
     public bool IsRibbonAligned
     {
-        get { return (bool)this.GetValue(IsRibbonAlignedProperty); }
-        set { this.SetValue(IsRibbonAlignedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsRibbonAlignedProperty);
+        set => this.SetValue(IsRibbonAlignedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsRibbonAligned"/> dependency property.</summary>
@@ -388,7 +401,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     #endregion
 
     /// <inheritdoc />
-    protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonScreenTipAutomationPeer(this);
+    protected override AutomationPeer OnCreateAutomationPeer() => new Automation.Peers.RibbonScreenTipAutomationPeer(this);
 
     /// <inheritdoc />
     void ILogicalChildSupport.AddLogicalChild(object child)
@@ -411,6 +424,16 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
             while (baseEnumerator?.MoveNext() == true)
             {
                 yield return baseEnumerator.Current;
+            }
+
+            if (this.Text is not null)
+            {
+                yield return this.Text;
+            }
+
+            if (this.Image is not null)
+            {
+                yield return this.Image;
             }
 
             if (this.HelpTopic is not null)

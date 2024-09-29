@@ -162,29 +162,29 @@ public class RibbonTests
         using (new TestRibbonWindow(ribbon))
         {
             ribbon.ApplyTemplate();
-            Assert.IsNotNull(ribbon.QuickAccessToolBar);
+            Assert.That(ribbon.QuickAccessToolBar, Is.Not.Null);
 
             var oldTitleBar = ribbon.TitleBar = new RibbonTitleBar();
-            Assert.AreEqual(1, oldTitleBar.Items.Count);
-            Assert.AreSame(ribbon.QuickAccessToolBar, oldTitleBar.QuickAccessToolBar);
+            Assert.That(oldTitleBar.Items.Count, Is.EqualTo(1));
+            Assert.That(ribbon.QuickAccessToolBar, Is.EqualTo(oldTitleBar.QuickAccessToolBar));
 
             var newTitleBar = new RibbonTitleBar();
-            Assert.AreEqual(0, newTitleBar.Items.Count);
-            Assert.IsNull(newTitleBar.QuickAccessToolBar);
+            Assert.That(newTitleBar.Items.Count, Is.EqualTo(0));
+            Assert.That(newTitleBar.QuickAccessToolBar, Is.Null);
 
             // assign a new title bar, the contextual groups and quick access are transferred across
             ribbon.TitleBar = newTitleBar;
-            Assert.AreEqual(0, oldTitleBar.Items.Count);
-            Assert.IsNull(oldTitleBar.QuickAccessToolBar);
-            Assert.AreEqual(1, newTitleBar.Items.Count);
-            Assert.AreSame(ribbon.QuickAccessToolBar, newTitleBar.QuickAccessToolBar);
+            Assert.That(oldTitleBar.Items.Count, Is.EqualTo(0));
+            Assert.That(oldTitleBar.QuickAccessToolBar, Is.Null);
+            Assert.That(newTitleBar.Items.Count, Is.EqualTo(1));
+            Assert.That(newTitleBar.QuickAccessToolBar, Is.EqualTo(ribbon.QuickAccessToolBar));
 
             // remove the title bar
             ribbon.TitleBar = null;
-            Assert.AreEqual(0, oldTitleBar.Items.Count);
-            Assert.IsNull(oldTitleBar.QuickAccessToolBar);
-            Assert.AreEqual(0, newTitleBar.Items.Count);
-            Assert.IsNull(newTitleBar.QuickAccessToolBar);
+            Assert.That(oldTitleBar.Items.Count, Is.EqualTo(0));
+            Assert.That(oldTitleBar.QuickAccessToolBar, Is.Null);
+            Assert.That(newTitleBar.Items.Count, Is.EqualTo(0));
+            Assert.That(newTitleBar.QuickAccessToolBar, Is.Null);
         }
     }
 

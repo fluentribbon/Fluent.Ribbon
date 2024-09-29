@@ -16,6 +16,11 @@ public static class StaticConverters
     public static readonly ThicknessConverter ThicknessConverter = new();
 
     /// <summary>
+    /// Get a static instance of <see cref="CornerRadiusConverter"/>
+    /// </summary>
+    public static readonly CornerRadiusConverter CornerRadiusConverter = new();
+
+    /// <summary>
     /// Get a static instance of <see cref="ObjectToImageConverter"/>
     /// </summary>
     public static readonly ObjectToImageConverter ObjectToImageConverter = new();

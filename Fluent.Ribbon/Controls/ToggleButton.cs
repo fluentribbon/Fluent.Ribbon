@@ -8,6 +8,7 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
+using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
 
@@ -25,8 +26,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -39,8 +40,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -53,8 +54,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public RibbonControlSizeDefinition SimplifiedSizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
-        set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty);
+        set => this.SetValue(SimplifiedSizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
@@ -67,8 +68,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <inheritdoc cref="Fluent.KeyTip.KeysProperty"/>
@@ -81,8 +82,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public string? GroupName
     {
-        get { return (string?)this.GetValue(GroupNameProperty); }
-        set { this.SetValue(GroupNameProperty, value); }
+        get => (string?)this.GetValue(GroupNameProperty);
+        set => this.SetValue(GroupNameProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupName"/> dependency property.</summary>
@@ -96,8 +97,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -106,8 +107,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -116,8 +117,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -130,8 +131,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -144,8 +145,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public object? LargeIcon
     {
-        get { return this.GetValue(LargeIconProperty); }
-        set { this.SetValue(LargeIconProperty, value); }
+        get => this.GetValue(LargeIconProperty);
+        set => this.SetValue(LargeIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
@@ -158,8 +159,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public object? MediumIcon
     {
-        get { return this.GetValue(MediumIconProperty); }
-        set { this.SetValue(MediumIconProperty, value); }
+        get => this.GetValue(MediumIconProperty);
+        set => this.SetValue(MediumIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
@@ -174,8 +175,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// </summary>
     public bool IsDefinitive
     {
-        get { return (bool)this.GetValue(IsDefinitiveProperty); }
-        set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDefinitiveProperty);
+        set => this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -191,8 +192,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
@@ -248,6 +249,14 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
             {
                 base.OnClick();
             }
+            else
+            {
+                // Fix for #1196
+                var newEvent = new RoutedEventArgs(ClickEvent, this);
+                this.RaiseEvent(newEvent);
+
+                this.ExecuteCommand();
+            }
         }
         else
         {
@@ -289,8 +298,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

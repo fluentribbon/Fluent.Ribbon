@@ -6,7 +6,7 @@ using FluentTest.Commanding;
 
 public class GalleryViewModel : ViewModel
 {
-    private ObservableCollection<GalleryItemViewModel> items;
+    private ObservableCollection<GalleryItemViewModel> items = null!;
 
     public GalleryViewModel()
     {
@@ -18,7 +18,7 @@ public class GalleryViewModel : ViewModel
 
     public ObservableCollection<GalleryItemViewModel> Items
     {
-        get { return this.items; }
+        get => this.items;
 
         private set
         {

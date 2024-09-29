@@ -123,7 +123,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
     #region Implementation of IValueConverter
 
     /// <inheritdoc />
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         var desiredSize = Size.Empty;
 
@@ -143,7 +143,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
     }
 
     /// <inheritdoc />
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return Binding.DoNothing;
     }
@@ -161,7 +161,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
     #region Implementation of IMultiValueConverter
 
     /// <inheritdoc />
-    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         var desiredSize = Size.Empty;
         var valuesLength = values.Length;
@@ -246,10 +246,39 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
             multiBinding.Bindings.Add(this.TargetVisualBinding);
         }
 
-        return multiBinding.ProvideValue(serviceProvider);
+        return multiBinding.ProvideValue(new ServiceProviderWrapper(serviceProvider));
     }
 
-    private object Convert(object value, Visual? targetVisual, Size desiredSize, Type targetType)
+    private class ServiceProviderWrapper : IServiceProvider, IProvideValueTarget
+    {
+        private readonly IServiceProvider serviceProvider;
+
+        public ServiceProviderWrapper(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
+        /// <inheritdoc />
+        public object? GetService(Type serviceType)
+        {
+            if (serviceType == typeof(IProvideValueTarget))
+            {
+                return this;
+            }
+
+            return this.serviceProvider.GetService(serviceType);
+        }
+
+        /// <inheritdoc />
+        public object? TargetObject => ((IProvideValueTarget)this.serviceProvider).TargetObject is DependencyObject dpo
+            ? dpo
+            : null;
+
+        /// <inheritdoc />
+        public object TargetProperty => ((IProvideValueTarget)this.serviceProvider).TargetProperty;
+    }
+
+    private object? Convert(object? value, Visual? targetVisual, Size desiredSize, Type targetType)
     {
         var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 
@@ -366,9 +395,17 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
             {
                 var type = expression.GetType();
                 var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                var field = type.GetField("_targetObject", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-                if (method is not null)
+                if (method is not null
+                    && field is not null)
                 {
+                    // We have to set the target object. otherwise we might hit debug asserts.
+                    if (field.GetValue(expression) is null)
+                    {
+                        field.SetValue(expression, targetVisual);
+                    }
+
                     var valueFromExpression = method.Invoke(expression, new object[]
                     {
                         targetVisual,

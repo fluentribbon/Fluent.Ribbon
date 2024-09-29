@@ -68,8 +68,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -124,8 +124,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public RibbonGroupBoxStateDefinition StateDefinition
     {
-        get { return (RibbonGroupBoxStateDefinition)this.GetValue(StateDefinitionProperty); }
-        set { this.SetValue(StateDefinitionProperty, value); }
+        get => (RibbonGroupBoxStateDefinition)this.GetValue(StateDefinitionProperty);
+        set => this.SetValue(StateDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="StateDefinition"/> dependency property.</summary>
@@ -152,8 +152,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public RibbonGroupBoxStateDefinition SimplifiedStateDefinition
     {
-        get { return (RibbonGroupBoxStateDefinition)this.GetValue(SimplifiedStateDefinitionProperty); }
-        set { this.SetValue(SimplifiedStateDefinitionProperty, value); }
+        get => (RibbonGroupBoxStateDefinition)this.GetValue(SimplifiedStateDefinitionProperty);
+        set => this.SetValue(SimplifiedStateDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SimplifiedStateDefinition"/> dependency property.</summary>
@@ -180,8 +180,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public RibbonGroupBoxState State
     {
-        get { return (RibbonGroupBoxState)this.GetValue(StateProperty); }
-        set { this.SetValue(StateProperty, value); }
+        get => (RibbonGroupBoxState)this.GetValue(StateProperty);
+        set => this.SetValue(StateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="State"/> dependency property.</summary>
@@ -210,11 +210,11 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         foreach (var item in this.Items)
         {
             var element = this.ItemContainerGenerator.ContainerFromItem(item);
-            this.UpdateChildSizesOfUIElement(element, groupBoxState, isSimplified);
+            this.UpdateChildSizesOfUIElement(item, element, groupBoxState, isSimplified);
         }
     }
 
-    private void UpdateChildSizesOfUIElement(DependencyObject? element, RibbonGroupBoxState groupBoxState, bool isSimplified)
+    private void UpdateChildSizesOfUIElement(object item, DependencyObject? element, RibbonGroupBoxState groupBoxState, bool isSimplified)
     {
         if (element is null)
         {
@@ -225,17 +225,27 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         {
             for (var i = 0; i < panel.Children.Count; i++)
             {
-                this.UpdateChildSizesOfUIElement(panel.Children[i], groupBoxState, isSimplified);
+                this.UpdateChildSizesOfUIElement(panel.Children[i], panel.Children[i], groupBoxState, isSimplified);
             }
         }
 
-        if (element is ContentPresenter)
+        // Bound items
+        if (element is ContentPresenter contentPresenter
+            && item is not DispatcherObject)
         {
-            element = UIHelper.GetFirstVisualChild(element) ?? element;
+            contentPresenter.WhenLoaded(x => UpdateValues(UIHelper.GetFirstVisualChild(x) ?? x, groupBoxState, isSimplified));
+            return;
         }
 
-        UpdateIsSimplifiedOfUIElement(element, isSimplified);
-        RibbonProperties.SetAppropriateSize(element, groupBoxState, isSimplified);
+        UpdateValues(element, groupBoxState, isSimplified);
+
+        return;
+
+        static void UpdateValues(DependencyObject element, RibbonGroupBoxState groupBoxState, bool isSimplified)
+        {
+            UpdateIsSimplifiedOfUIElement(element, isSimplified);
+            RibbonProperties.SetAppropriateSize(element, groupBoxState, isSimplified);
+        }
     }
 
     #endregion
@@ -250,7 +260,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     internal int Scale
     {
-        get { return this.scale; }
+        get => this.scale;
 
         set
         {
@@ -344,8 +354,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public bool IsLauncherVisible
     {
-        get { return (bool)this.GetValue(IsLauncherVisibleProperty); }
-        set { this.SetValue(IsLauncherVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsLauncherVisibleProperty);
+        set => this.SetValue(IsLauncherVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsLauncherVisible"/> dependency property.</summary>
@@ -364,8 +374,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     [Description("Key tip keys for dialog launcher button")]
     public string? LauncherKeys
     {
-        get { return (string?)this.GetValue(LauncherKeysProperty); }
-        set { this.SetValue(LauncherKeysProperty, value); }
+        get => (string?)this.GetValue(LauncherKeysProperty);
+        set => this.SetValue(LauncherKeysProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LauncherKeys"/> dependency property.</summary>
@@ -391,8 +401,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public object? LauncherIcon
     {
-        get { return this.GetValue(LauncherIconProperty); }
-        set { this.SetValue(LauncherIconProperty, value); }
+        get => this.GetValue(LauncherIconProperty);
+        set => this.SetValue(LauncherIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LauncherIcon"/> dependency property.</summary>
@@ -408,8 +418,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public string? LauncherText
     {
-        get { return (string?)this.GetValue(LauncherTextProperty); }
-        set { this.SetValue(LauncherTextProperty, value); }
+        get => (string?)this.GetValue(LauncherTextProperty);
+        set => this.SetValue(LauncherTextProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LauncherText"/> dependency property.</summary>
@@ -428,15 +438,9 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     [Bindable(true)]
     public ICommand? LauncherCommand
     {
-        get
-        {
-            return (ICommand?)this.GetValue(LauncherCommandProperty);
-        }
+        get => (ICommand?)this.GetValue(LauncherCommandProperty);
 
-        set
-        {
-            this.SetValue(LauncherCommandProperty, value);
-        }
+        set => this.SetValue(LauncherCommandProperty, value);
     }
 
     /// <summary>
@@ -447,15 +451,9 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     [Category("Action")]
     public object? LauncherCommandParameter
     {
-        get
-        {
-            return this.GetValue(LauncherCommandParameterProperty);
-        }
+        get => this.GetValue(LauncherCommandParameterProperty);
 
-        set
-        {
-            this.SetValue(LauncherCommandParameterProperty, value);
-        }
+        set => this.SetValue(LauncherCommandParameterProperty, value);
     }
 
     /// <summary>
@@ -465,15 +463,9 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     [Category("Action")]
     public IInputElement? LauncherCommandTarget
     {
-        get
-        {
-            return (IInputElement?)this.GetValue(LauncherCommandTargetProperty);
-        }
+        get => (IInputElement?)this.GetValue(LauncherCommandTargetProperty);
 
-        set
-        {
-            this.SetValue(LauncherCommandTargetProperty, value);
-        }
+        set => this.SetValue(LauncherCommandTargetProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LauncherCommandParameter"/> dependency property.</summary>
@@ -494,8 +486,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public object? LauncherToolTip
     {
-        get { return this.GetValue(LauncherToolTipProperty); }
-        set { this.SetValue(LauncherToolTipProperty, value); }
+        get => this.GetValue(LauncherToolTipProperty);
+        set => this.SetValue(LauncherToolTipProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LauncherToolTip"/> dependency property.</summary>
@@ -511,8 +503,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public bool IsLauncherEnabled
     {
-        get { return (bool)this.GetValue(IsLauncherEnabledProperty); }
-        set { this.SetValue(IsLauncherEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsLauncherEnabledProperty);
+        set => this.SetValue(IsLauncherEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsLauncherEnabled"/> dependency property.</summary>
@@ -528,8 +520,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public Button? LauncherButton
     {
-        get { return (Button?)this.GetValue(LauncherButtonProperty); }
-        private set { this.SetValue(LauncherButtonPropertyKey, value); }
+        get => (Button?)this.GetValue(LauncherButtonProperty);
+        private set => this.SetValue(LauncherButtonPropertyKey, value);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -546,8 +538,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public bool IsDropDownOpen
     {
-        get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-        set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDropDownOpenProperty);
+        set => this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -577,8 +569,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -591,8 +583,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public object? MediumIcon
     {
-        get { return this.GetValue(MediumIconProperty); }
-        set { this.SetValue(MediumIconProperty, value); }
+        get => this.GetValue(MediumIconProperty);
+        set => this.SetValue(MediumIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
@@ -605,8 +597,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public object? LargeIcon
     {
-        get { return this.GetValue(LargeIconProperty); }
-        set { this.SetValue(LargeIconProperty, value); }
+        get => this.GetValue(LargeIconProperty);
+        set => this.SetValue(LargeIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
@@ -621,8 +613,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public bool IsSeparatorVisible
     {
-        get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
-        set { this.SetValue(IsSeparatorVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSeparatorVisibleProperty);
+        set => this.SetValue(IsSeparatorVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsSeparatorVisible"/> dependency property.</summary>
@@ -636,17 +628,16 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     #region IsSimplified
 
     /// <summary>
-    /// Gets or sets whether or not the ribbon is in Simplified mode
+    /// Gets or sets whether or not the ribbon is in simplified mode.
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     // ReSharper disable once InconsistentNaming
-    private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
-        DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
+    private static readonly DependencyPropertyKey IsSimplifiedPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
     /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
     public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
@@ -821,10 +812,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public bool IsSnapped
     {
-        get
-        {
-            return this.isSnapped;
-        }
+        get => this.isSnapped;
 
         set
         {
@@ -904,9 +892,9 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
             return false;
         }
 
-        this.State = RibbonGroupBoxState.Large;
+        this.State = this.StateDefinition.States[0];
         this.Scale = 0;
-        this.StateIntermediate = RibbonGroupBoxState.Large;
+        this.StateIntermediate = this.StateDefinition.States[0];
         this.ScaleIntermediate = 0;
 
         this.ResetScaleableItems();
@@ -931,14 +919,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         }
 
         return false;
-    }
-
-    /// <summary>
-    /// Clears cache
-    /// </summary>
-    [Obsolete("This method does nothing anymore and will be removed in the next major version.")]
-    public void ClearCache()
-    {
     }
 
     /// <summary>
@@ -1283,8 +1263,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

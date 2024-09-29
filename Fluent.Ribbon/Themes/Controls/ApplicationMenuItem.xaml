@@ -21,9 +21,7 @@
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              MinHeight="53"
+        <Grid MinHeight="53"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -33,7 +31,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -43,8 +40,6 @@
                     Visibility="Collapsed" />
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 5 3 3"
                        VerticalAlignment="Top"
                        FontWeight="Bold"
@@ -53,8 +48,6 @@
                        d:LayoutOverrides="Width" />
             <TextBlock x:Name="textBlockDesc"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 22 3 3"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Top"
@@ -86,9 +79,9 @@
                                   Margin="3 4 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
@@ -130,9 +123,7 @@
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              MinHeight="53"
+        <Grid MinHeight="53"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -142,7 +133,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -152,8 +142,6 @@
                     Visibility="Collapsed" />
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 5 3 3"
                        VerticalAlignment="Top"
                        FontWeight="Bold"
@@ -162,8 +150,6 @@
                        d:LayoutOverrides="Width" />
             <TextBlock x:Name="textBlockDesc"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 22 3 3"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Top"
@@ -195,9 +181,9 @@
                                   Margin="3 4 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Grid.Column="3"
                   Width="4"
@@ -276,7 +262,6 @@
                     </Rectangle>
                     <Rectangle Grid.Row="1"
                                Grid.Column="0"
-                               Width="Auto"
                                Height="4"
                                Margin="7 -1 1 0"
                                HorizontalAlignment="Stretch"
@@ -292,7 +277,6 @@
                     <Rectangle Grid.Row="0"
                                Grid.Column="1"
                                Width="4"
-                               Height="Auto"
                                Margin="-1 7 0 1"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Stretch"
@@ -313,13 +297,9 @@
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
+                            <Border VerticalAlignment="Stretch"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
@@ -332,7 +312,6 @@
                                 </Grid.RowDefinitions>
                                 <Path Grid.RowSpan="2"
                                       Width="1"
-                                      Height="Auto"
                                       Margin="24 0 0 0"
                                       HorizontalAlignment="Left"
                                       Data="M0,0L0,1"
@@ -386,8 +365,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedApplicationMenuSecondLevelItem"
+    <!-- Split Menu Item Template -->
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitApplicationMenuSecondLevelItem"
                      TargetType="{x:Type Fluent:MenuItem}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -396,9 +375,7 @@
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              MinHeight="53"
+        <Grid MinHeight="53"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -414,7 +391,6 @@
 
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
-                  Width="Auto"
                   Margin="0"
                   HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
@@ -431,7 +407,6 @@
                         Visibility="Collapsed" />
                 <Border x:Name="Submenu_Border"
                         Grid.Column="1"
-                        Width="Auto"
                         Margin="0"
                         HorizontalAlignment="Stretch"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -442,8 +417,6 @@
             </Grid>
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 5 3 3"
                        VerticalAlignment="Top"
                        FontWeight="Bold"
@@ -452,8 +425,6 @@
                        d:LayoutOverrides="Width" />
             <TextBlock x:Name="textBlockDesc"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 22 3 3"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Top"
@@ -485,9 +456,9 @@
                                   Margin="3 4 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Grid.Column="3"
                   Width="4"
@@ -519,13 +490,9 @@
                             BorderThickness="1"
                             CornerRadius="1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
+                            <Border VerticalAlignment="Stretch"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
@@ -538,7 +505,6 @@
                                 </Grid.RowDefinitions>
                                 <Path Grid.RowSpan="2"
                                       Width="1"
-                                      Height="Auto"
                                       Margin="24 0 0 0"
                                       HorizontalAlignment="Left"
                                       Data="M0,0L0,1"
@@ -610,14 +576,14 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedApplicationMenuSecondLevelItem}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitApplicationMenuSecondLevelItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HeaderApplicationMenuSecondLevelItem}" />
@@ -636,8 +602,7 @@
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="44"
+        <Grid Height="44"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -647,7 +612,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -657,8 +621,6 @@
                     Visibility="Collapsed" />
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 3 3 3"
                        VerticalAlignment="Center"
                        Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
@@ -666,8 +628,6 @@
                        d:LayoutOverrides="Width" />
             <TextBlock x:Name="textBlockDesc"
                        Grid.Column="2"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="0 3 3 3"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
@@ -698,9 +658,9 @@
                                   Margin="3 2 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
@@ -743,8 +703,7 @@
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="44"
+        <Grid Height="44"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -754,7 +713,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -764,8 +722,6 @@
                     Visibility="Collapsed" />
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 3 3 3"
                        VerticalAlignment="Center"
                        Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
@@ -795,9 +751,9 @@
                                   Margin="3 2 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Grid.Column="3"
                   Width="4"
@@ -880,7 +836,6 @@
                     </Rectangle>
                     <Rectangle Grid.Row="1"
                                Grid.Column="0"
-                               Width="Auto"
                                Height="4"
                                Margin="7 -1 1 0"
                                HorizontalAlignment="Stretch"
@@ -896,7 +851,6 @@
                     <Rectangle Grid.Row="0"
                                Grid.Column="1"
                                Width="4"
-                               Height="Auto"
                                Margin="-1 7 0 1"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Stretch"
@@ -917,13 +871,9 @@
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
+                            <Border VerticalAlignment="Stretch"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
@@ -981,8 +931,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedApplicationMenuItem"
+    <!-- Split Menu Item Template -->
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitApplicationMenuItem"
                      TargetType="{x:Type Fluent:MenuItem}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -991,8 +941,7 @@
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="44"
+        <Grid Height="44"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -1008,7 +957,6 @@
 
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
-                  Width="Auto"
                   Margin="0"
                   HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
@@ -1025,7 +973,6 @@
                         Visibility="Collapsed" />
                 <Border x:Name="Submenu_Border"
                         Grid.Column="1"
-                        Width="Auto"
                         Margin="0"
                         HorizontalAlignment="Stretch"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -1036,8 +983,6 @@
             </Grid>
             <TextBlock x:Name="textBlock"
                        Grid.Column="1"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="9 3 3 3"
                        VerticalAlignment="Center"
                        Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
@@ -1067,9 +1012,9 @@
                                   Margin="3 2 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Grid.Column="3"
                   Width="4"
@@ -1152,7 +1097,6 @@
                     </Rectangle>
                     <Rectangle Grid.Row="1"
                                Grid.Column="0"
-                               Width="Auto"
                                Height="4"
                                Margin="7 -1 1 0"
                                HorizontalAlignment="Stretch"
@@ -1168,7 +1112,6 @@
                     <Rectangle Grid.Row="0"
                                Grid.Column="1"
                                Width="4"
-                               Height="Auto"
                                Margin="-1 7 0 1"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Stretch"
@@ -1189,13 +1132,9 @@
                             BorderThickness="1"
                             CornerRadius="1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
+                            <Border VerticalAlignment="Stretch"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
@@ -1271,15 +1210,15 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:SplitedApplicationMenuItemItemContainerStyleSelector.Instance}" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedApplicationMenuItem}" />
+                <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:SplitApplicationMenuItemItemContainerStyleSelector.Instance}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitApplicationMenuItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:HeaderApplicationMenuItemItemContainerStyleSelector.Instance}" />

@@ -19,8 +19,8 @@ public class RibbonToolBarControlGroup : ItemsControl
     /// </summary>
     public bool IsFirstInRow
     {
-        get { return (bool)this.GetValue(IsFirstInRowProperty); }
-        set { this.SetValue(IsFirstInRowProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsFirstInRowProperty);
+        set => this.SetValue(IsFirstInRowProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsFirstInRow"/> dependency property.</summary>
@@ -32,8 +32,8 @@ public class RibbonToolBarControlGroup : ItemsControl
     /// </summary>
     public bool IsLastInRow
     {
-        get { return (bool)this.GetValue(IsLastInRowProperty); }
-        set { this.SetValue(IsLastInRowProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsLastInRowProperty);
+        set => this.SetValue(IsLastInRowProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsLastInRow"/> dependency property.</summary>

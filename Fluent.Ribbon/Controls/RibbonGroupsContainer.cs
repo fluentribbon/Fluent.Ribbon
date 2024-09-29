@@ -46,8 +46,8 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// </summary>
     public string? ReduceOrder
     {
-        get { return (string?)this.GetValue(ReduceOrderProperty); }
-        set { this.SetValue(ReduceOrderProperty, value); }
+        get => (string?)this.GetValue(ReduceOrderProperty);
+        set => this.SetValue(ReduceOrderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ReduceOrder"/> dependency property.</summary>
@@ -282,8 +282,8 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     public ScrollViewer? ScrollOwner
     {
-        get { return this.ScrollData.ScrollOwner; }
-        set { this.ScrollData.ScrollOwner = value; }
+        get => this.ScrollData.ScrollOwner;
+        set => this.ScrollData.ScrollOwner = value;
     }
 
     /// <inheritdoc />
@@ -299,22 +299,13 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     }
 
     /// <inheritdoc />
-    public double ExtentWidth
-    {
-        get { return this.ScrollData.ExtentWidth; }
-    }
+    public double ExtentWidth => this.ScrollData.ExtentWidth;
 
     /// <inheritdoc />
-    public double HorizontalOffset
-    {
-        get { return this.ScrollData.OffsetX; }
-    }
+    public double HorizontalOffset => this.ScrollData.OffsetX;
 
     /// <inheritdoc />
-    public double ViewportWidth
-    {
-        get { return this.ScrollData.ViewportWidth; }
-    }
+    public double ViewportWidth => this.ScrollData.ViewportWidth;
 
     /// <inheritdoc />
     public void LineLeft()
@@ -484,49 +475,34 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     public bool CanVerticallyScroll
     {
-        get { return false; }
+        get => false;
         set { }
     }
 
     /// <inheritdoc />
     public bool CanHorizontallyScroll
     {
-        get { return true; }
+        get => true;
         set { }
     }
 
     /// <summary>
     /// Not implemented
     /// </summary>
-    public double ExtentHeight
-    {
-        get { return 0.0; }
-    }
+    public double ExtentHeight => 0.0;
 
     /// <summary>
     /// Not implemented
     /// </summary>
-    public double VerticalOffset
-    {
-        get { return 0.0; }
-    }
+    public double VerticalOffset => 0.0;
 
     /// <summary>
     /// Not implemented
     /// </summary>
-    public double ViewportHeight
-    {
-        get { return 0.0; }
-    }
+    public double ViewportHeight => 0.0;
 
     // Gets scroll data info
-    private ScrollData ScrollData
-    {
-        get
-        {
-            return this.scrollData ?? (this.scrollData = new ScrollData());
-        }
-    }
+    private ScrollData ScrollData => this.scrollData ?? (this.scrollData = new ScrollData());
 
     // Scroll data info
     private ScrollData? scrollData;

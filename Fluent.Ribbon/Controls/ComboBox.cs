@@ -55,8 +55,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -69,8 +69,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -83,8 +83,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSizeDefinition SimplifiedSizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
-        set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty);
+        set => this.SetValue(SimplifiedSizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
@@ -97,8 +97,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>Identifies the <see cref="KeyTip"/> dependency property.</summary>
@@ -117,8 +117,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -127,8 +127,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -137,8 +137,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -151,8 +151,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -165,8 +165,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public object? MediumIcon
     {
-        get { return this.GetValue(MediumIconProperty); }
-        set { this.SetValue(MediumIconProperty, value); }
+        get => this.GetValue(MediumIconProperty);
+        set => this.SetValue(MediumIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
@@ -181,8 +181,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public object? TopPopupContent
     {
-        get { return (object?)this.GetValue(TopPopupContentProperty); }
-        set { this.SetValue(TopPopupContentProperty, value); }
+        get => (object?)this.GetValue(TopPopupContentProperty);
+        set => this.SetValue(TopPopupContentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TopPopupContent"/> dependency property.</summary>
@@ -194,8 +194,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public DataTemplate? TopPopupContentTemplate
     {
-        get { return (DataTemplate?)this.GetValue(TopPopupContentTemplateProperty); }
-        set { this.SetValue(TopPopupContentTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(TopPopupContentTemplateProperty);
+        set => this.SetValue(TopPopupContentTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TopPopupContentTemplate"/> dependency property.</summary>
@@ -207,8 +207,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public DataTemplateSelector? TopPopupContentTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(TopPopupContentTemplateSelectorProperty); }
-        set { this.SetValue(TopPopupContentTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(TopPopupContentTemplateSelectorProperty);
+        set => this.SetValue(TopPopupContentTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TopPopupContentTemplateSelector"/> dependency property.</summary>
@@ -220,8 +220,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public string? TopPopupContentStringFormat
     {
-        get { return (string?)this.GetValue(TopPopupContentStringFormatProperty); }
-        set { this.SetValue(TopPopupContentStringFormatProperty, value); }
+        get => (string?)this.GetValue(TopPopupContentStringFormatProperty);
+        set => this.SetValue(TopPopupContentStringFormatProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TopPopupContentStringFormat"/> dependency property.</summary>
@@ -237,8 +237,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public RibbonMenu? Menu
     {
-        get { return (RibbonMenu?)this.GetValue(MenuProperty); }
-        set { this.SetValue(MenuProperty, value); }
+        get => (RibbonMenu?)this.GetValue(MenuProperty);
+        set => this.SetValue(MenuProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
@@ -254,8 +254,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public ContextMenuResizeMode ResizeMode
     {
-        get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
-        set { this.SetValue(ResizeModeProperty, value); }
+        get => (ContextMenuResizeMode)this.GetValue(ResizeModeProperty);
+        set => this.SetValue(ResizeModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
@@ -272,7 +272,7 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     private bool IsSnapped
     {
-        get { return this.isSnapped; }
+        get => this.isSnapped;
 
         set
         {
@@ -323,8 +323,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public double DropDownHeight
     {
-        get { return (double)this.GetValue(DropDownHeightProperty); }
-        set { this.SetValue(DropDownHeightProperty, value); }
+        get => (double)this.GetValue(DropDownHeightProperty);
+        set => this.SetValue(DropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="DropDownHeight"/> dependency property.</summary>
@@ -340,8 +340,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
@@ -365,6 +365,7 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
 
         DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
         SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnSelectedItemChanged, CoerceSelectedItem));
+        MaxDropDownHeightProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(double.NaN, null, DropDownHelper.CoerceMaxDropDownHeight));
 
         ToolTipService.Attach(type);
         PopupService.Attach(type);
@@ -608,8 +609,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
@@ -652,6 +653,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     protected override void OnDropDownOpened(EventArgs e)
     {
+        this.CoerceValue(MaxDropDownHeightProperty);
+
         base.OnDropDownOpened(e);
 
         Mouse.Capture(this, CaptureMode.SubTree);

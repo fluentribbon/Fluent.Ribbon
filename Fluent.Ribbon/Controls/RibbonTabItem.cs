@@ -38,9 +38,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     // Content container
     private Border? contentContainer;
 
-    // Desired width
-    private double desiredWidth;
-
     // Collection of ribbon groups
     private ObservableCollection<RibbonGroupBox>? groups;
 
@@ -63,8 +60,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public Brush? ActiveTabBackground
     {
-        get { return (Brush?)this.GetValue(ActiveTabBackgroundProperty); }
-        set { this.SetValue(ActiveTabBackgroundProperty, value); }
+        get => (Brush?)this.GetValue(ActiveTabBackgroundProperty);
+        set => this.SetValue(ActiveTabBackgroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ActiveTabBackground"/> dependency property.</summary>
@@ -76,8 +73,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public Brush? ActiveTabBorderBrush
     {
-        get { return (Brush?)this.GetValue(ActiveTabBorderBrushProperty); }
-        set { this.SetValue(ActiveTabBorderBrushProperty, value); }
+        get => (Brush?)this.GetValue(ActiveTabBorderBrushProperty);
+        set => this.SetValue(ActiveTabBorderBrushProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ActiveTabBorderBrush"/> dependency property.</summary>
@@ -91,8 +88,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -113,8 +110,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public string? ReduceOrder
     {
-        get { return this.groupsInnerContainer.ReduceOrder; }
-        set { this.groupsInnerContainer.ReduceOrder = value; }
+        get => this.groupsInnerContainer.ReduceOrder;
+        set => this.groupsInnerContainer.ReduceOrder = value;
     }
 
     #region IsContextual
@@ -124,8 +121,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool IsContextual
     {
-        get { return (bool)this.GetValue(IsContextualProperty); }
-        private set { this.SetValue(IsContextualPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsContextualProperty);
+        private set => this.SetValue(IsContextualPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsContextualPropertyKey =
@@ -143,22 +140,16 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     [Category("Appearance")]
     public bool IsSelected
     {
-        get
-        {
-            return (bool)this.GetValue(IsSelectedProperty);
-        }
+        get => (bool)this.GetValue(IsSelectedProperty);
 
-        set
-        {
-            this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value));
-        }
+        set => this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>
     /// Using a DependencyProperty as the backing store for IsSelected.
     /// This enables animation, styling, binding, etc...
     /// </summary>
-    public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
+    public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsSelectedChanged));
 
     /// <summary>
     /// Gets ribbon tab control parent
@@ -170,34 +161,32 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public Thickness HeaderPadding
     {
-        get { return (Thickness)this.GetValue(HeaderPaddingProperty); }
-        set { this.SetValue(HeaderPaddingProperty, value); }
+        get => (Thickness)this.GetValue(HeaderPaddingProperty);
+        set => this.SetValue(HeaderPaddingProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
-    public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(8, 5, 8, 5)));
+    public static readonly DependencyProperty HeaderPaddingProperty = DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new FrameworkPropertyMetadata(new Thickness(9, 3, 9, 6), FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
+
+    /// <summary>Identifies the <see cref="SeparatorOpacity"/> dependency property.</summary>
+    public static readonly DependencyProperty SeparatorOpacityProperty = DependencyProperty.Register(nameof(SeparatorOpacity), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(DoubleBoxes.Zero));
 
     /// <summary>
-    /// Gets or sets whether separator is visible
+    /// Gets or sets the opacity of the separator.
     /// </summary>
-    public bool IsSeparatorVisible
+    public double SeparatorOpacity
     {
-        get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
-        set { this.SetValue(IsSeparatorVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (double)this.GetValue(SeparatorOpacityProperty);
+        set => this.SetValue(SeparatorOpacityProperty, value);
     }
-
-    /// <summary>Identifies the <see cref="IsSeparatorVisible"/> dependency property.</summary>
-    public static readonly DependencyProperty IsSeparatorVisibleProperty =
-        DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
     /// <summary>
     /// Gets or sets ribbon contextual tab group
     /// </summary>
     public RibbonContextualTabGroup? Group
     {
-        get { return (RibbonContextualTabGroup?)this.GetValue(GroupProperty); }
-        set { this.SetValue(GroupProperty, value); }
+        get => (RibbonContextualTabGroup?)this.GetValue(GroupProperty);
+        set => this.SetValue(GroupProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Group"/> dependency property.</summary>
@@ -223,27 +212,12 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     }
 
     /// <summary>
-    /// Gets or sets desired width of the tab item.
-    /// </summary>
-    /// <remarks>This is needed in case the width of <see cref="Group"/> is larger than it's tabs.</remarks>
-    internal double DesiredWidth
-    {
-        get { return this.desiredWidth; }
-
-        set
-        {
-            this.desiredWidth = value;
-            this.InvalidateMeasure();
-        }
-    }
-
-    /// <summary>
     /// Gets or sets whether tab item has left group border
     /// </summary>
     public bool HasLeftGroupBorder
     {
-        get { return (bool)this.GetValue(HasLeftGroupBorderProperty); }
-        set { this.SetValue(HasLeftGroupBorderProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasLeftGroupBorderProperty);
+        set => this.SetValue(HasLeftGroupBorderProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasLeftGroupBorder"/> dependency property.</summary>
@@ -255,8 +229,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool HasRightGroupBorder
     {
-        get { return (bool)this.GetValue(HasRightGroupBorderProperty); }
-        set { this.SetValue(HasRightGroupBorderProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasRightGroupBorderProperty);
+        set => this.SetValue(HasRightGroupBorderProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasRightGroupBorder"/> dependency property.</summary>
@@ -361,8 +335,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -371,8 +345,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -381,8 +355,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -442,8 +416,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
@@ -518,12 +492,17 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public RibbonTabItem()
     {
-        this.GroupsContainer = new RibbonGroupsContainerScrollViewer() { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
+        this.GroupsContainer = new RibbonGroupsContainerScrollViewer();
         this.AddLogicalChild(this.GroupsContainer);
         this.GroupsContainer.Content = this.groupsInnerContainer;
 
         // Force redirection of DataContext. This is needed, because we detach the container from the visual tree and attach it to a diffrent one (the popup/dropdown) when the ribbon is minimized.
         this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding(nameof(this.DataContext))
+        {
+            Source = this
+        });
+
+        this.groupsInnerContainer.SetBinding(MarginProperty, new Binding(nameof(this.Padding))
         {
             Source = this
         });
@@ -553,26 +532,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         }
 
         var baseConstraint = base.MeasureOverride(constraint);
-        var totalWidth = this.contentContainer.DesiredSize.Width - (this.contentContainer.Margin.Left - this.contentContainer.Margin.Right);
-        this.contentContainer.Child.Measure(SizeConstants.Infinite);
-        var headerWidth = this.contentContainer.Child.DesiredSize.Width;
-
-        if (totalWidth > headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right))
-        {
-            if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
-            {
-                // If header width is larger then tab increase tab width
-                if (constraint.Width > this.desiredWidth
-                    && this.desiredWidth > totalWidth)
-                {
-                    baseConstraint.Width = this.desiredWidth;
-                }
-                else
-                {
-                    baseConstraint.Width = headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right) + (this.contentContainer.Margin.Left + this.contentContainer.Margin.Right);
-                }
-            }
-        }
 
         if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false
             && this.IsContextual
@@ -689,7 +648,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     }
 
     /// <inheritdoc />
-    protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabItemAutomationPeer(this);
+    protected override AutomationPeer OnCreateAutomationPeer() => new RibbonTabItemAutomationPeer(this);
 
     #endregion
 
@@ -704,6 +663,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         if (newValue)
         {
             container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
+            container.BringIntoView();
         }
         else
         {
@@ -782,11 +742,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public KeyTipPressedResult OnKeyTipPressed()
     {
-        if (this.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
-        {
-            currentSelectedItem.IsSelected = false;
-        }
-
         this.SetCurrentValue(IsSelectedProperty, BooleanBoxes.TrueBox);
 
         var result = KeyTipPressedResult.Empty;

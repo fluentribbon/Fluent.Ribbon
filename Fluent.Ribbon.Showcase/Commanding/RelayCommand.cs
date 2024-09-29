@@ -1,4 +1,7 @@
-﻿#pragma warning disable SA1402
+﻿// ReSharper disable once RedundantNullableDirective
+#nullable enable
+
+#pragma warning disable SA1402
 
 namespace FluentTest.Commanding;
 
@@ -9,10 +12,11 @@ using System.Windows.Input;
 public class RelayCommand : IRelayCommand
 {
     private readonly Action action;
-    private readonly Func<bool> canExecute;
+    private readonly Func<bool>? canExecute;
 
     protected RelayCommand()
     {
+        this.action = null!;
     }
 
     public RelayCommand(Action execute)
@@ -29,22 +33,22 @@ public class RelayCommand : IRelayCommand
     #region IRelayCommand Members
 
     [DebuggerStepThrough]
-    public virtual bool CanExecute(object parameter)
+    public virtual bool CanExecute(object? parameter)
     {
         return this.canExecute is null
             || this.canExecute();
     }
 
     /// <inheritdoc />
-    public event EventHandler CanExecuteChanged
+    public event EventHandler? CanExecuteChanged
     {
-        add { CommandManager.RequerySuggested += value; }
-        remove { CommandManager.RequerySuggested -= value; }
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
     }
 
-    public event EventHandler Executed;
+    public event EventHandler? Executed;
 
-    public event EventHandler Executing;
+    public event EventHandler? Executing;
 
     protected void OnExecuted()
     {
@@ -56,7 +60,7 @@ public class RelayCommand : IRelayCommand
         this.Executing?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Execute(object parameter)
+    public void Execute(object? parameter)
     {
         this.OnExecuting();
 
@@ -65,7 +69,7 @@ public class RelayCommand : IRelayCommand
         this.OnExecuted();
     }
 
-    protected virtual void InvokeAction(object parameter)
+    protected virtual void InvokeAction(object? parameter)
     {
         this.action();
     }
@@ -82,18 +86,14 @@ public class RelayCommand : IRelayCommand
 /// </summary>
 public class RelayCommand<T> : RelayCommand
 {
-    private readonly Action<T> action;
-    private readonly Func<T, bool> canExecute;
-
-    protected RelayCommand()
-    {
-    }
+    private readonly Action<T?> action;
+    private readonly Func<T?, bool>? canExecute;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RelayCommand{T}"/> class.
     /// </summary>
     /// <param name="action">The execution logic.</param>
-    public RelayCommand(Action<T> action)
+    public RelayCommand(Action<T?> action)
         : this(action, null)
     {
     }
@@ -103,7 +103,7 @@ public class RelayCommand<T> : RelayCommand
     /// </summary>
     /// <param name="action">The execution logic.</param>
     /// <param name="canExecute">The execution status logic.</param>
-    public RelayCommand(Action<T> action, Func<T, bool> canExecute)
+    public RelayCommand(Action<T?> action, Func<T?, bool>? canExecute)
     {
         this.action = action;
         this.canExecute = canExecute;
@@ -116,14 +116,14 @@ public class RelayCommand<T> : RelayCommand
     /// true if this command can be executed; otherwise, false.
     /// </returns>
     /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-    public override bool CanExecute(object parameter)
+    public override bool CanExecute(object? parameter)
     {
         return this.canExecute is null
-               || this.canExecute((T)parameter);
+               || this.canExecute((T?)parameter);
     }
 
-    protected override void InvokeAction(object parameter)
+    protected override void InvokeAction(object? parameter)
     {
-        this.action((T)parameter);
+        this.action((T?)parameter);
     }
 }

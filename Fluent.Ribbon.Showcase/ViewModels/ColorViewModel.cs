@@ -23,7 +23,7 @@ public class ColorViewModel : ViewModel
 
     public Color StandardColor
     {
-        get { return this.standardColor; }
+        get => this.standardColor;
 
         set
         {
@@ -39,7 +39,7 @@ public class ColorViewModel : ViewModel
 
     public Color HighlightColor
     {
-        get { return this.highlightColor; }
+        get => this.highlightColor;
 
         set
         {
@@ -70,9 +70,9 @@ public class ColorViewModel : ViewModel
     }
 #pragma warning restore INPC010 // The property sets a different field than it returns.
 
-    public string CurrentBaseColor
+    public string? CurrentBaseColor
     {
-        get => this.CurrentTheme.BaseColorScheme;
+        get => this.CurrentTheme?.BaseColorScheme;
 
         set
         {
@@ -87,7 +87,7 @@ public class ColorViewModel : ViewModel
         }
     }
 
-    public Theme CurrentTheme
+    public Theme? CurrentTheme
     {
         get => ThemeManager.Current.DetectTheme(Application.Current);
 

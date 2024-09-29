@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="Fluent.Ribbon.Styles.RibbonMenu"
-            TargetType="{x:Type Fluent:RibbonMenu}">
+           TargetType="{x:Type Fluent:RibbonMenu}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
@@ -14,7 +14,6 @@
                     <Grid>
                         <Rectangle Grid.RowSpan="2"
                                    Width="1"
-                                   Height="Auto"
                                    Margin="24 0 0 0"
                                    HorizontalAlignment="Left"
                                    Fill="{x:Null}"

@@ -1,7 +1,7 @@
 namespace Fluent;
 
 /// <summary>
-/// Todo
+/// Defines the size of an icon/image.
 /// </summary>
 public enum IconSize
 {

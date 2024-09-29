@@ -39,7 +39,6 @@
                         BorderThickness="0 1 0 0">
                     <Grid>
                         <Thumb x:Name="PART_ResizeVerticalThumb"
-                               Width="Auto"
                                Height="10"
                                Margin="0 0 0 -90"
                                HorizontalAlignment="Stretch"
@@ -131,9 +130,7 @@
                         VerticalAlignment="Center"
                         Orientation="Horizontal"
                         d:LayoutOverrides="Height">
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
+                <Grid Margin="1 0 0 0"
                       HorizontalAlignment="Left">
                     <Rectangle Width="2"
                                Height="2"
@@ -150,9 +147,7 @@
                                Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                StrokeThickness="0" />
                 </Grid>
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
+                <Grid Margin="1 0 0 0"
                       HorizontalAlignment="Left">
                     <Rectangle Width="2"
                                Height="2"
@@ -169,9 +164,7 @@
                                Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                StrokeThickness="0" />
                 </Grid>
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
+                <Grid Margin="1 0 0 0"
                       HorizontalAlignment="Left">
                     <Rectangle Width="2"
                                Height="2"
@@ -188,9 +181,7 @@
                                Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                StrokeThickness="0" />
                 </Grid>
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
+                <Grid Margin="1 0 0 0"
                       HorizontalAlignment="Left">
                     <Rectangle Width="2"
                                Height="2"

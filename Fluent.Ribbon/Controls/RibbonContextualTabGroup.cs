@@ -18,6 +18,18 @@ public class RibbonContextualTabGroup : Control
 {
     #region Properties
 
+    /// <summary>Identifies the <see cref="TabItemForeground"/> dependency property.</summary>
+    public static readonly DependencyProperty TabItemForegroundProperty = DependencyProperty.Register(nameof(TabItemForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush?)));
+
+    /// <summary>
+    /// Gets or sets the foreground brush to be used for a <see cref="RibbonTabItem"/> belonging to this group.
+    /// </summary>
+    public Brush? TabItemForeground
+    {
+        get => (Brush?)this.GetValue(TabItemForegroundProperty);
+        set => this.SetValue(TabItemForegroundProperty, value);
+    }
+
     /// <summary>Identifies the <see cref="TabItemSelectedForeground"/> dependency property.</summary>
     public static readonly DependencyProperty TabItemSelectedForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
 
@@ -26,8 +38,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Brush? TabItemSelectedForeground
     {
-        get { return (Brush?)this.GetValue(TabItemSelectedForegroundProperty); }
-        set { this.SetValue(TabItemSelectedForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TabItemSelectedForegroundProperty);
+        set => this.SetValue(TabItemSelectedForegroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TabItemMouseOverForeground"/> dependency property.</summary>
@@ -38,8 +50,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Brush? TabItemMouseOverForeground
     {
-        get { return (Brush?)this.GetValue(TabItemMouseOverForegroundProperty); }
-        set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TabItemMouseOverForegroundProperty);
+        set => this.SetValue(TabItemMouseOverForegroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TabItemSelectedMouseOverForeground"/> dependency property.</summary>
@@ -50,8 +62,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Brush? TabItemSelectedMouseOverForeground
     {
-        get { return (Brush?)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
-        set { this.SetValue(TabItemSelectedMouseOverForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TabItemSelectedMouseOverForegroundProperty);
+        set => this.SetValue(TabItemSelectedMouseOverForegroundProperty, value);
     }
 
     /// <summary>
@@ -59,8 +71,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public string Header
     {
-        get { return (string)this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => (string)this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -87,8 +99,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Visibility InnerVisibility
     {
-        get { return (Visibility)this.GetValue(InnerVisibilityProperty); }
-        private set { this.SetValue(InnerVisibilityPropertyKey, VisibilityBoxes.Box(value)); }
+        get => (Visibility)this.GetValue(InnerVisibilityProperty);
+        private set => this.SetValue(InnerVisibilityPropertyKey, VisibilityBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =

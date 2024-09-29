@@ -14,9 +14,7 @@
         <Border Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid x:Name="PART_LayoutRoot"
-                  Width="Auto"
-                  Height="Auto">
+            <Grid x:Name="PART_LayoutRoot">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
@@ -46,6 +44,10 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsQuickAccessToolBarVisible" Value="False">
+                <Setter TargetName="PART_QuickAccessToolBar" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsBackstageOrStartScreenOpen" Value="True">
                 <Setter TargetName="PART_QuickAccessToolBar" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>

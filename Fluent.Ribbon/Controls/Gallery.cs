@@ -37,8 +37,8 @@ public class Gallery : ListBox
     /// </summary>
     public int MinItemsInRow
     {
-        get { return (int)this.GetValue(MinItemsInRowProperty); }
-        set { this.SetValue(MinItemsInRowProperty, value); }
+        get => (int)this.GetValue(MinItemsInRowProperty);
+        set => this.SetValue(MinItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
@@ -55,8 +55,8 @@ public class Gallery : ListBox
     /// </summary>
     public int MaxItemsInRow
     {
-        get { return (int)this.GetValue(MaxItemsInRowProperty); }
-        set { this.SetValue(MaxItemsInRowProperty, value); }
+        get => (int)this.GetValue(MaxItemsInRowProperty);
+        set => this.SetValue(MaxItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>
@@ -75,8 +75,8 @@ public class Gallery : ListBox
     /// </summary>
     public bool IsGrouped
     {
-        get { return (bool)this.GetValue(IsGroupedProperty); }
-        set { this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsGroupedProperty);
+        set => this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value));
     }
 
     #endregion
@@ -89,8 +89,8 @@ public class Gallery : ListBox
     /// </summary>
     public string? GroupBy
     {
-        get { return (string?)this.GetValue(GroupByProperty); }
-        set { this.SetValue(GroupByProperty, value); }
+        get => (string?)this.GetValue(GroupByProperty);
+        set => this.SetValue(GroupByProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupBy"/> dependency property.</summary>
@@ -106,8 +106,8 @@ public class Gallery : ListBox
     /// </summary>
     public Func<object, string>? GroupByAdvanced
     {
-        get { return (Func<object, string>?)this.GetValue(GroupByAdvancedProperty); }
-        set { this.SetValue(GroupByAdvancedProperty, value); }
+        get => (Func<object, string>?)this.GetValue(GroupByAdvancedProperty);
+        set => this.SetValue(GroupByAdvancedProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
@@ -122,8 +122,8 @@ public class Gallery : ListBox
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)this.GetValue(OrientationProperty); }
-        set { this.SetValue(OrientationProperty, value); }
+        get => (Orientation)this.GetValue(OrientationProperty);
+        set => this.SetValue(OrientationProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
@@ -140,8 +140,8 @@ public class Gallery : ListBox
     /// </summary>
     public double ItemWidth
     {
-        get { return (double)this.GetValue(ItemWidthProperty); }
-        set { this.SetValue(ItemWidthProperty, value); }
+        get => (double)this.GetValue(ItemWidthProperty);
+        set => this.SetValue(ItemWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
@@ -153,8 +153,8 @@ public class Gallery : ListBox
     /// </summary>
     public double ItemHeight
     {
-        get { return (double)this.GetValue(ItemHeightProperty); }
-        set { this.SetValue(ItemHeightProperty, value); }
+        get => (double)this.GetValue(ItemHeightProperty);
+        set => this.SetValue(ItemHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
@@ -274,8 +274,8 @@ public class Gallery : ListBox
     /// </summary>
     public GalleryGroupFilter? SelectedFilter
     {
-        get { return (GalleryGroupFilter?)this.GetValue(SelectedFilterProperty); }
-        set { this.SetValue(SelectedFilterProperty, value); }
+        get => (GalleryGroupFilter?)this.GetValue(SelectedFilterProperty);
+        set => this.SetValue(SelectedFilterProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedFilter"/> dependency property.</summary>
@@ -319,8 +319,8 @@ public class Gallery : ListBox
     /// </summary>
     public string? SelectedFilterTitle
     {
-        get { return (string?)this.GetValue(SelectedFilterTitleProperty); }
-        private set { this.SetValue(SelectedFilterTitlePropertyKey, value); }
+        get => (string?)this.GetValue(SelectedFilterTitleProperty);
+        private set => this.SetValue(SelectedFilterTitlePropertyKey, value);
     }
 
     private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
@@ -335,8 +335,8 @@ public class Gallery : ListBox
     /// </summary>
     public string? SelectedFilterGroups
     {
-        get { return (string?)this.GetValue(SelectedFilterGroupsProperty); }
-        private set { this.SetValue(SelectedFilterGroupsPropertyKey, value); }
+        get => (string?)this.GetValue(SelectedFilterGroupsProperty);
+        private set => this.SetValue(SelectedFilterGroupsPropertyKey, value);
     }
 
     private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
@@ -351,8 +351,8 @@ public class Gallery : ListBox
     /// </summary>
     public bool HasFilter
     {
-        get { return (bool)this.GetValue(HasFilterProperty); }
-        private set { this.SetValue(HasFilterPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasFilterProperty);
+        private set => this.SetValue(HasFilterPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -404,8 +404,8 @@ public class Gallery : ListBox
     /// </summary>
     public bool Selectable
     {
-        get { return (bool)this.GetValue(SelectableProperty); }
-        set { this.SetValue(SelectableProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(SelectableProperty);
+        set => this.SetValue(SelectableProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="Selectable"/> dependency property.</summary>
@@ -427,8 +427,8 @@ public class Gallery : ListBox
     /// </summary>
     public bool IsLastItem
     {
-        get { return (bool)this.GetValue(IsLastItemProperty); }
-        private set { this.SetValue(IsLastItemPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsLastItemProperty);
+        private set => this.SetValue(IsLastItemPropertyKey, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsLastItem"/> dependency property.</summary>
