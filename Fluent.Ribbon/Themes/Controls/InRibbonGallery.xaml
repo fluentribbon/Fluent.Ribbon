@@ -449,7 +449,7 @@
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                     BorderThickness="1 1 1 1"
                     ClipToBounds="True">
-                <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background}">
                     <ScrollViewer x:Name="ScrollViewer"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                                   Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}"
