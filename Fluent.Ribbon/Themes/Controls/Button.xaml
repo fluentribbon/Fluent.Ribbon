@@ -15,10 +15,12 @@
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               RecognizesAccessKey="True"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              Opacity=".75" />
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
         </Grid>
         <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.75" />
+            </DataTrigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
