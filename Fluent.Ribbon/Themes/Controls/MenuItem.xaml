@@ -452,6 +452,13 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.MenuItem}" />
         <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Command, RelativeSource={RelativeSource Self}, Converter={x:Static converters:IsNullConverter.Instance}}" Value="False" />
+                    <Condition Binding="{Binding HasItems, RelativeSource={RelativeSource Self}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Fluent:MenuItem.IsSplit" Value="True" />
+            </MultiDataTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />

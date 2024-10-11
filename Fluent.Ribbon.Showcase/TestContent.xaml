@@ -558,7 +558,6 @@
                         <Separator />
                         <Fluent:MenuItem Header="Set Default Paste..."
                                          Command="Paste"
-                                         IsSplit="True"
                                          KeyTip="A">
                             <Fluent:MenuItem Header="1"
                                              Click="OnMenuItemClick" />
