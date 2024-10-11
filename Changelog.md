@@ -69,6 +69,10 @@
   - Selecting an `RibbonTabItem` brings it into view now
   - Improved keyboard navigation inside `BackstageTabControl`
   - Improved mouse wheel selection on `RibbonTabControl`
+  - `MenuItem`
+    - Added support for `UsesItemContainerTemplate` and `ItemContainerTemplateSelector`
+  - `DropDownButton`
+    - Added support for `UsesItemContainerTemplate` and `ItemContainerTemplateSelector`
 
 - ### Bug fixes
 
