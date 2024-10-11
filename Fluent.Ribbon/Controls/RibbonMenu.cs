@@ -26,13 +26,12 @@ public class RibbonMenu : MenuBase
     /// <inheritdoc />
     protected override DependencyObject GetContainerForItemOverride()
     {
-        return new MenuItem();
-    }
+        if (this.UsesItemContainerTemplate)
+        {
+            return base.GetContainerForItemOverride();
+        }
 
-    /// <inheritdoc />
-    protected override bool IsItemItsOwnContainerOverride(object item)
-    {
-        return item is System.Windows.Controls.MenuItem or Separator;
+        return new MenuItem();
     }
 
     #endregion

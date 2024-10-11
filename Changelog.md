@@ -69,10 +69,12 @@
   - Selecting an `RibbonTabItem` brings it into view now
   - Improved keyboard navigation inside `BackstageTabControl`
   - Improved mouse wheel selection on `RibbonTabControl`
+  - `DropDownButton`
+    - Added support for `UsesItemContainerTemplate` and `ItemContainerTemplateSelector`
   - `MenuItem`
     - Added support for `UsesItemContainerTemplate` and `ItemContainerTemplateSelector`
     - `IsSplit` is now automatically set by a style trigger. If `Command` is not null and `HasItems` is true.
-  - `DropDownButton`
+  - `RibbonMenu`
     - Added support for `UsesItemContainerTemplate` and `ItemContainerTemplateSelector`
 
 - ### Bug fixes
