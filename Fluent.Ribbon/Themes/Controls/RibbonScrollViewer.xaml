@@ -286,7 +286,6 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollViewer"
            TargetType="{x:Type ScrollViewer}">
-        <Setter Property="CanContentScroll" Value="True" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
 
