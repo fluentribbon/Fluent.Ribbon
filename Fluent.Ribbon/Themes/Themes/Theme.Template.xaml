@@ -179,6 +179,9 @@
 
     <!-- Gallery -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gallery.Header.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray3}" options:Freeze="True" />
+    
+    <!-- InRibbonGallery -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background" Color="{StaticResource Fluent.Ribbon.Colors.White}" options:Freeze="True" />
 
     <!-- GalleryGroupContainer -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryGroupContainer.Header.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />

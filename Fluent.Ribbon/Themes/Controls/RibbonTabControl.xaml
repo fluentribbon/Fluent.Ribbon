@@ -253,12 +253,12 @@
                                     Margin="0"
                                     Focusable="False">
                         <Fluent:TransitioningControl x:Name="PART_SelectedContent"
-                                                    HorizontalAlignment="Stretch"
-                                                    VerticalAlignment="Stretch"
-                                                    HorizontalContentAlignment="Stretch"
-                                                    VerticalContentAlignment="Stretch"
-                                                    NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    TransitionStoryboard="{DynamicResource Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition}" />
+                                                     HorizontalAlignment="Stretch"
+                                                     VerticalAlignment="Stretch"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch"
+                                                     NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                                     TransitionStoryboard="{DynamicResource Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition}" />
                     </ContentControl>
                 </Grid>
             </Border>

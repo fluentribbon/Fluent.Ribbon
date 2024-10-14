@@ -482,6 +482,64 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
 
     #region Overrides
 
+    /// <summary>Gets or sets the custom logic for choosing a template used to display each item.</summary>
+    /// <returns>A custom object that provides logic and returns an item container.</returns>
+    public ItemContainerTemplateSelector? ItemContainerTemplateSelector
+    {
+        get => (ItemContainerTemplateSelector?)this.GetValue(StatusBar.ItemContainerTemplateSelectorProperty);
+        set => this.SetValue(StatusBar.ItemContainerTemplateSelectorProperty, value);
+    }
+
+    /// <summary>Gets or sets a value that indicates whether the menu selects different item containers, depending on the type of the item in the underlying collection or some other heuristic.</summary>
+    /// <returns>
+    ///        <see langword="true" /> the menu selects different item containers; otherwise, <see langword="false" />.
+    /// 
+    /// The registered default is <see langword="false" />. For more information about what can influence the value, see Dependency Property Value Precedence.</returns>
+    public bool UsesItemContainerTemplate
+    {
+        get => (bool)this.GetValue(StatusBar.UsesItemContainerTemplateProperty);
+        set => this.SetValue(StatusBar.UsesItemContainerTemplateProperty, value);
+    }
+
+    private object? currentItem;
+
+    /// <inheritdoc />
+    protected override bool IsItemItsOwnContainerOverride(object item)
+    {
+        if (base.IsItemItsOwnContainerOverride(item))
+        {
+            return true;
+        }
+
+        if (this.UsesItemContainerTemplate)
+        {
+            this.currentItem = item;
+        }
+
+        return false;
+    }
+
+    /// <inheritdoc />
+    protected override DependencyObject GetContainerForItemOverride()
+    {
+        if (this.UsesItemContainerTemplate is false)
+        {
+            this.currentItem = null;
+            return base.GetContainerForItemOverride();
+        }
+
+        var item = this.currentItem;
+        this.currentItem = null;
+
+        var dataTemplate = this.ItemContainerTemplateSelector?.SelectTemplate(item, this);
+        if (dataTemplate is not null)
+        {
+            return dataTemplate.LoadContent();
+        }
+
+        return base.GetContainerForItemOverride();
+    }
+
     private void OnDropDownPopupKeyDown(object sender, KeyEventArgs e)
     {
         if (e.Handled)

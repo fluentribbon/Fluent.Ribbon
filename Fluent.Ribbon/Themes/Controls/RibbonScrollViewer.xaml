@@ -286,14 +286,11 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollViewer"
            TargetType="{x:Type ScrollViewer}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+
         <Setter Property="Fluent:ScrollViewerAttachedProperties.ScrollBarStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScrollViewer}" />
-
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"

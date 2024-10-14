@@ -410,16 +410,43 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
 
     #region Overrides
 
-    /// <inheritdoc />
-    protected override DependencyObject GetContainerForItemOverride()
-    {
-        return new MenuItem();
-    }
+    private object? currentItem;
 
     /// <inheritdoc />
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
-        return item is FrameworkElement;
+        if (item is MenuItem or Separator)
+        {
+            return true;
+        }
+
+        if (this.UsesItemContainerTemplate)
+        {
+            this.currentItem = item;
+        }
+
+        return false;
+    }
+
+    /// <inheritdoc />
+    protected override DependencyObject GetContainerForItemOverride()
+    {
+        if (this.UsesItemContainerTemplate is false)
+        {
+            this.currentItem = null;
+            return new MenuItem();
+        }
+
+        var item = this.currentItem;
+        this.currentItem = null;
+
+        var dataTemplate = this.ItemContainerTemplateSelector.SelectTemplate(item, this);
+        if (dataTemplate is not null)
+        {
+            return dataTemplate.LoadContent();
+        }
+
+        return new MenuItem();
     }
 
     #region Non MenuBase ItemsControl workarounds
