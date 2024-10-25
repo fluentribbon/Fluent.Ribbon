@@ -263,26 +263,15 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid x:Name="grid">
-                            <Path Width="10"
-                                  Height="2"
-                                  Margin="0 2 0 0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Top"
-                                  Data="M0,0L1,0"
-                                  Stretch="Fill"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  StrokeThickness="2" />
-                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
-                                  Margin="0 0 0 4"
-                                  VerticalAlignment="Bottom"
-                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
-                        </Grid>
+                        <ContentControl x:Name="PART_HeaderContentHost"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                        Focusable="False" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="grid" Property="Opacity" Value="0.5" />
+                            <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -481,7 +470,9 @@
                                          CanAddToQuickAccessToolBar="False"
                                          ClickMode="Press"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         IsDefinitive="False" />
+                                         IsDefinitive="False"
+                                         Header="{TemplateBinding ExpandButtonContent}"
+                                         HeaderTemplate="{TemplateBinding ExpandButtonContentTemplate}" />
 
                     <Popup x:Name="PART_Popup"
                            Grid.ColumnSpan="2"
@@ -607,6 +598,28 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />
+        <Setter Property="ExpandButtonContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid x:Name="grid">
+                        <Path Width="10"
+                              Height="2"
+                              Margin="0 2 0 0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              Data="M0,0L1,0"
+                              Stretch="Fill"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                              StrokeThickness="2" />
+                        <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow.UpDown}"
+                              Margin="0 0 0 4"
+                              VerticalAlignment="Bottom"
+                              Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Height" Value="68" />

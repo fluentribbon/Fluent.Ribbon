@@ -76,6 +76,7 @@
     - `IsSplit` is now automatically set by a style trigger. If `Command` is not null and `HasItems` is true.
   - `RibbonMenu`
     - Added support for `UsesItemContainerTemplate` and `ItemContainerTemplateSelector`
+  - Added `ExpandButtonContent` and `ExpandButtonContentTemplate` to `InRibbonGallery`
 
 - ### Bug fixes
 

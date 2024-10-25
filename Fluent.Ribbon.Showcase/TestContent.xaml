@@ -2190,7 +2190,13 @@
                                             MinItemsInRow="3"
                                             ResizeMode="Both"
                                             Selectable="False"
-                                            ToolTip="Items are not selectable here.">
+                                            ToolTip="Items are not selectable here."
+                                            ExpandButtonContent="{Binding DataItems.Count}">
+                        <Fluent:InRibbonGallery.ExpandButtonContentTemplate>
+                            <DataTemplate>
+                                <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding .}" />
+                            </DataTemplate>
+                        </Fluent:InRibbonGallery.ExpandButtonContentTemplate>
                         <!-- You can also add items to context menu -->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>

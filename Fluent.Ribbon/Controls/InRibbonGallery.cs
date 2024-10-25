@@ -1012,6 +1012,32 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
 
     #endregion
 
+    /// <summary>Identifies the <see cref="ExpandButtonContent"/> dependency property.</summary>
+    public static readonly DependencyProperty ExpandButtonContentProperty = DependencyProperty.Register(
+        nameof(ExpandButtonContent), typeof(object), typeof(InRibbonGallery), new PropertyMetadata(StringBoxes.Empty));
+
+    /// <summary>
+    /// todo
+    /// </summary>
+    public object? ExpandButtonContent
+    {
+        get => (object?)this.GetValue(ExpandButtonContentProperty);
+        set => this.SetValue(ExpandButtonContentProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="ExpandButtonContentTemplate"/> dependency property.</summary>
+    public static readonly DependencyProperty ExpandButtonContentTemplateProperty = DependencyProperty.Register(
+        nameof(ExpandButtonContentTemplate), typeof(DataTemplate), typeof(InRibbonGallery), new PropertyMetadata(default(DataTemplate)));
+
+    /// <summary>
+    /// todo
+    /// </summary>
+    public DataTemplate? ExpandButtonContentTemplate
+    {
+        get => (DataTemplate?)this.GetValue(ExpandButtonContentTemplateProperty);
+        set => this.SetValue(ExpandButtonContentTemplateProperty, value);
+    }
+
     #endregion Properties
 
     #region Events
