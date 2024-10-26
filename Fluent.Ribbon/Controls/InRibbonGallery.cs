@@ -1013,11 +1013,10 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     #endregion
 
     /// <summary>Identifies the <see cref="ExpandButtonContent"/> dependency property.</summary>
-    public static readonly DependencyProperty ExpandButtonContentProperty = DependencyProperty.Register(
-        nameof(ExpandButtonContent), typeof(object), typeof(InRibbonGallery), new PropertyMetadata(StringBoxes.Empty));
+    public static readonly DependencyProperty ExpandButtonContentProperty = DependencyProperty.Register(nameof(ExpandButtonContent), typeof(object), typeof(InRibbonGallery), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
     /// <summary>
-    /// todo
+    /// Gets or sets the content for the expand button.
     /// </summary>
     public object? ExpandButtonContent
     {
@@ -1026,11 +1025,10 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     }
 
     /// <summary>Identifies the <see cref="ExpandButtonContentTemplate"/> dependency property.</summary>
-    public static readonly DependencyProperty ExpandButtonContentTemplateProperty = DependencyProperty.Register(
-        nameof(ExpandButtonContentTemplate), typeof(DataTemplate), typeof(InRibbonGallery), new PropertyMetadata(default(DataTemplate)));
+    public static readonly DependencyProperty ExpandButtonContentTemplateProperty = DependencyProperty.Register(nameof(ExpandButtonContentTemplate), typeof(DataTemplate), typeof(InRibbonGallery), new PropertyMetadata(default(DataTemplate)));
 
     /// <summary>
-    /// todo
+    /// Gets or sets the content template for the expand button.
     /// </summary>
     public DataTemplate? ExpandButtonContentTemplate
     {
