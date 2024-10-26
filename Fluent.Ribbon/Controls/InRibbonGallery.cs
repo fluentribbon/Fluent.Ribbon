@@ -1624,6 +1624,11 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
             {
                 yield return this.Header;
             }
+
+            if (this.ExpandButtonContent is not null)
+            {
+                yield return this.ExpandButtonContent;
+            }
         }
     }
 
