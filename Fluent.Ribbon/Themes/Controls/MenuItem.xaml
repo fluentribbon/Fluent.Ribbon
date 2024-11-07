@@ -31,8 +31,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
-                    Grid.Column="0"
                     Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -43,8 +43,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
-                   Grid.Column="0"
                    Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -123,8 +123,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
-                    Grid.Column="0"
                     Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -135,8 +135,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
-                   Grid.Column="0"
                    Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -146,8 +146,8 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
             <Path x:Name="path"
-                  Grid.Column="2"
                   Grid.Row="0"
+                  Grid.Column="2"
                   Width="4"
                   Height="7"
                   Margin="1 0 9 0"
@@ -157,8 +157,8 @@
                   Stretch="Fill"
                   Stroke="{x:Null}" />
             <Popup x:Name="PART_Popup"
-                   Grid.Column="0"
                    Grid.Row="0"
+                   Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
                    VerticalAlignment="Top"
@@ -264,8 +264,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
-                    Grid.Column="0"
                     Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -276,8 +276,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
-                   Grid.Column="0"
                    Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -287,8 +287,8 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
             <Path x:Name="path"
-                  Grid.Column="2"
                   Grid.Row="0"
+                  Grid.Column="2"
                   Width="4"
                   Height="7"
                   Margin="1 0 9 0"
@@ -298,8 +298,8 @@
                   Stretch="Fill"
                   Stroke="{x:Null}" />
             <Popup x:Name="PART_Popup"
-                   Grid.Column="0"
                    Grid.Row="0"
+                   Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
                    VerticalAlignment="Top"
@@ -382,8 +382,8 @@
                     BorderThickness="1"
                     Visibility="Collapsed" />
             <ContentControl x:Name="textBlock"
-                            Grid.Column="1"
                             Grid.Row="0"
+                            Grid.Column="1"
                             Margin="5 3 3 3"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}"
@@ -400,8 +400,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
-                    Grid.Column="0"
                     Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -412,8 +412,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
-                   Grid.Column="0"
                    Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -423,8 +423,8 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
             <TextBlock x:Name="gestureTextBlock"
-                       Grid.Column="2"
                        Grid.Row="0"
+                       Grid.Column="2"
                        Margin="3 3 15 3"
                        VerticalAlignment="Center"
                        Text="{TemplateBinding InputGestureText}" />

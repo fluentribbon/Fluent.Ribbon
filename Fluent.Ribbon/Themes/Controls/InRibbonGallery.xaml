@@ -460,6 +460,7 @@
                     </ScrollViewer>
 
                     <Fluent:ToggleButton x:Name="PART_ExpandButton"
+                                         Header="{TemplateBinding ExpandButtonContent}"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryButton}"
                                          Width="17"
                                          Height="17"
@@ -469,10 +470,9 @@
                                          BorderThickness="1 1 0 0"
                                          CanAddToQuickAccessToolBar="False"
                                          ClickMode="Press"
+                                         HeaderTemplate="{TemplateBinding ExpandButtonContentTemplate}"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         IsDefinitive="False"
-                                         Header="{TemplateBinding ExpandButtonContent}"
-                                         HeaderTemplate="{TemplateBinding ExpandButtonContentTemplate}" />
+                                         IsDefinitive="False" />
 
                     <Popup x:Name="PART_Popup"
                            Grid.ColumnSpan="2"
@@ -595,9 +595,6 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery"
            TargetType="{x:Type Fluent:InRibbonGallery}">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />
         <Setter Property="ExpandButtonContentTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -620,6 +617,9 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Height" Value="68" />

@@ -15,12 +15,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ResizeableContentControl"
                      TargetType="{x:Type Fluent:ResizeableContentControl}">
         <Border x:Name="PART_DropDownBorder"
+                Margin="{TemplateBinding Padding}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                Margin="{TemplateBinding Padding}"
                 SnapsToDevicePixels="True">
 
             <Grid Margin="1"
