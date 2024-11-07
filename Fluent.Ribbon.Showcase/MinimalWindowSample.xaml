@@ -27,6 +27,12 @@
                                         Target="{Binding ElementName=button}" />
         </fluent:Ribbon.QuickAccessItems>
 
+        <fluent:Ribbon.Menu>
+            <fluent:Backstage Header="Project">
+                <fluent:BackstageTabControl />
+            </fluent:Backstage>
+        </fluent:Ribbon.Menu>
+
         <fluent:Ribbon.ContextualGroups>
             <fluent:RibbonContextualTabGroup x:Name="contextGroup1"
                                              Header="Generic context"
