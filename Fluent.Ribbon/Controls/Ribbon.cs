@@ -1936,7 +1936,10 @@ public class Ribbon : Control, ILogicalChildSupport
 
         this.RibbonStateStorage.Load();
 
-        this.TabControl?.SelectFirstTab();
+        if (this.SelectedTabItem is null)
+        {
+            this.TabControl?.SelectFirstTab();
+        }
     }
 
     #endregion
