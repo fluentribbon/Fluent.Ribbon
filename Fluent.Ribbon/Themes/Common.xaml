@@ -14,6 +14,8 @@
 
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
 
+    <GridLength x:Key="Fluent.Ribbon.Values.MenuItem.IconColumnWidth">25</GridLength>
+
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Left">M 0 0 L -5 5 L 0 10</PathGeometry>
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Up">M 0 0 L -5 -5 L -10 0</PathGeometry>
     <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Right">M 0 0 L 5 -5 L -0 -10</PathGeometry>

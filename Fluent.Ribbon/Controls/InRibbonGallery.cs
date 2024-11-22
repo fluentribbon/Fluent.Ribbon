@@ -1012,6 +1012,30 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
 
     #endregion
 
+    /// <summary>Identifies the <see cref="ExpandButtonContent"/> dependency property.</summary>
+    public static readonly DependencyProperty ExpandButtonContentProperty = DependencyProperty.Register(nameof(ExpandButtonContent), typeof(object), typeof(InRibbonGallery), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+    /// <summary>
+    /// Gets or sets the content for the expand button.
+    /// </summary>
+    public object? ExpandButtonContent
+    {
+        get => (object?)this.GetValue(ExpandButtonContentProperty);
+        set => this.SetValue(ExpandButtonContentProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="ExpandButtonContentTemplate"/> dependency property.</summary>
+    public static readonly DependencyProperty ExpandButtonContentTemplateProperty = DependencyProperty.Register(nameof(ExpandButtonContentTemplate), typeof(DataTemplate), typeof(InRibbonGallery), new PropertyMetadata(default(DataTemplate)));
+
+    /// <summary>
+    /// Gets or sets the content template for the expand button.
+    /// </summary>
+    public DataTemplate? ExpandButtonContentTemplate
+    {
+        get => (DataTemplate?)this.GetValue(ExpandButtonContentTemplateProperty);
+        set => this.SetValue(ExpandButtonContentTemplateProperty, value);
+    }
+
     #endregion Properties
 
     #region Events
@@ -1599,6 +1623,11 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
             if (this.Header is not null)
             {
                 yield return this.Header;
+            }
+
+            if (this.ExpandButtonContent is not null)
+            {
+                yield return this.ExpandButtonContent;
             }
         }
     }

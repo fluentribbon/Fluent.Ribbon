@@ -114,6 +114,7 @@ public class ResourceKeys
             "Color" => "Colors",
             "SolidColorBrush" => "Brushes",
             "LinearGradientBrush" => "Brushes",
+            "GridLength" => "Values",
             "Thickness" => "Values",
             "String" => "Values",
             "Boolean" => "Values",

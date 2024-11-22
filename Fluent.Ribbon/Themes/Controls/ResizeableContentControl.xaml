@@ -6,17 +6,21 @@
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.ResizeableContentControl"
            TargetType="{x:Type Fluent:ResizeableContentControl}">
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ResizeableContentControl}" />
     </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ResizeableContentControl"
                      TargetType="{x:Type Fluent:ResizeableContentControl}">
         <Border x:Name="PART_DropDownBorder"
+                Margin="{TemplateBinding Padding}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
-                BorderThickness="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
                 SnapsToDevicePixels="True">
 
             <Grid Margin="1"

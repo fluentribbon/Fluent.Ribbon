@@ -10,7 +10,7 @@
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="{DynamicResource Fluent.Ribbon.Values.MenuItem.IconColumnWidth}" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -31,6 +31,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
+                    Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -41,6 +43,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
+                   Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -98,7 +102,7 @@
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="{DynamicResource Fluent.Ribbon.Values.MenuItem.IconColumnWidth}" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -119,6 +123,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
+                    Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -129,6 +135,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
+                   Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -138,7 +146,8 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
             <Path x:Name="path"
-                  Grid.Column="3"
+                  Grid.Row="0"
+                  Grid.Column="2"
                   Width="4"
                   Height="7"
                   Margin="1 0 9 0"
@@ -148,6 +157,8 @@
                   Stretch="Fill"
                   Stroke="{x:Null}" />
             <Popup x:Name="PART_Popup"
+                   Grid.Row="0"
+                   Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
                    VerticalAlignment="Top"
@@ -210,7 +221,7 @@
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="{DynamicResource Fluent.Ribbon.Values.MenuItem.IconColumnWidth}" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -253,6 +264,8 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
+                    Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -263,6 +276,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
+                   Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -272,7 +287,8 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
             <Path x:Name="path"
-                  Grid.Column="3"
+                  Grid.Row="0"
+                  Grid.Column="2"
                   Width="4"
                   Height="7"
                   Margin="1 0 9 0"
@@ -282,6 +298,8 @@
                   Stretch="Fill"
                   Stroke="{x:Null}" />
             <Popup x:Name="PART_Popup"
+                   Grid.Row="0"
+                   Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
                    VerticalAlignment="Top"
@@ -344,15 +362,15 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.MenuItemWithDescription"
                      TargetType="{x:Type Fluent:MenuItem}">
         <Grid Background="{TemplateBinding Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{DynamicResource Fluent.Ribbon.Values.MenuItem.IconColumnWidth}" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="45" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
             <Border x:Name="border"
                     Grid.RowSpan="2"
                     Grid.Column="0"
@@ -364,8 +382,9 @@
                     BorderThickness="1"
                     Visibility="Collapsed" />
             <ContentControl x:Name="textBlock"
+                            Grid.Row="0"
                             Grid.Column="1"
-                            Margin="0 3 3 3"
+                            Margin="5 3 3 3"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
@@ -375,12 +394,14 @@
             <ContentPresenter x:Name="descriptionPresenter"
                               Grid.Row="1"
                               Grid.Column="1"
-                              Margin="0 3 3 3"
+                              Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Description"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
+                    Grid.Row="0"
+                    Grid.Column="0"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 2 2 2"
@@ -391,6 +412,8 @@
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
+                   Grid.Row="0"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -400,6 +423,7 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
             <TextBlock x:Name="gestureTextBlock"
+                       Grid.Row="0"
                        Grid.Column="2"
                        Margin="3 3 15 3"
                        VerticalAlignment="Center"

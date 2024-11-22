@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FluentTest.TestContent"
+<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Fluent="urn:fluent-ribbon"
@@ -2180,6 +2180,7 @@
                     <!-- InRibbonGallery -->
                     <Fluent:InRibbonGallery Header="InRibbonGallery"
                                             Icon="Images\Gray.png"
+                                            ExpandButtonContent="{Binding DataItems.Count}"
                                             ItemHeight="56"
                                             ItemTemplate="{DynamicResource largeDataItemTemplate}"
                                             ItemWidth="40"
@@ -2191,6 +2192,13 @@
                                             ResizeMode="Both"
                                             Selectable="False"
                                             ToolTip="Items are not selectable here.">
+                        <Fluent:InRibbonGallery.ExpandButtonContentTemplate>
+                            <DataTemplate>
+                                <ContentControl HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Content="{Binding .}" />
+                            </DataTemplate>
+                        </Fluent:InRibbonGallery.ExpandButtonContentTemplate>
                         <!-- You can also add items to context menu -->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
@@ -3156,20 +3164,19 @@
                                                          SelectedItem="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=ThemeSyncMode}" />
                                         <Fluent:CheckBox Header="Use HSL color"
                                                          IsChecked="{Binding Path=Options.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}" />
-                                        <Button Click="SyncThemeNow_OnClick">Sync now</Button>
+                                        <Fluent:Button Header="Sync now"
+                                                       Click="SyncThemeNow_OnClick"
+                                                       Size="Middle" />
                                     </WrapPanel>
                                 </GroupBox>
 
                                 <GroupBox Header="WindowChrome">
                                     <WrapPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label>
-                                                CornerPreference
-                                            </Label>
-                                            <ComboBox VerticalAlignment="Center"
-                                                      ItemsSource="{Binding Source={StaticResource CornerPreferenceEnumValues}}"
-                                                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=CornerPreference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </StackPanel>
+                                        <Fluent:ComboBox Header="CornerPreference"
+                                                         VerticalAlignment="Center"
+                                                         IsEditable="False"
+                                                         ItemsSource="{Binding Source={StaticResource CornerPreferenceEnumValues}}"
+                                                         SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=CornerPreference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </WrapPanel>
                                 </GroupBox>
 
@@ -3233,31 +3240,27 @@
                                             </Fluent:ComboBox.ItemTemplate>
                                         </Fluent:ComboBox>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label>
-                                                GlowDepth
-                                            </Label>
-                                            <TextBox MinWidth="30"
-                                                     VerticalAlignment="Center"
-                                                     Text="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=GlowDepth, Mode=TwoWay}" />
-                                        </StackPanel>
+                                        <Fluent:TextBox Header="GlowDepth"
+                                                        MinWidth="30"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=GlowDepth, Mode=TwoWay}" />
 
-                                        <CheckBox VerticalAlignment="Center"
-                                                  Content="IsGlowTransitionEnabled"
-                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=IsGlowTransitionEnabled, Mode=TwoWay}" />
+                                        <Fluent:CheckBox Header="IsGlowTransitionEnabled"
+                                                         VerticalAlignment="Center"
+                                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=IsGlowTransitionEnabled, Mode=TwoWay}" />
 
-                                        <CheckBox VerticalAlignment="Center"
-                                                  Content="UseRadialGradientForCorners"
-                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=UseRadialGradientForCorners, Mode=TwoWay}" />
+                                        <Fluent:CheckBox Header="UseRadialGradientForCorners"
+                                                         VerticalAlignment="Center"
+                                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=UseRadialGradientForCorners, Mode=TwoWay}" />
 
-                                        <CheckBox VerticalAlignment="Center"
-                                                  Content="PreferDWMBorderColor"
-                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=PreferDWMBorderColor, Mode=TwoWay}" />
+                                        <Fluent:CheckBox Header="PreferDWMBorderColor"
+                                                         VerticalAlignment="Center"
+                                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=PreferDWMBorderColor, Mode=TwoWay}" />
 
-                                        <CheckBox VerticalAlignment="Center"
-                                                  Content="DWMSupportsBorderColor"
-                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=DWMSupportsBorderColor, Mode=OneWay}"
-                                                  IsEnabled="False" />
+                                        <Fluent:CheckBox Header="DWMSupportsBorderColor"
+                                                         VerticalAlignment="Center"
+                                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=DWMSupportsBorderColor, Mode=OneWay}"
+                                                         IsEnabled="False" />
                                     </WrapPanel>
                                 </GroupBox>
 
@@ -3312,26 +3315,25 @@
                                                          IsChecked="True">
                                             IsStatusBarVisible
                                         </Fluent:CheckBox>
-                                        <ComboBox AutomationProperties.Name="Window resize mode"
-                                                  ItemsSource="{Binding Source={StaticResource ResizeModeEnumValues}}"
-                                                  SelectedItem="{Binding Path=ResizeMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+                                        <Fluent:ComboBox Header="Window resize mode"
+                                                         IsEditable="False"
+                                                         ItemsSource="{Binding Source={StaticResource ResizeModeEnumValues}}"
+                                                         SelectedItem="{Binding Path=ResizeMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
-                                        <ComboBox AutomationProperties.Name="Window flow direction"
-                                                  ItemsSource="{Binding Source={StaticResource FlowDirectionEnumValues}}"
-                                                  SelectedItem="{Binding Path=FlowDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+                                        <Fluent:ComboBox Header="Window flow direction"
+                                                         IsEditable="False"
+                                                         ItemsSource="{Binding Source={StaticResource FlowDirectionEnumValues}}"
+                                                         SelectedItem="{Binding Path=FlowDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
                                         <Fluent:CheckBox IsChecked="{Binding Path=IgnoreTaskbarOnMaximize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=False}">
                                             IgnoreTaskbarOnMaximize
                                         </Fluent:CheckBox>
 
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label>
-                                                BackDropType
-                                            </Label>
-                                            <ComboBox VerticalAlignment="Center"
-                                                      ItemsSource="{Binding Source={StaticResource WindowBackdropTypeEnumValues}}"
-                                                      SelectedItem="{Binding Path=(controlzEx:WindowBackdropManager.BackdropType), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
-                                        </StackPanel>
+                                        <Fluent:ComboBox Header="BackdropType"
+                                                         VerticalAlignment="Center"
+                                                         IsEditable="False"
+                                                         ItemsSource="{Binding Source={StaticResource WindowBackdropTypeEnumValues}}"
+                                                         SelectedItem="{Binding Path=(controlzEx:WindowBackdropManager.BackdropType), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
                                     </WrapPanel>
                                 </GroupBox>
 
@@ -3401,8 +3403,9 @@
                                 </GroupBox>
 
                                 <GroupBox Header="Commands">
-                                    <Button Click="HandleResetSavedState_OnClick"
-                                            Content="Reset saved state &amp; restart" />
+                                    <Fluent:Button Header="Reset saved state &amp; restart"
+                                                   Click="HandleResetSavedState_OnClick"
+                                                   Size="Middle" />
                                 </GroupBox>
                             </StackPanel>
                         </GroupBox>

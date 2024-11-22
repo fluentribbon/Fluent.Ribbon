@@ -74,6 +74,7 @@ Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown.BelowRibbon
 Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender
 Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender.BelowRibbon
 Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions
+Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background
 Fluent.Ribbon.Brushes.KeyTip.Background
 Fluent.Ribbon.Brushes.KeyTip.Border
 Fluent.Ribbon.Brushes.LabelText
@@ -408,6 +409,7 @@ Fluent.Ribbon.Values.Arrow.Right
 Fluent.Ribbon.Values.Arrow.Up
 Fluent.Ribbon.Values.Default.Margin
 Fluent.Ribbon.Values.Default.Padding
+Fluent.Ribbon.Values.MenuItem.IconColumnWidth
 Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness
 Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius
 Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect
