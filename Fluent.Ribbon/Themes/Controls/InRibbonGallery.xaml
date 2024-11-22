@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
@@ -432,11 +432,11 @@
               VerticalAlignment="Stretch">
             <Border x:Name="border"
                     Height="{TemplateBinding GalleryPanelContainerHeight}"
-                    Margin="0 0 0 0"
+                    Margin="{TemplateBinding Padding}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
-                    BorderThickness="1 1 1 1"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TempateBinding BorderThickness}"
                     ClipToBounds="True">
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background}">
                     <ScrollViewer x:Name="ScrollViewer"
@@ -595,6 +595,8 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery"
            TargetType="{x:Type Fluent:InRibbonGallery}">
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="ExpandButtonContentTemplate">
             <Setter.Value>
                 <DataTemplate>
