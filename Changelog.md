@@ -82,6 +82,7 @@
 
   - [#1162](../../issues/1162) - Maximum dropdown height is not screen aware
   - [#1196](../../issues/1196) - GroupName causes the selected ToggleButton to no longer trigger the click event
+  - [#1218](../../issues/1218) - Selected tab is lost on screen changes (thanks @cbra-caa)
   - Value of `HideContextTabs` are now properly restored when `Backstage` is closed
   - `RibbonTitleBar`
     - Fixed rendering when `HideContextTabs` is `true`
