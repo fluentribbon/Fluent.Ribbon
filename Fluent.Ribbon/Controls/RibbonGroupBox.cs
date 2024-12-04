@@ -567,6 +567,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <summary>
     /// Gets or sets icon
     /// </summary>
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -581,6 +583,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);
@@ -595,6 +599,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     #region LargeIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? LargeIcon
     {
         get => this.GetValue(LargeIconProperty);
