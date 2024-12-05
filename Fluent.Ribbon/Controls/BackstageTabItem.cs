@@ -24,6 +24,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <summary>
     /// Gets or sets Icon for the element
     /// </summary>
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);

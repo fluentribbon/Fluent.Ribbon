@@ -2,6 +2,7 @@
 namespace Fluent;
 
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -114,6 +115,8 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -128,6 +131,8 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
     #region LargeIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? LargeIcon
     {
         get => this.GetValue(LargeIconProperty);
@@ -142,6 +147,8 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);

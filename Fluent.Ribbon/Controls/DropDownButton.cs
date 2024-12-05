@@ -4,6 +4,7 @@ namespace Fluent;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -164,6 +165,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -178,6 +181,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     #region LargeIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? LargeIcon
     {
         get => this.GetValue(LargeIconProperty);
@@ -192,6 +197,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);

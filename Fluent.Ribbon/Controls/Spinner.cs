@@ -3,6 +3,7 @@ namespace Fluent;
 
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
@@ -55,6 +56,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);
