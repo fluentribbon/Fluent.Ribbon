@@ -20,7 +20,7 @@ install:
         git checkout -qf $($env:APPVEYOR_PULL_REQUEST_HEAD_COMMIT)
       }
   - ps: Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
-  - ps: ./dotnet-install.ps1 -Version 8.0.100 -InstallDir "C:\Program Files\dotnet"
+  - ps: ./dotnet-install.ps1 -Version 8.0.401 -InstallDir "C:\Program Files\dotnet"
 
 build_script:
   - cmd: dotnet --info
