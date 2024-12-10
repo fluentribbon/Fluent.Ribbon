@@ -1,5 +1,6 @@
 ﻿namespace Fluent;
 
+using System.ComponentModel;
 using System.Windows;
 using Fluent.Helpers;
 
@@ -11,6 +12,8 @@ public interface IMediumIconProvider
     /// <summary>
     /// Gets or sets the medium icon.
     /// </summary>
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     object? MediumIcon { get; set; }
 }
 
