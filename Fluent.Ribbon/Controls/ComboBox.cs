@@ -3,6 +3,7 @@ namespace Fluent;
 
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -149,6 +150,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -163,6 +166,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);

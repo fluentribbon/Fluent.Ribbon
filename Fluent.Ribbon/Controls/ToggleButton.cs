@@ -2,6 +2,7 @@
 namespace Fluent;
 
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -129,6 +130,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -143,6 +146,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     #region LargeIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? LargeIcon
     {
         get => this.GetValue(LargeIconProperty);
@@ -157,6 +162,8 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);
