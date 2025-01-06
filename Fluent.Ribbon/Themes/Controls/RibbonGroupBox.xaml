@@ -298,8 +298,7 @@
                         Padding="4"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
-                        BorderThickness="1">
+                        BorderThickness="0">
                     <Fluent:IconPresenter x:Name="iconImage"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
