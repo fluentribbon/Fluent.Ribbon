@@ -578,13 +578,20 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
             // Note: get outside thread to prevent exceptions (it's a dependency property after all)
             var timespan = this.ClosePopupOnMouseDownDelay;
 
-            // Ugly workaround, but use a timer to allow routed event to continue
-            Task.Factory.StartNew(async () =>
+            if (timespan <= 0)
             {
-                await Task.Delay(timespan);
+                this.IsDropDownOpen = false;
+            }
+            else
+            {
+                // Ugly workaround, but use a timer to allow routed event to continue
+                Task.Factory.StartNew(async () =>
+                {
+                    await Task.Delay(timespan);
 
-                this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
-            });
+                    this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
+                });
+            }
         }
     }
 
