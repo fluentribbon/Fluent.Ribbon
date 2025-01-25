@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup>
-        <PackageVersion Include="ControlzEx" version="7.0.0-rc0118" />
+        <PackageVersion Include="ControlzEx" version="7.0.0-rc0123" />
         <PackageVersion Include="System.Memory" Version="4.5.5" />
     </ItemGroup>
 
