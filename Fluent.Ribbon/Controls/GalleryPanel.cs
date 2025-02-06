@@ -124,7 +124,7 @@ public class GalleryPanel : StackPanel
     private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var galleryPanel = (GalleryPanel)d;
-        galleryPanel.RefreshAsync();
+        galleryPanel.Refresh();
     }
 
     #endregion
