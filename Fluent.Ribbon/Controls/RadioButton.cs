@@ -2,6 +2,7 @@
 namespace Fluent;
 
 using System.Collections;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
@@ -114,6 +115,8 @@ public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, 
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -142,6 +145,8 @@ public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, 
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);

@@ -1,5 +1,6 @@
 ﻿namespace Fluent;
 
+using System.ComponentModel;
 using System.Windows;
 using Fluent.Helpers;
 
@@ -11,6 +12,8 @@ public interface ILargeIconProvider
     /// <summary>
     /// Gets or sets the large icon.
     /// </summary>
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     object? LargeIcon { get; set; }
 }
 

@@ -1198,7 +1198,7 @@ public class Ribbon : Control, ILogicalChildSupport
     public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     /// <summary>
-    /// Defines whether tab headers are visible or not.
+    /// Defines whether the toolbar is visible or not.
     /// </summary>
     public bool IsToolBarVisible
     {

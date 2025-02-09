@@ -4,6 +4,7 @@ namespace Fluent;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -164,6 +165,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);
@@ -178,6 +181,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     #region LargeIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? LargeIcon
     {
         get => this.GetValue(LargeIconProperty);
@@ -192,6 +197,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     #region MediumIcon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? MediumIcon
     {
         get => this.GetValue(MediumIconProperty);
@@ -309,6 +316,9 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <summary>
     /// Gets or sets the delay in milliseconds to close the popup on mouse down.
     /// </summary>
+    /// <remarks>
+    /// The minimum used delay is 100 ms, no matter which value is set.
+    /// </remarks>
     public int ClosePopupOnMouseDownDelay
     {
         get => (int)this.GetValue(ClosePopupOnMouseDownDelayProperty);
@@ -571,10 +581,11 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
             // Note: get outside thread to prevent exceptions (it's a dependency property after all)
             var timespan = this.ClosePopupOnMouseDownDelay;
 
-            // Ugly workaround, but use a timer to allow routed event to continue
+            // Ugly workaround, but use a task to allow routed event to continue
             Task.Factory.StartNew(async () =>
             {
-                await Task.Delay(timespan);
+                // We need at least 100 ms of delay. Otherwise there is no way for the routed event to continue...
+                await Task.Delay(Math.Max(100, timespan));
 
                 this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
             });

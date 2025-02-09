@@ -1,5 +1,8 @@
 ﻿namespace Fluent;
 
+using System.ComponentModel;
+using System.Windows;
+
 /// <summary>
 /// Base interface for Fluent controls
 /// </summary>
@@ -18,5 +21,7 @@ public interface IRibbonControl : IHeaderedControl, IKeyTipedControl, ILogicalCh
     /// <summary>
     /// Gets or sets Icon for the element
     /// </summary>
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     object? Icon { get; set; }
 }

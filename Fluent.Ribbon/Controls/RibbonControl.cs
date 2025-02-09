@@ -83,6 +83,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     #region Icon
 
     /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
     public object? Icon
     {
         get => this.GetValue(IconProperty);

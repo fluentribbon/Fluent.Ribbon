@@ -83,6 +83,9 @@
   - [#1162](../../issues/1162) - Maximum dropdown height is not screen aware
   - [#1196](../../issues/1196) - GroupName causes the selected ToggleButton to no longer trigger the click event
   - [#1218](../../issues/1218) - Selected tab is lost on screen changes (thanks @cbra-caa)
+  - [#1222](../../issues/1222) - Icon property values of controls are translated by the translation tools like catalyst (thanks @avikramaditya)
+  - [#1227](../../issues/1227) - Button events inside split button do not fire when ClosePopupOnMouseDownDelay = 0
+  - [#1228](../../issues/1228) - ComboBox dropdown is empty when expanding for the first time when specifying ItemsPanelTemplate in order to add Grouping
   - Value of `HideContextTabs` are now properly restored when `Backstage` is closed
   - `RibbonTitleBar`
     - Fixed rendering when `HideContextTabs` is `true`

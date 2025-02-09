@@ -113,7 +113,7 @@ class Build : NukeBuild
             .SetProject(Solution.Fluent_Ribbon)
             .SetConfiguration(Configuration)
             .SetProperty("PackageOutputPath", ArtifactsDirectory)
-            .When(GitVersion is not null, x => x
+            .When(x => GitVersion is not null, x => x
                 .SetProperty("RepositoryBranch", GitVersion?.BranchName)
                 .SetProperty("RepositoryCommit", GitVersion?.Sha))
             .SetVersion(NuGetVersion)

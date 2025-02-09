@@ -243,6 +243,7 @@
                     KeyboardNavigation.TabNavigation="Local"
                     TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
                 <Grid>
+                    <!-- We must use a dedicated border to prevent the effect from affecting font rendering... -->
                     <Border Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
                             BorderThickness="0"
@@ -279,13 +280,19 @@
                         <RowDefinition Height="{x:Static Fluent:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" />
                         <!-- Needed for overlapping Keytips -->
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="1"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background}">
+                    <Grid Grid.Row="1">
+                        <!-- We must use a dedicated border to prevent the effect from affecting font rendering... -->
+                        <Border Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
+                                Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                                BorderThickness="0"
+                                CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                                Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}" />
+
                         <Border Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                                 BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
-                                Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}"
                                 KeyboardNavigation.DirectionalNavigation="Contained"
                                 KeyboardNavigation.TabNavigation="Local"
                                 TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
@@ -293,7 +300,7 @@
                                             Margin="0"
                                             Focusable="False" />
                         </Border>
-                    </Border>
+                    </Grid>
                 </Grid>
             </Popup>
         </Grid>
