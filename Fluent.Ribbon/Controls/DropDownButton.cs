@@ -316,6 +316,9 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <summary>
     /// Gets or sets the delay in milliseconds to close the popup on mouse down.
     /// </summary>
+    /// <remarks>
+    /// The minimum used delay is 100 ms, no matter which value is set.
+    /// </remarks>
     public int ClosePopupOnMouseDownDelay
     {
         get => (int)this.GetValue(ClosePopupOnMouseDownDelayProperty);
@@ -578,11 +581,11 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
             // Note: get outside thread to prevent exceptions (it's a dependency property after all)
             var timespan = this.ClosePopupOnMouseDownDelay;
 
-            // Ugly workaround, but use a timer to allow routed event to continue
+            // Ugly workaround, but use a task to allow routed event to continue
             Task.Factory.StartNew(async () =>
             {
-                // We need at least 1 ms of delay. Otherwise there is no way for the routed event to continue
-                await Task.Delay(Math.Max(1, timespan));
+                // We need at least 100 ms of delay. Otherwise there is no way for the routed event to continue...
+                await Task.Delay(Math.Max(100, timespan));
 
                 this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
             });
