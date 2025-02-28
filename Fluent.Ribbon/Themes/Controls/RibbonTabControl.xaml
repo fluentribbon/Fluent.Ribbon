@@ -282,9 +282,9 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="1">
                         <!-- We must use a dedicated border to prevent the effect from affecting font rendering... -->
-                        <Border Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                        <Border Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
-                                Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
                                 BorderThickness="0"
                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
                                 Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}" />

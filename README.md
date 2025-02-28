@@ -6,7 +6,6 @@
 
 Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
 
-[![Join the chat at https://gitter.im/fluentribbon/Fluent.Ribbon](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/fluentribbon/Fluent.Ribbon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter](https://img.shields.io/badge/twitter-%40batzendev-blue.svg?style=flat-square)](https://twitter.com/batzendev)
 
 [![Build status (master)](https://img.shields.io/appveyor/ci/batzen/fluent-ribbon/master.svg?style=flat-square&&label=master)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/master)
@@ -58,8 +57,8 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 
 ## Development requirements
 
-- Visual Studio 2019 (16.6) or later (you can it the from https://visualstudio.microsoft.com/downloads/
-- .NET core SDK v3.1.300 or later (you can it from https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.exe)
+- Visual Studio 2022 (17.10) or later
+- .NET SDK 8.0.401 or later
 
 ## Designer issues
 
@@ -80,9 +79,6 @@ If none of that helps feel free to report an issue here.
 ## Awesome tools which Fluent.Ribbon can use
 
 <div>
-  <a href="https://cakebuild.net/">
-    <img alt="cakebuild.net" width="128" heigth="128" src="./Images/cake-medium.png">
-  </a>
   <a href="https://www.jetbrains.com/resharper/">
     <img alt="R#" width="128" heigth="128" hspace="40" src="./Images/icon_ReSharper.png">
   </a>
