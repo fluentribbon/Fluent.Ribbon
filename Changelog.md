@@ -1,5 +1,12 @@
 # Changelog for Fluent.Ribbon
 
+## 11.0.1 (preview)
+
+### Bug fixes
+
+- [#1235](../../issues/1235) - MenuItems with ItemSource and nested MenuItem
+- [#1236](../../issues/1236) - Window can't be dragged with mouse in .NET 10
+
 ## 11.0.0
 
 ### Breaking changes
