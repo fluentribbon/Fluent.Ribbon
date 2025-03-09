@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- [#1235](../../issues/1235) - MenuItems with ItemSource and nested MenuItem
+- [#1235](../../issues/1235) - MenuItems with ItemSource and nested MenuItem (thanks @imadenis for the test code)
 - [#1236](../../issues/1236) - Window can't be dragged with mouse in .NET 10
 
 ## 11.0.0
