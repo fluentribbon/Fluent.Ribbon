@@ -440,7 +440,9 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
         var item = this.currentItem;
         this.currentItem = null;
 
-        var dataTemplate = this.ItemContainerTemplateSelector.SelectTemplate(item, this);
+        var dataTemplate = this.ItemContainerTemplateSelector?.SelectTemplate(item, this)
+                           ?? this.ItemTemplate;
+
         if (dataTemplate is not null)
         {
             return dataTemplate.LoadContent();
