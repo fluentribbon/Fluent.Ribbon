@@ -93,6 +93,8 @@
             <!-- Background and foreground for MouseOver, with group -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
+                    <Condition Property="IsVisible" Value="True" />
+                    <Condition Property="IsMouseOver" Value="True" />
                     <Condition SourceName="grid" Property="IsMouseOver" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
@@ -101,6 +103,7 @@
             <!-- Foreground for selected MouseOver, with group -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
+                    <Condition Property="IsVisible" Value="True" />
                     <Condition Property="Selector.IsSelected" Value="True" />
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition SourceName="grid" Property="IsMouseOver" Value="True" />
@@ -129,6 +132,8 @@
             <!-- Background and foreground for MouseOver, no group -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
+                    <Condition Property="IsVisible" Value="True" />
+                    <Condition Property="IsMouseOver" Value="True" />
                     <Condition SourceName="grid" Property="IsMouseOver" Value="True" />
                     <Condition Property="Group" Value="{x:Null}" />
                 </MultiTrigger.Conditions>
