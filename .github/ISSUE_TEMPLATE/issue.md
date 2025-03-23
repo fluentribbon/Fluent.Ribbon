@@ -9,11 +9,14 @@ assignees: ''
 
 **Place your issue description here.**
 
-**Please do not include large amounts of code in your issue. Please attach a zip file containing a repro instead.**
+**Please do not include large amounts of code in your issue. Please refrence a git repository or attach a zip file containing a repro instead.**
 
 ---
-### Environment
 
-- Fluent.Ribbon __v?.?.?__
+## Environment
+
+```text
+- Fluent.Ribbon: __?.?__
 - Windows __?__
-- .NET Framework __?.?__
+- .NET __?.?__
+```
