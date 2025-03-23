@@ -60,6 +60,7 @@
     - Quite a few colors/brushes changed
   - Dark
     - `Fluent.Ribbon.Colors.White` changed from `#FF252525` to `#FF000000`
+- To get proper `Separator` display in `RibbonGroupBox` you now have to explicitly set their style to `Fluent.Ribbon.Styles.GroupBoxSeparator`
 
 ### Enhancements/Features
 
