@@ -16,7 +16,6 @@
                             Margin="0"
                             Focusable="False">
                 <Border x:Name="PART_ButtonBorder"
-                        Height="23"
                         MinWidth="60"
                         Background="{TemplateBinding Background}">
                     <ContentControl x:Name="contentPresenter"
