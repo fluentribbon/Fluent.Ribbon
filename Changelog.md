@@ -9,6 +9,7 @@
 - [#1238](../../issues/1238) - Crash in StyleHelper.EvaluateOldNewStates
 - [#1242](../../issues/1242) - Wrong margin in TwoLineLabel
 - [#1243](../../issues/1243) - TextFormattingMode.Ideal creates minor display issue
+- [#1248](../../issues/1248) - In a ContextMenu ItemsControl is creating a hierachical layer
 
 ## 11.0.0
 

@@ -415,7 +415,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
-        if (item is MenuItem or Separator)
+        if (item is ItemsControl or Separator)
         {
             return true;
         }
