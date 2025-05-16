@@ -1813,19 +1813,18 @@
                     <Fluent:DropDownButton Header="Bound items gggg"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
-                                           ItemsSource="{Binding StringItems}"
+                                           ItemsSource="{Binding MenuViewModel.MenuItems}"
+                                           UsesItemContainerTemplate="true"
                                            ResizeMode="Both">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}">
-                                    <TextBlock.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Delete" />
-                                        </ContextMenu>
-                                    </TextBlock.ContextMenu>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                        <Fluent:DropDownButton.Resources>
+                            <ItemContainerTemplate x:Key="{ItemContainerTemplateKey {x:Type viewModels:MenuItemViewModel}}">
+                                <Fluent:MenuItem Header="{Binding Header}" 
+                                                 IsCheckable="{Binding IsCheckable}"
+                                                 IsChecked="{Binding IsChecked}"
+                                                 ItemsSource="{Binding Children}"
+                                                 UsesItemContainerTemplate="True" />
+                            </ItemContainerTemplate>
+                        </Fluent:DropDownButton.Resources>
                     </Fluent:DropDownButton>
 
                     <Fluent:DropDownButton Header="Dropdown (auto close on click) g"

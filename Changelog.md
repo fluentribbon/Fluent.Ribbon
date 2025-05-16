@@ -1,5 +1,16 @@
 # Changelog for Fluent.Ribbon
 
+## 11.0.1
+
+### Bug fixes
+
+- [#1235](../../issues/1235) - MenuItems with ItemSource and nested MenuItem (thanks @imadenis for the test code)
+- [#1236](../../issues/1236) - Window can't be dragged with mouse in .NET 10
+- [#1238](../../issues/1238) - Crash in StyleHelper.EvaluateOldNewStates
+- [#1242](../../issues/1242) - Wrong margin in TwoLineLabel
+- [#1243](../../issues/1243) - TextFormattingMode.Ideal creates minor display issue
+- [#1248](../../issues/1248) - In a ContextMenu ItemsControl is creating a hierachical layer
+
 ## 11.0.0
 
 ### Breaking changes
@@ -52,6 +63,7 @@
     - Quite a few colors/brushes changed
   - Dark
     - `Fluent.Ribbon.Colors.White` changed from `#FF252525` to `#FF000000`
+- To get proper `Separator` display in `RibbonGroupBox` you now have to explicitly set their style to `Fluent.Ribbon.Styles.GroupBoxSeparator`
 
 ### Enhancements/Features
 

@@ -78,10 +78,9 @@ If none of that helps feel free to report an issue here.
 
 ## Awesome tools which Fluent.Ribbon can use
 
+[![ReSharper logo](https://resources.jetbrains.com/storage/products/company/brand/logos/ReSharper.svg)](https://jb.gg/OpenSourceSupport)
+
 <div>
-  <a href="https://www.jetbrains.com/resharper/">
-    <img alt="R#" width="128" heigth="128" hspace="40" src="./Images/icon_ReSharper.png">
-  </a>
   <a href="https://www.appveyor.com/">
     <img alt="appveyor" width="128" heigth="128" src="./Images/Appveyor_logo.svg">
   </a>

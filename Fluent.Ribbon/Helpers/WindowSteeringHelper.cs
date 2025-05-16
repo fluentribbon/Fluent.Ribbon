@@ -1,9 +1,9 @@
 ﻿namespace Fluent.Helpers;
 
 using System;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using ControlzEx.Native;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -13,10 +13,6 @@ using Windows.Win32.Foundation;
 /// </summary>
 public static class WindowSteeringHelper
 {
-    private static readonly PropertyInfo? criticalHandlePropertyInfo = typeof(Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance);
-
-    private static readonly object[] emptyObjectArray = Array.Empty<object>();
-
     /// <summary>
     /// Shows the system menu at the current mouse position.
     /// </summary>
@@ -61,9 +57,9 @@ public static class WindowSteeringHelper
             // for the touch usage
             PInvoke.ReleaseCapture();
 
-            var criticalHandle = (IntPtr)(criticalHandlePropertyInfo?.GetValue(window, emptyObjectArray) ?? IntPtr.Zero);
+            var handle = new WindowInteropHelper(window).Handle;
 
-            if (criticalHandle != IntPtr.Zero)
+            if (handle != IntPtr.Zero)
             {
                 // these lines are from DragMove
                 // NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
@@ -72,7 +68,7 @@ public static class WindowSteeringHelper
                 var wpfPoint = window.PointToScreen(Mouse.GetPosition(window));
                 var x = (int)wpfPoint.X;
                 var y = (int)wpfPoint.Y;
-                PInvoke.SendMessage(new HWND(criticalHandle), 0x00A1 /*NCLBUTTONDOWN*/, new WPARAM((nuint)HT.CAPTION), new LPARAM(x | (y << 16)));
+                PInvoke.SendMessage(new HWND(handle), 0x00A1 /*NCLBUTTONDOWN*/, new WPARAM((nuint)HT.CAPTION), new LPARAM(x | (y << 16)));
             }
         }
         else if (handleStateChange

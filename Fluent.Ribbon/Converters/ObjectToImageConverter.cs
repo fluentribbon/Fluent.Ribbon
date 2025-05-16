@@ -395,7 +395,8 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
             {
                 var type = expression.GetType();
                 var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                var field = type.GetField("_targetObject", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                var field = type.GetField("_targetObject", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                    ?? type.GetField("targetObject", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
                 if (method is not null
                     && field is not null)

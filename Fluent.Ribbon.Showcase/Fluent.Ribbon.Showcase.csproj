@@ -4,11 +4,12 @@
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
 
-    <NoWarn>$(NoWarn);SA0001;SA1601;SA1602;WPF0060</NoWarn>
+    <NoWarn>$(NoWarn);SA0001;SA1601;SA1602;WPF0060;WFO0003</NoWarn>
     <Nullable>enable</Nullable>
 
     <InlcudeMahAppsMetro>true</InlcudeMahAppsMetro>
     <DefineConstants Condition="$(InlcudeMahAppsMetro)">$(DefineConstants);MahApps_Metro</DefineConstants>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
