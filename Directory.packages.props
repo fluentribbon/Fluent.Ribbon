@@ -1,19 +1,19 @@
 <Project>
     <ItemGroup>
-        <PackageVersion Include="ControlzEx" version="7.0.1-rc0014" />
+        <PackageVersion Include="ControlzEx" version="7.0.1" />
         <PackageVersion Include="System.Memory" Version="4.5.5" />
     </ItemGroup>
 
     <ItemGroup Label="Showcase">
-        <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="5.0.0" />
+        <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="5.1.0" />
         <PackageVersion Include="MahApps.Metro" version="3.0.0-alpha0492" />
     </ItemGroup>
 
     <ItemGroup Label="Test">
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-        <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+        <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
 
-        <PackageVersion Include="NUnit" version="4.1.0" />
+        <PackageVersion Include="NUnit" version="4.2.2" />
 
         <PackageVersion Include="System.Text.Json" version="8.0.5" />
 
@@ -21,12 +21,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Build">
-        <PackageVersion Include="JetBrains.Annotations" version="2023.3.0" />
+        <PackageVersion Include="JetBrains.Annotations" version="2024.3.0" />
 
         <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.3.106" />
         <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0167" />
 
-        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.9.2" />
+        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.14.0" />
         <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.556" />
         <PackageVersion Include="WpfAnalyzers" version="4.1.1" />
     </ItemGroup>

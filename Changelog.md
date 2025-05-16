@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 11.0.1 (preview)
+## 11.0.1
 
 ### Bug fixes
 
