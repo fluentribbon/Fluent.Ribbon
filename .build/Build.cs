@@ -44,7 +44,7 @@ class Build : NukeBuild
     [Solution(GenerateProjects = true)]
     readonly Solution Solution = null!;
     
-    [GitVersion(Framework = "net6.0", NoFetch = true)]
+    [GitVersion(Framework = "net8.0", NoFetch = true)]
     readonly GitVersion? GitVersion;
     
     string AssemblySemVer => GitVersion?.AssemblySemVer ?? "1.0.0";
