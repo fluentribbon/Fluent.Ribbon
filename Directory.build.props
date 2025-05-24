@@ -39,11 +39,6 @@
     <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
     <Product>Fluent.Ribbon</Product>
     <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
-
-    <Version Condition="'$(Version)' == ''">11.0.0.0</Version>
-    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">11.0.0.0</AssemblyVersion>
-    <FileVersion Condition="'$(FileVersion)' == ''">11.0.0.0</FileVersion>
-    <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
   </PropertyGroup>
 
   <!-- Sign assembly -->
@@ -81,6 +76,8 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="all" IncludeAssets="build;compile" />
+
+    <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
 
   	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" IncludeAssets="build;analyzers" />
     <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="all" includeAssets="build;analyzers" /> -->
