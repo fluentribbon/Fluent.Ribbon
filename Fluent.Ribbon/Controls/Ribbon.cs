@@ -287,9 +287,15 @@ public class Ribbon : Control, ILogicalChildSupport
     {
         var ribbon = contextMenuOwner;
 
-        if (RibbonContextMenu is null
-            || ribbon is null)
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+        if (RibbonContextMenu is null)
         {
+            return;
+        }
+
+        if (ribbon is null)
+        {
+            RibbonContextMenu.IsOpen = false;
             return;
         }
 

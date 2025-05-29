@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 11.1.0
+
+### Bug fixes
+
+- [#1123](../../issues/1123) - Empty ContextMenu shown when ribbon controls are used outside of Ribbon
+
 ## 11.0.1
 
 ### Bug fixes
