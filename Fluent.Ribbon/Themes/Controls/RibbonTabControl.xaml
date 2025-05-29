@@ -56,9 +56,9 @@
                                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                   Margin="1"
                                                   HorizontalScrollBarVisibility="Disabled"
+                                                  VerticalScrollBarVisibility="Auto"
                                                   IsTabStop="False"
-                                                  SnapsToDevicePixels="True"
-                                                  VerticalScrollBarVisibility="Auto">
+                                                  SnapsToDevicePixels="True">
                                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                                     </ScrollViewer>
                                 </Grid>
@@ -167,9 +167,9 @@
                                            Margin="0"
                                            HorizontalAlignment="Left"
                                            HorizontalScrollBarVisibility="Auto"
+                                           VerticalScrollBarVisibility="Disabled"
                                            IsHitTestVisible="True"
                                            IsTabStop="False"
-                                           VerticalScrollBarVisibility="Disabled"
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                 HorizontalAlignment="Stretch"

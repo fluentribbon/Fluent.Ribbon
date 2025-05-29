@@ -441,9 +441,9 @@
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background}">
                     <ScrollViewer x:Name="ScrollViewer"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
-                                  Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}"
                                   HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollBarVisibility="Visible">
+                                  VerticalScrollBarVisibility="Visible"
+                                  Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}">
                         <ContentControl x:Name="PART_ContentPresenter"
                                         Focusable="False">
                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"

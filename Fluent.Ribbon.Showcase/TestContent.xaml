@@ -3743,9 +3743,9 @@
                              Grid.Row="1"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                              Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                             VerticalScrollBarVisibility="Visible"
                              IsReadOnly="True"
-                             TextWrapping="Wrap"
-                             VerticalScrollBarVisibility="Visible" />
+                             TextWrapping="Wrap" />
                 </Grid>
             </TabItem>
 

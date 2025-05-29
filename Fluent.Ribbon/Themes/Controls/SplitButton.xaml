@@ -128,8 +128,8 @@
                     <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
-                                  SnapsToDevicePixels="True"
-                                  VerticalScrollBarVisibility="Auto">
+                                  VerticalScrollBarVisibility="Auto"
+                                  SnapsToDevicePixels="True">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Cycle"
@@ -266,8 +266,8 @@
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
-                                  SnapsToDevicePixels="True"
-                                  VerticalScrollBarVisibility="Auto">
+                                  VerticalScrollBarVisibility="Auto"
+                                  SnapsToDevicePixels="True">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Cycle"
