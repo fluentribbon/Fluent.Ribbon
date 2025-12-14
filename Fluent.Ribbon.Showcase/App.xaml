@@ -46,51 +46,53 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="6" />
                                 </Grid.RowDefinitions>
-                                <!-- Border for the background with the same CornerRadius as the Border with the Header
-                                 Using this because if the background is set in the Border with the Header the opacity
-                                   mask will be applied to the background as well. -->
-                                <Border CornerRadius="4"
-                                        Grid.Row="1"
+                                <!--
+                                    Border for the background with the same CornerRadius as the Border with the Header
+                                    Using this because if the background is set in the Border with the Header the opacity
+                                    mask will be applied to the background as well.
+                                -->
+                                <Border Grid.Row="1"
                                         Grid.RowSpan="3"
                                         Grid.Column="0"
                                         Grid.ColumnSpan="4"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}"
                                         BorderBrush="Transparent"
-                                        Background="{TemplateBinding Background}" />
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="4" />
 
-                                <Border CornerRadius="4"
-                                        Grid.Row="1"
+                                <Border Grid.Row="1"
                                         Grid.RowSpan="3"
                                         Grid.ColumnSpan="4"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                                        CornerRadius="4">
                                     <Border.OpacityMask>
                                         <MultiBinding Converter="{StaticResource BorderGapMaskConverter}"
                                                       ConverterParameter="7">
                                             <Binding ElementName="Header"
                                                      Path="ActualWidth" />
-                                            <Binding RelativeSource="{RelativeSource Self}"
-                                                     Path="ActualWidth" />
-                                            <Binding RelativeSource="{RelativeSource Self}"
-                                                     Path="ActualHeight" />
+                                            <Binding Path="ActualWidth"
+                                                     RelativeSource="{RelativeSource Self}" />
+                                            <Binding Path="ActualHeight"
+                                                     RelativeSource="{RelativeSource Self}" />
                                         </MultiBinding>
                                     </Border.OpacityMask>
 
-                                    <Border BorderThickness="{TemplateBinding BorderThickness}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
                                             CornerRadius="3">
-                                        <Border BorderThickness="{TemplateBinding BorderThickness}"
-                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                                        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
                                                 CornerRadius="2" />
                                     </Border>
                                 </Border>
 
                                 <!-- ContentPresenter for the header -->
                                 <Border x:Name="Header"
-                                        Padding="3,1,3,0"
                                         Grid.Row="0"
                                         Grid.RowSpan="2"
-                                        Grid.Column="1">
+                                        Grid.Column="1"
+                                        Padding="3 1 3 0">
                                     <ContentPresenter ContentSource="Header"
                                                       RecognizesAccessKey="True"
                                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
