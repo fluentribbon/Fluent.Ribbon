@@ -23,8 +23,8 @@ install:
   - ps: ./dotnet-install.ps1 -Version 10.0.100 -InstallDir "C:\Program Files\dotnet"
 
 build_script:
-  - cmd: dotnet --info
-  - cmd: build.cmd CI
+  - ps: dotnet --info
+  - ps: .\build.ps1 CI
 
 after_build:
   - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
