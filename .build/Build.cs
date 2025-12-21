@@ -29,13 +29,14 @@ class Build : NukeBuild
             throw new Exception("Could not initialize GitVersion.");
         }
 
-        Serilog.Log.Information("IsLocalBuild           : {0}", IsLocalBuild.ToString());
+        Serilog.Log.Information("IsLocalBuild      : {0}", IsLocalBuild.ToString());
 
-        Serilog.Log.Information("Informational   Version: {0}", InformationalVersion);
-        Serilog.Log.Information("SemVer          Version: {0}", SemVer);
-        Serilog.Log.Information("AssemblySemVer  Version: {0}", AssemblySemVer);
-        Serilog.Log.Information("MajorMinorPatch Version: {0}", MajorMinorPatch);
-        Serilog.Log.Information("NuGet           Version: {0}", NuGetVersion);
+        Serilog.Log.Information("Informational     : {0}", InformationalVersion);
+        Serilog.Log.Information("SemVer            : {0}", SemVer);
+        Serilog.Log.Information("FullSemVer        : {0}", FullSemVer);
+        Serilog.Log.Information("AssemblySemVer    : {0}", AssemblySemVer);
+        Serilog.Log.Information("AssemblySemFileVer: {0}", AssemblySemFileVer);
+        Serilog.Log.Information("MajorMinorPatch   : {0}", MajorMinorPatch);
     }
     
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -46,13 +47,13 @@ class Build : NukeBuild
     
     [GitVersion(Framework = "net6.0", NoFetch = true)]
     readonly GitVersion? GitVersion;
-    
-    string AssemblySemVer => GitVersion?.AssemblySemVer ?? "1.0.0";
-    string SemVer => GitVersion?.SemVer ?? "1.0.0";
+
     string InformationalVersion => GitVersion?.InformationalVersion ?? "1.0.0";
-    string NuGetVersion => GitVersion?.NuGetVersion ?? "1.0.0";
-    string MajorMinorPatch => GitVersion?.MajorMinorPatch ?? "1.0.0";
+    string SemVer => GitVersion?.SemVer ?? "1.0.0";
+    string FullSemVer => GitVersion?.FullSemVer ?? "1.0.0";
+    string AssemblySemVer => GitVersion?.AssemblySemVer ?? "1.0.0";
     string AssemblySemFileVer => GitVersion?.AssemblySemFileVer ?? "1.0.0";
+    string MajorMinorPatch => GitVersion?.MajorMinorPatch ?? "1.0.0";
 
     // Define directories.
     AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
@@ -116,13 +117,13 @@ class Build : NukeBuild
             .When(x => GitVersion is not null, x => x
                 .SetProperty("RepositoryBranch", GitVersion?.BranchName)
                 .SetProperty("RepositoryCommit", GitVersion?.Sha))
-            .SetVersion(NuGetVersion)
+            .SetVersion(FullSemVer)
             .SetAssemblyVersion(AssemblySemVer)
             .SetFileVersion(AssemblySemFileVer)
             .SetInformationalVersion(InformationalVersion));
         
-        (BuildBinDirectory / "Fluent.Ribbon" / Configuration).CompressTo(ArtifactsDirectory / $"Fluent.Ribbon-v{NuGetVersion}.zip");
-        (BuildBinDirectory / "Fluent.Ribbon.Showcase" / Configuration).CompressTo(ArtifactsDirectory / $"Fluent.Ribbon.Showcase-v{NuGetVersion}.zip");
+        (BuildBinDirectory / "Fluent.Ribbon" / Configuration).CompressTo(ArtifactsDirectory / $"Fluent.Ribbon-v{FullSemVer}.zip");
+        (BuildBinDirectory / "Fluent.Ribbon.Showcase" / Configuration).CompressTo(ArtifactsDirectory / $"Fluent.Ribbon.Showcase-v{FullSemVer}.zip");
     });
 
     Target Test => _ => _

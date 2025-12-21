@@ -1,21 +1,25 @@
 assembly-versioning-scheme: Major
 assembly-file-versioning-scheme: MajorMinorPatchTag
-mode: ContinuousDeployment
+mode: ContinuousDelivery
 next-version: 11.1.0
 branches:
   master:
-    mode: ContinuousDeployment
-    tag: rc
-    prevent-increment-of-merged-branch-version: true
+    regex: ^master$|^main$
+    label: rc
+    prevent-increment:
+      of-merged-branch: true
     track-merge-target: false
     is-release-branch: true
+    is-main-branch: true
     increment: Patch
   develop:
-    mode: ContinuousDeployment
-    tag: alpha
-    prevent-increment-of-merged-branch-version: true
+    regex: ^develop$
+    label: alpha
+    prevent-increment:
+      of-merged-branch: true
     track-merge-target: true
     tracks-release-branches: true
+    is-main-branch: false
     increment: Patch
   pull-request:
     mode: ContinuousDelivery
