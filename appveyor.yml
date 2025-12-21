@@ -21,7 +21,7 @@ install:
 build_script:
   - ps: dotnet --info
   - ps: git status
-  - ps: .\build.ps1 CI
+  - cmd: .\build.cmd CI
 
 after_build:
   - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
