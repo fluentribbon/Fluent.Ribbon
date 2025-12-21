@@ -24,7 +24,7 @@
         <PackageVersion Include="JetBrains.Annotations" version="2025.2.4" />
 
         <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.3.259" />
-        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0178" />
+        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha.188" />
         <PackageVersion Include="GitVersion.MsBuild" Version="6.5.1" />
 
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.14.0" />
