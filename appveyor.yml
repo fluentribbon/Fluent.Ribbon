@@ -34,3 +34,6 @@ artifacts:
 
 nuget:
   disable_publish_on_pr: true
+
+environment:
+  IGNORE_NORMALISATION_GIT_HEAD_MOVE: 1
