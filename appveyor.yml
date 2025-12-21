@@ -11,13 +11,16 @@ test: false
 pull_requests:
   do_not_increment_build_number: false
 
+environment:
+  IGNORE_NORMALISATION_GIT_HEAD_MOVE: 1
+
 install:
-  - ps: git status
   - ps: Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
-  - ps: ./dotnet-install.ps1 -Version 10.0.100 -InstallDir "C:\Program Files\dotnet"
+  - ps: ./dotnet-install.ps1 -JSonFile ./global.json -InstallDir "C:\Program Files\dotnet"
 
 build_script:
   - ps: dotnet --info
+  - ps: git status
   - ps: .\build.ps1 CI
 
 after_build:
@@ -28,6 +31,3 @@ artifacts:
 
 nuget:
   disable_publish_on_pr: true
-
-environment:
-  IGNORE_NORMALISATION_GIT_HEAD_MOVE: 1
