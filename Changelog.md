@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 11.0.2
+
+### Bug fixes
+
+- [#1123](../../issues/1123) - Empty ContextMenu shown when ribbon controls are used outside of Ribbon
+
 ## 11.0.1
 
 ### Bug fixes
@@ -284,9 +290,11 @@
 | ---                                                           | Fluent.Ribbon.Templates.SplitButton.Simplified                   |
 | ---                                                           | Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified      |
 | ---                                                           | Fluent.Ribbon.Templates.ToggleButton.Simplified                  |
+
 </details>
 
 - ### Bug fixes
+
   - [#845](../../issues/845) - QuickAccessToolBar issues in Colorful variant
   - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
   - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
@@ -305,7 +313,8 @@
   - [#989](../../issues/989) - QuickAccessToolbar - More Commands leaves open empty Popup when overflow gets empty
 
 - ### Enhancements/Features
-  - [#924](../../issues/924) - Feature simplified ribbon (thanks @nishy2000) 
+
+  - [#924](../../issues/924) - Feature simplified ribbon (thanks @nishy2000)
   - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
   - [#936](../../issues/936) - Add ability to vertically align items in Backstage  
     You have to set `VerticalAlignment="Bottom"`, `DockPanel.Dock="Bottom"` and if you want to align multiple items at the bottom invert their order (because of how `DockPanel` works).
@@ -360,8 +369,8 @@
     Because of this you now got more automatic and manual sync options.  
     Syncing now, optionally, includes the current accent color from Windows.  
     You can now generate themes at runtime more easily.  
-    The documentation for Fluent.Ribbon can be found at https://fluentribbon.github.io/documentation/styles_since_8  
-    The documentation for `ThemeManager` can be found at https://github.com/ControlzEx/ControlzEx/blob/develop/Wiki/ThemeManager.md
+    The documentation for Fluent.Ribbon can be found at <https://fluentribbon.github.io/documentation/styles_since_8>  
+    The documentation for `ThemeManager` can be found at <https://github.com/ControlzEx/ControlzEx/blob/develop/Wiki/ThemeManager.md>
   - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
     Due to this change you now have a lot more themes to choose from.
   - The built in state storage will no longer persist the state of quick access items.  
@@ -501,6 +510,7 @@
 | ---                                    | Fluent.Ribbon.Styles.WindowCommands.Button                                        |
 | CaptionButtonStyle                     | Fluent.Ribbon.Styles.WindowCommands.CaptionButton                                 |
 | ---                                    | Fluent.Ribbon.Templates.WindowCommands.CaptionButton                              |
+
 </p></details>
 
 - ### Bug fixes
@@ -586,6 +596,7 @@
 ## 6.1.0
 
 - ### Bug fixes
+
   - [#510](../../issues/510) - Submenus in DropDownButton are not opened each time
   - [#511](../../issues/511) - Binding on RibbonWindow.Icon not working
   - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
@@ -594,6 +605,7 @@
   - [#524](../../issues/524) - Fixes Korean translation error. (thanks @softinus)
 
 - ### Enhancements
+
   - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
   - [#514](../../issues/514) - Detect Windows 10 app mode setting and adjust current AppTheme automatically  
   You can use `ThemeManager.SyncAppThemeWithWindowsAppModeSetting` to align the `AppTheme` once.
@@ -603,6 +615,7 @@
 ## 6.0.0
 
 - ### Breaking changes
+
   - **[#466](../../issues/466) - StrongName signed assembly? Hey, it's 2017...**  
   **Fluent.Ribbon is no longer a strong-named assembly.**
   - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox
@@ -734,9 +747,11 @@
 |------------------------------|--------------------------|
 | NonEditableComboBoxItemStyle | is now the default style |
 | EditableComboBoxItemStyle    | ---                      |
+
 </p></details>
 
 - ### Bug fixes
+
   - [#344](../../issues/344) - Invisible header of combobox on QuickAccessToolBar.
   - [#395](../../issues/395) - issues with contextual tab group
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
@@ -768,6 +783,7 @@
   - [#501](../../issues/501) - Ribbon controls disappear when ribbon is initially disabled
 
 - ### Enhancements
+
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
   - You can change accent and base colors by using `ThemeManager` just like in MahApps.Metro. Please read the [documentation](http://fluentribbon.github.io/documentation/styles) for details.
   - [#275](../../issues/275) - Option for customizing the quick access toolbar access keys  
@@ -794,16 +810,21 @@
   - [#494](../../issues/494) - How to align controls such as ToggleButton, Spinner with text  
   You can now opt in to align the headers of controls like `ComboBox` or `Spinner` which are placed in the same column of a `RibbonGroupBox` by adding `Grid.IsSharedSizeScope="True"` to a `RibbonGroupBox`.
   You can opt out of this behavior for single controls in that column by adding `Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True"` to that control.  
-  Documentation can be found at http://fluentribbon.github.io/documentation/concepts/sizing#aligningControls
+  Documentation can be found at <http://fluentribbon.github.io/documentation/concepts/sizing#aligningControls>
   - [#495](../../issues/495) - Add option disable handling of KeyTips  
   You can now disable handling of all KeyTips by setting `IsKeyTipHandlingEnabled` on `Ribbon` to `False`.
   - [#503](../../issues/503) - Add IsDefinitive property to GalleryItem (thanks @noctis0430)  
 
 ## 5.0.2
+
+- ### Bug fixes
+
   - [#437](../../issues/437) - "Could not load ControlzEx"
 
 ## 5.0.1
+
 - ### Bug fixes
+
   - [#412](../../issues/412) - Specific version for nuget references causes issues
   - [#413](../../issues/413) - ColorGallery SelectedColorChanged issue
   - [#415](../../issues/415) - DataContext not forwarded from Ribbon to Backstage (in adorner) and TitleBar
@@ -811,7 +832,8 @@
 ## 5.0.0
 
 - ### Breaking changes
-  - Office 2010 and Windows 8 themes got removed. 
+
+  - Office 2010 and Windows 8 themes got removed.  
     Office 2013 theme was moved from "Themes/Office2013/Generic.xaml" to "Themes/Generic.xaml".
     This was a [community voted decision](../../issues/282).
   - `ComboBox` now uses the default `ItemsPanelTemplate` instead of `VirtualizingStackPanel` again.  
@@ -825,7 +847,7 @@
       `Ribbon` uses the `TitleBar` provided by the `RibbonWindow` by default, through it's `Style`.  
       This allows changing the `TitleBar` being used by the `Ribbon`.
   - Removed `RibbonProperties.TitleBarHeight` to simplify usage of the `Ribbon` in non `RibbonWindow`.  
-    To support this the following things were added: 
+    To support this the following things were added:
     - `SelectedContentMargin` was added to `BackstageTabControl`
     - `QuickAccessToolBarHeight` on `Ribbon`
     - `TitleBarHeight` on `RibbonWindow`
@@ -834,6 +856,7 @@
     - `MenuItemStyle` is renamed to `FluentDefaultSystemMenuItemStyle`
 
 - ### Bug fixes
+
   - [#288](../../issues/288) - Fluent:DropDownButton Background can't be changed
   - [#300](../../issues/300) - Startscreen not working in 4.0.3
   - [#305](../../issues/305) - Combobox items will be drawn above each other on scroll down
@@ -847,7 +870,7 @@
   - [#342](../../issues/342) - Fixed dependency property name of property Groups in GalleryGroupFilter. (thanks @polepage)
   - [#346](../../issues/346) - RibbonWindow icon is blurry (thanks @chdft)
   - [#365](../../issues/365) - BackstageAdorner is not removed
-  - [#368](../../issues/368) - Render Glitch when Maximizing RibbonWindow with SizeToContent Enabled 
+  - [#368](../../issues/368) - Render Glitch when Maximizing RibbonWindow with SizeToContent Enabled
   - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
   - [#377](../../issues/377) - ToggleButton highlight doesn't match the button size
   - [#388](../../issues/388) - QuickAccess item not visible when added from backstage
@@ -858,6 +881,7 @@
   - [#403](../../issues/403) - Tabs can "detach" from ribbon area
 
 - ### Enhancements
+
   - [#250](../../issues/250) - Enable change/hide of window title foreground
     - `Foreground` of window titel can now be changed by setting `TitleForeground` on `RibbonWindow`.  
     This is bound to `Foreground` of `RibbonWindow`.
@@ -879,24 +903,29 @@
 ## 4.0.3
 
 - ### Bug fixes
+
   - Fixes issues with window border on Windows 7 and Windows 8
 
 ## 4.0.2
 
 - ### Bug fixes
+
   - [#294](../../issues/294) - Issues with default style and OverridesDefaultStyle
 
 ## 4.0.1
 
 - ### Bug fixes
+
   - [#293](../../issues/293) - ArgumentNullException in BackstageTabControl while trying to find the selected tab
 
 ## 4.0.0
 
 - ### Notices
+
   - **As of now the Office 2010 and Windows 8 themes will be removed in version 5.0. You can vote for this at [Future direction of this library](../../issues/282).**
 
 - ### Breaking changes
+
   - New nuget dependency: [ControlzEx](https://www.nuget.org/packages/ControlzEx). So don't forget to add ControlzEx.dll to your distribution/setup.
   - BorderlessWindowBehavior was replaced by WindowChromeBehavior from [ControlzEx](https://github.com/ControlzEx/ControlzEx).
     This also removes the dependency Microsoft.Windows.Shell as ControlzEx contains everything we need to use WindowChrome.
@@ -906,9 +935,11 @@
   - FluentTest project was renamed to Fluent.Ribbon.Showcase [#212](../../issues/212)
 
 - ### Development/Contributing changes
+
   - We switched to Visual Studio 2015 so we can use nameof etc. [#219](../../issues/219)
 
 - ### Bug fixes
+
   - [#10](../../issues/10) - Maximising a ribbon window with DWM enabled results in it not maximising properly
   - [#90](../../issues/90) - Window chrome turning black during window resize.
   - [#116](../../issues/116) - MenuItem: When the description is long the MenuItem does not expands in Width or Height, does not wrap text
@@ -948,6 +979,7 @@
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
+
   - [#120](../../issues/120) - Adding short-cuts or additional information to Application Menu Item
   - [#185](../../issues/185) - Major refactoring of how WindowChrome is used
   - [#194](../../issues/194) - There should be an option to disable animations in the whole control
@@ -976,6 +1008,7 @@ Commits: [v3.6.0...v3.6.1](../../compare/v3.6.0...v3.6.1)
 ## 3.6.0
 
 - ### Bug fixes
+
   - [#163](../../issues/163) - ColorGallery produces Binding errors because of Binding of Color on SolidColorBrush in Fill/Background
   - [#166](../../issues/166) - Type is mismatch for IsCheckedProperty of ToggleButton
   - [#170](../../issues/170) - Black RibbonWindow title bar
@@ -983,6 +1016,7 @@ Commits: [v3.6.0...v3.6.1](../../compare/v3.6.0...v3.6.1)
   - [#178](../../issues/178) - Ribbonwindow crashes
 
 - ### Enhancements
+
   - [#172](../../issues/172) - ToggleButtonHelper.OnIsCheckedChanged() accepts type of "bool?". contributed by ([nishy2000](https://github.com/nishy2000))
   - [#175](../../issues/175) - Add "CloseOnEsc" property to Backstage to disable closing the backstage when ESC is pressed. contributed by Christoph Fink ([chrfin](https://github.com/chrfin))
 
@@ -1008,15 +1042,18 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
 ## 3.5.0
 
 - ### Bug fixes
+
   - [#143](../../issues/143) "Resizing InRibbonGallery causes content to be narrower than container"
 
 - ### Enhancements
+
   - [#141](../../issues/141) "Add Lithuanian (lt) language support"
   - [#142](../../issues/142) "GalleryPanel should inherit from VirtualizingStackPanel instead of Panel"
 
 ## 3.4.2
 
 - ### Bug fixes
+
   - [#113](../../issues/113) "Ribbon starts with no active tab selected"
   - [#122](../../issues/122) "The CanAddToQuickAccessToolBar="False" property not work correctly for "MenuItem""
   - [#135](../../issues/135) "Null pointer exception when trying to bring back QuickAccessItem"
@@ -1029,6 +1066,7 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
 ## 3.4.1
 
 - ### Bug fixes
+
   - [#78](../../issues/78) "Minimized but visible ribbon lacks top border in theme 2013"
   - [#81](../../issues/81) "Invalid typeof in style resolution of RadioButton"
   - [#83](../../issues/83) "Aligned vertical alignment of dropdownbutton and button."
@@ -1043,14 +1081,18 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - [#124](../../issues/124) "The text in fluent:Spinner cannot be centered vertically."
 
 ## 3.4.0
+
 - ### Features
+
   - [#74](../../issues/74) "Added DropDownButton.ClosePopupOnMouseDownDelay to allow the end-developer to tweak the delay (sometimes 100 ms is too fast)"
 
 - ### Enhancements
+
   - [#67](../../issues/67) "Make pin image vector based"
   - [#76](../../issues/76) "Tabbing between spinners goes via spinner buttons"
 
 - ### Bug fixes
+
   - [#34](../../issues/34) "A bug in the Menu of DropdownButton"
   - [#45](../../issues/45) "Little style Bug in Office2013 Style"
   - [#61](../../issues/61) "Fix for backstage controls in Windows 8 theme"
@@ -1063,16 +1105,20 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - [#71](../../issues/71) "Starting application with backstage menu open causes problems"
 
 ## 3.3.0
+
 - ### Reverted changes
+
   - [#28](../../issues/28) "Height and FontSize of MenuItem"
   - [#31](../../issues/31) "System wide font settings."
 
 - ### Features
+
   - [#14](../../issues/14) Ribbon Button: when passing the same icon file to the properties Icon and LargeIcon, the control doesn't seem to take the good icon frame
   - [#52](../../issues/52) Windows 8 theme
   - [#60](../../issues/60) First vector images for Windows 8 theme
 
 - ### Bug fixes
+
   - [#45](../../issues/45) Little style Bug in Office2013 Style
   - [#46](../../issues/46) Little Bug in Office2010 style
   - [#49](../../issues/49) Fluent:RibbonProperties.TitleBarHeight="0" no longer works!
@@ -1083,14 +1129,18 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - [#59](../../issues/59) Little style bug in Windows 8 theme
 
 ## 3.2.0
+
 - ### Features
+
   - [#31](../../issues/31) "System wide font settings."
   - [#38](../../issues/38) "A simple code to enable RibbonTabControl react to touch manipulation"
 
 - ### Misc
+
   - Ribbon, RibbonTitleBar and RibbonStatusBar now use SystemFonts.MenuFont* as font settings
 
 - ### Bug fixes
+
   - [#23](../../issues/23) "Drop support for ancient .NET 3.5"
   - [#24](../../issues/24) "RibbonTitleBar.MeasureOverride should not return the constraint parameter value"
   - [#25](../../issues/25) "Press Alt key without Backstage raises ArgumentNullException"
@@ -1107,14 +1157,18 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - [#44](../../issues/44) "Little Bug in Office2013 style"
 
 ## 3.1.0
+
 - ### Features
+
   - Added DropDownButton.ClosePopupOnMouseDown property which defaults to false. If true, it will close the drop down popup automatically when a mouse down event occurs.
   - [#3](../../issues/3)   "Consider using GitLink to allow users to step through Fluent source code"
 
 - ### Misc
+
   - Renaming InnerBackstageTabCotrolItem to InnerBackstageTabControlItem
 
 - ### Bug fixes
+
   - Fixed: [#11](../../issues/11)   "ContextMenu and Popup has 10px space at bottom and right side"
   - Fixed: [#13](../../issues/13)   "Backstage does not open at application start anymore"
   - Fixed: [#17](../../issues/17)   "Problem with Mouse Capture on SplitButton"
@@ -1124,25 +1178,31 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - Fixed: 22523 "Typo in Generic.xaml"
 
 ## 3.0.3
+
 - Fixed: 22519 "Normalize button closes application) Thanks to GeertvanHorrik for finding out that the version of Microsoft.Windows.Shell for .NET 4.0 that was used is buggy."
 
 ## 3.0.2
+
 - Fixed: 22519 "Normalize button closes application"
 
 ## 3.0.1
+
 - Fixed an issue with closed direct member menus (keytips were always redirected for direct childs)
 - Fixed: 22518 "Faulty white margin on the right and left of the window body"
 - Fixed: 22516 "Issues with backstage content localization using WPF Localization Extension"
 
 ## 3.0.0
+
 ## Major changes
-* Office 2013 theme is now included
-* MVVM support got better (yet not complete, please file a bug for things you need to work)
-* Samples are not divided anymore (all features shown there are now present in the showcase application)
-* All resource reference are now of type "DynamicResource" see comments for changeset https://fluent.codeplex.com/SourceControl/changeset/3572af781b96
-* We now use the WindowChrome class provided by Microsoft instead of custom code to render in the non client area
-* Large amount of [fixed bugs](https://fluent.codeplex.com/workitem/list/advanced?keyword=&status=Resolved%7cClosed&type=All&priority=All&release=All&assignedTo=All&component=All&reasonClosed=Fixed&sortField=LastUpdatedDate&sortDirection=Descending&page=0)
-* Style resources have been improved. That means you now have to include "Themes/Generic.xaml" to get Office 2010 silver and you can just import "Themes/Office2010/Black.xaml" etc. afterwards to get the different colors. To use the Office 2013 theme you can omit "Themes/Generic.xaml" and include "Themes/Office2013/Generic.xaml" instead. You can use RibbonWindow for Office 2010 or Office 2013 themes and you can switch between those at runtime. The showcase application shows how you can do that.
+
+- Office 2013 theme is now included
+- MVVM support got better (yet not complete, please file a bug for things you need to work)
+- Samples are not divided anymore (all features shown there are now present in the showcase application)
+- All resource reference are now of type "DynamicResource" see comments for changeset <https://fluent.codeplex.com/SourceControl/changeset/3572af781b96>
+- We now use the WindowChrome class provided by Microsoft instead of custom code to render in the non client area
+- Large amount of [fixed bugs](https://fluent.codeplex.com/workitem/list/advanced?keyword=&status=Resolved%7cClosed&type=All&priority=All&release=All&assignedTo=All&component=All&reasonClosed=Fixed&sortField=LastUpdatedDate&sortDirection=Descending&page=0)
+- Style resources have been improved. That means you now have to include "Themes/Generic.xaml" to get Office 2010 silver and you can just import "Themes/Office2010/Black.xaml" etc. afterwards to get the different colors. To use the Office 2013 theme you can omit "Themes/Generic.xaml" and include "Themes/Office2013/Generic.xaml" instead. You can use RibbonWindow for Office 2010 or Office 2013 themes and you can switch between those at runtime. The showcase application shows how you can do that.
 
 ## Breaking changes
-* No control in this library sets IsFocusScope=True anymore. This means that ApplicationCommands (such as paste, cut or copy), when bound to a button, don't get enabled when you would expect them to be activated. The showcase application uses those buttons with IsFocusScope=True.
+
+- No control in this library sets IsFocusScope=True anymore. This means that ApplicationCommands (such as paste, cut or copy), when bound to a button, don't get enabled when you would expect them to be activated. The showcase application uses those buttons with IsFocusScope=True.

@@ -7,12 +7,12 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <DataGrid AutoGenerateColumns="False"
+    <DataGrid HorizontalScrollBarVisibility="Disabled"
+              VerticalScrollBarVisibility="Visible"
+              AutoGenerateColumns="False"
               EnableRowVirtualization="True"
               HeadersVisibility="Column"
-              HorizontalScrollBarVisibility="Disabled"
               ItemsSource="{Binding Path=ThemeResources, RelativeSource={RelativeSource AncestorType=fluentTest:ResourcesView}}"
-              VerticalScrollBarVisibility="Visible"
               VirtualizingPanel.IsVirtualizingWhenGrouping="True">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Key"

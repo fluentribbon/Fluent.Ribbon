@@ -21,6 +21,7 @@
         "Margin, Padding, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",
         "Background, Foreground, FontFamily, FontSize, LineHeight, FontWeight, FontStyle, FontStretch",
         "SmallIcon, Icon, MediumIcon, LargeIcon",
+        "HorizontalScrollBarVisibility, VerticalScrollBarVisibility",
         "*:*, *",
         "PageSource, PageIndex, Color, Opacity, Offset, TargetName, Property, Value, StartPoint, EndPoint",
         "*:Freeze, mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",

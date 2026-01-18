@@ -57,8 +57,8 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 
 ## Development requirements
 
-- .NET SDK 8.0.401 or later
-- An IDE that supports the required .NET SDK (for example Rider 2024.1, Visual Studio 2022 (17.10) or later)
+- .NET SDK 10.0.100 or later
+- An IDE that supports the required .NET SDK
 
 ## Designer issues
 

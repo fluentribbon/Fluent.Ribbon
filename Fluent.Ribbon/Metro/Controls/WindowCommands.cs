@@ -195,17 +195,14 @@ public class WindowCommands : ItemsControl, IDisposable
             this.user32 = PInvoke.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
         }
 
-        fixed (char* pchars = new char[256])
+        var chars = new char[256];
+        if (PInvoke.LoadString(this.user32, id, chars.AsSpan(), 256) == 0)
         {
-            //PWSTR str = new PWSTR()
-            if (PInvoke.LoadString(this.user32, id, pchars, 256) == 0)
-            {
-                return $"String with id '{id}' could not be found.";
-            }
-#pragma warning disable CA1307 // Specify StringComparison for clarity
-            return new string(pchars).Replace("&", string.Empty);
-#pragma warning restore CA1307 // Specify StringComparison for clarity
+            return $"String with id '{id}' could not be found.";
         }
+#pragma warning disable CA1307 // Specify StringComparison for clarity
+        return new string(chars).Replace("&", string.Empty);
+#pragma warning restore CA1307 // Specify StringComparison for clarity
     }
 
     /// <inheritdoc />

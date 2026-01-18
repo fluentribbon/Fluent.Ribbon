@@ -144,9 +144,9 @@
                     <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto"
                                   IsTabStop="False"
-                                  SnapsToDevicePixels="True"
-                                  VerticalScrollBarVisibility="Auto">
+                                  SnapsToDevicePixels="True">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                     </ScrollViewer>
                 </Fluent:ResizeableContentControl>
@@ -266,9 +266,9 @@
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto"
                                   IsTabStop="False"
-                                  SnapsToDevicePixels="True"
-                                  VerticalScrollBarVisibility="Auto">
+                                  SnapsToDevicePixels="True">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                     </ScrollViewer>
                 </Fluent:ResizeableContentControl>

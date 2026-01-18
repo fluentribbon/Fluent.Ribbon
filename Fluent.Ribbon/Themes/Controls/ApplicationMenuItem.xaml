@@ -321,8 +321,8 @@
                                       Visibility="Visible" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Margin="1"
-                                              SnapsToDevicePixels="True"
-                                              VerticalScrollBarVisibility="Auto">
+                                              VerticalScrollBarVisibility="Auto"
+                                              SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 IsItemsHost="True"
@@ -887,8 +887,8 @@
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Margin="1"
                                               HorizontalScrollBarVisibility="Disabled"
-                                              SnapsToDevicePixels="True"
-                                              VerticalScrollBarVisibility="Auto">
+                                              VerticalScrollBarVisibility="Auto"
+                                              SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 IsItemsHost="True"
