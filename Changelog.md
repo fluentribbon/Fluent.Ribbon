@@ -1,5 +1,12 @@
 # Changelog for Fluent.Ribbon
 
+## vNext
+
+### Enhancements/Features
+
+- [#1267](../../issues/1267) - Fluent ribbon startup time dominated by resource dictionary merging  
+  Added AppContext-Switch "Switch.Fluent.Ribbon.DisableDefaultStyleLoading" to disable default style loading.
+
 ## 11.0.2
 
 ### Bug fixes
