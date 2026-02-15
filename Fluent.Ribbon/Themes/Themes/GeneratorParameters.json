@@ -17,7 +17,6 @@
     "Fluent.Ribbon.Brushes.Backstage.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.Backstage.BackButton.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
     "Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-    "Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
     "Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
     "Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",

@@ -140,7 +140,6 @@
 
     <!-- BackstageTabControl -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.BackstageTabControl.Background" Color="{{Fluent.Ribbon.Brushes.BackstageTabControl.Background}}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background" Color="{{Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground" Color="{{Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground}}" options:Freeze="True" />
 
     <!-- BackstageTabItem -->
