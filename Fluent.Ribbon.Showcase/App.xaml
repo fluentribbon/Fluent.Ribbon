@@ -1,6 +1,7 @@
 ﻿<Application x:Class="FluentTest.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fluent="urn:fluent-ribbon"
              ShutdownMode="OnMainWindowClose"
              StartupUri="TestWindow.xaml">
     <Application.Resources>
@@ -8,6 +9,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Generic.xaml" />
 
+                <fluent:RibbonColorSchemeResourceDictionary>
+                    <fluent:RibbonColorSchemeResourceDictionary.Options>
+                        <fluent:RibbonColorSchemeResourceDictionaryOptions BaseColor="Light" PrimaryAccentColor="Red" />
+                    </fluent:RibbonColorSchemeResourceDictionary.Options>
+                </fluent:RibbonColorSchemeResourceDictionary>
                 <!--<ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Themes/Light.Green.xaml" />-->
 
                 <!--<ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Themes/Dark.Green.xaml" />-->
