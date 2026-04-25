@@ -19,6 +19,10 @@
         <!--<PackageVersion Include="Google.Cloud.Translate.V3" Version="2.4.0" />-->
     </ItemGroup>
 
+    <ItemGroup Label="Benchmarks">
+        <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
+    </ItemGroup>
+
     <ItemGroup Label="Build">
         <PackageVersion Include="JetBrains.Annotations" version="2025.2.4" />
 
