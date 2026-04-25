@@ -5,6 +5,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:templateSelectors="clr-namespace:Fluent.TemplateSelectors"
+                    xmlns:controls="clr-namespace:Fluent.Controls"
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.GroupBoxSeparator"
            TargetType="Separator">
@@ -210,10 +211,11 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
+        <controls:ClippingBorder Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
         <Grid x:Name="rootGrid"
               HorizontalAlignment="Stretch">
-            <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}" />
 
             <ContentControl x:Name="nonCollapsedStateContainer"
                             Focusable="False">
@@ -353,7 +355,7 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
         </Grid>
-
+        </controls:ClippingBorder>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter TargetName="PART_CollapsedHeaderContentControl" Property="Grid.Column" Value="1" />
