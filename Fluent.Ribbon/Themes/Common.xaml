@@ -10,7 +10,8 @@
     <Thickness x:Key="Fluent.Ribbon.Values.Default.Padding">2 0 2 0</Thickness>
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Margin">8 0 8 0</Thickness>
-    <CornerRadius x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
+    <CornerRadius x:Key="Fluent.Ribbon.Values.Default.CornerRadius">3</CornerRadius>
+    <CornerRadius x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius">5</CornerRadius>
 
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
 

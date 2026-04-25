@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:controls="clr-namespace:Fluent.Controls"
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.GalleryDropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
@@ -89,9 +90,10 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Gallery"
                      TargetType="{x:Type Fluent:Gallery}">
-        <Border x:Name="layoutRoot"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}">
+        <controls:ClippingBorder x:Name="layoutRoot"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -128,7 +130,7 @@
                                          Orientation="{TemplateBinding Orientation}" />
                 </ScrollViewer>
             </Grid>
-        </Border>
+        </controls:ClippingBorder>
         <ControlTemplate.Triggers>
             <Trigger Property="HasFilter" Value="False">
                 <Setter TargetName="border" Property="Visibility" Value="Collapsed" />

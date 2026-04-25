@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:controls="clr-namespace:Fluent.Controls"
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.ResizeableContentControl"
            TargetType="{x:Type Fluent:ResizeableContentControl}">
@@ -14,14 +15,15 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ResizeableContentControl"
                      TargetType="{x:Type Fluent:ResizeableContentControl}">
-        <Border x:Name="PART_DropDownBorder"
-                Margin="{TemplateBinding Padding}"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                SnapsToDevicePixels="True">
+        <controls:ClippingBorder x:Name="PART_DropDownBorder"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
+                        SnapsToDevicePixels="True">
 
             <Grid Margin="1"
                   HorizontalAlignment="Stretch"
@@ -60,7 +62,7 @@
                     </Grid>
                 </Border>
             </Grid>
-        </Border>
+        </controls:ClippingBorder>
         <ControlTemplate.Triggers>
             <Trigger Property="ResizeMode" Value="None">
                 <Setter TargetName="resizeBorder" Property="Visibility" Value="Collapsed" />

@@ -4,6 +4,7 @@
                     xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:controls="clr-namespace:Fluent.Controls"
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.RibbonComboButton"
            TargetType="{x:Type Fluent:ToggleButton}">
@@ -61,6 +62,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+
             <StackPanel x:Name="headerAndIconPanel"
                         Margin="0 0 4 0"
                         HorizontalAlignment="Left"
@@ -86,22 +88,24 @@
                 </Grid>
             </StackPanel>
 
-            <Border x:Name="PART_ContentBorder"
-                    Grid.Column="1"
-                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
-                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
-                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
-                    BorderThickness="1"
-                    d:LayoutOverrides="GridBox">
+            <controls:VisualClippingBorder x:Name="PART_ContentBorder"
+                                           Grid.Column="1"
+                                           Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                                           Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                                           MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                           BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
+                                           BorderThickness="1"
+                                           CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
+                                           d:LayoutOverrides="GridBox">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="14" />
                     </Grid.ColumnDefinitions>
+
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
                                          Grid.ColumnSpan="2"
@@ -146,7 +150,7 @@
                              TextWrapping="NoWrap"
                              Visibility="Hidden" />
                 </Grid>
-            </Border>
+            </controls:VisualClippingBorder>
 
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
