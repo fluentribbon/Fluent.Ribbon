@@ -88,18 +88,18 @@
                 </Grid>
             </StackPanel>
 
-            <controls:VisualClippingBorder x:Name="PART_ContentBorder"
-                                           Grid.Column="1"
-                                           Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
-                                           Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
-                                           MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Center"
-                                           Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                           BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
-                                           BorderThickness="1"
-                                           CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
-                                           d:LayoutOverrides="GridBox">
+            <controls:ClippingBorder x:Name="PART_ContentBorder"
+                                     Grid.Column="1"
+                                     Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                                     Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                                     MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                                     HorizontalAlignment="Right"
+                                     VerticalAlignment="Center"
+                                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
+                                     BorderThickness="1"
+                                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
+                                     d:LayoutOverrides="GridBox">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -150,7 +150,7 @@
                              TextWrapping="NoWrap"
                              Visibility="Hidden" />
                 </Grid>
-            </controls:VisualClippingBorder>
+            </controls:ClippingBorder>
 
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
