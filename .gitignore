@@ -46,6 +46,8 @@ tools/
 # Generated files
 Fluent.Ribbon/Themes/**/Styles.xaml
 Fluent.Ribbon/Themes/Themes/*.xaml
+Fluent.Ribbon.Benchmarks/BenchmarkDotNet.Artifacts/**/*
+BenchmarkDotNet.Artifacts/**/*
 packages/
 .tmp
 temp
