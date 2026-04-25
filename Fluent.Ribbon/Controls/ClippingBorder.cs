@@ -3,21 +3,28 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Draws a border, background, or both around another element and applies a clipping to the child.
 /// </summary>
-public class ClippingBorder : VisualClippingBorder
-{
-}
-
-/// <summary>
-/// Draws a border, background, or both around another element and applies a clipping to the child.
-/// </summary>
-public class VisualClippingBorder : Border
+[PublicAPI]
+public class ClippingBorder : Border
 {
     private Border? opacityBorder;
     private Brush? opacityMask;
+
+    static ClippingBorder()
+    {
+        CornerRadiusProperty.OverrideMetadata(typeof(ClippingBorder), new FrameworkPropertyMetadata(OnCornerRadiusChanged));
+
+        return;
+
+        void OnCornerRadiusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((ClippingBorder)d).UpdateOpacityMask();
+        }
+    }
 
     /// <inheritdoc />
     public override UIElement? Child
@@ -27,9 +34,7 @@ public class VisualClippingBorder : Border
         {
             base.Child = value;
 
-            this.opacityBorder = this.CreateOpacityBorder();
-            this.opacityMask = new VisualBrush(this.opacityBorder);
-            value?.OpacityMask = this.opacityMask;
+            this.UpdateOpacityMask();
         }
     }
 
@@ -44,16 +49,29 @@ public class VisualClippingBorder : Border
         return base.ArrangeOverride(finalSize);
     }
 
-    /// <summary>
-    /// Creates the opacity border.
-    /// </summary>
-    /// <returns></returns>
-    protected virtual Border CreateOpacityBorder()
+    private void UpdateOpacityMask()
     {
-        return new Border
+        this.opacityBorder ??= new()
         {
             Background = Brushes.Magenta,
             CornerRadius = this.CornerRadius
         };
+
+        this.opacityMask = this.IsOpacityMaskRequired()
+            ? new VisualBrush(this.opacityBorder)
+            : null;
+
+#pragma warning disable WPF0041
+        this.Child?.OpacityMask = this.opacityMask;
+#pragma warning restore WPF0041
+    }
+
+    private bool IsOpacityMaskRequired()
+    {
+        return this.Child is not null
+            && (this.CornerRadius.BottomLeft is not 0
+                || this.CornerRadius.BottomRight is not 0
+                || this.CornerRadius.TopLeft is not 0
+                || this.CornerRadius.TopRight is not 0);
     }
 }
