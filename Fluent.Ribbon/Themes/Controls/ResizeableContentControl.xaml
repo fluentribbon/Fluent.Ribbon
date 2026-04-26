@@ -16,14 +16,14 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ResizeableContentControl"
                      TargetType="{x:Type Fluent:ResizeableContentControl}">
         <controls:ClippingBorder x:Name="PART_DropDownBorder"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
-                        SnapsToDevicePixels="True">
+                                 Margin="{TemplateBinding Padding}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Background="{TemplateBinding Background}"
+                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
+                                 SnapsToDevicePixels="True">
 
             <Grid Margin="1"
                   HorizontalAlignment="Stretch"

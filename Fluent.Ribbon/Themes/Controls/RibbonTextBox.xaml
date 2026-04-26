@@ -87,6 +87,7 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox.Simplified"
                      TargetType="{x:Type Fluent:TextBox}">
+        <!-- todo: rounded corners? -->
         <Border x:Name="border"
                 Padding="{TemplateBinding Padding}"
                 Background="Transparent"

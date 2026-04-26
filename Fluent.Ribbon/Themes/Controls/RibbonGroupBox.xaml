@@ -212,8 +212,8 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <controls:ClippingBorder Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
         <Grid x:Name="rootGrid"
               HorizontalAlignment="Stretch">
 

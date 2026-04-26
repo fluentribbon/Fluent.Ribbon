@@ -65,12 +65,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button"
                      TargetType="{x:Type Fluent:Button}">
         <controls:ClippingBorder x:Name="border"
-                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                 Background="{TemplateBinding Background}"
+                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <StackPanel x:Name="stackPanel"
                         Margin="{TemplateBinding Padding}"
                         Orientation="Vertical">
@@ -128,12 +128,13 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button.Simplified"
                      TargetType="{x:Type Fluent:Button}">
-        <Border x:Name="border"
-                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}">
+        <controls:ClippingBorder x:Name="border"
+                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                 Background="{TemplateBinding Background}"
+                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <StackPanel x:Name="stackPanel"
                         Margin="{TemplateBinding Padding}"
                         VerticalAlignment="Stretch"
@@ -163,7 +164,7 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                 Focusable="False" />
             </StackPanel>
-        </Border>
+        </controls:ClippingBorder>
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
