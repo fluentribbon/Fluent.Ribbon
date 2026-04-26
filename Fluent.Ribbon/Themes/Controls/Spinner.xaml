@@ -80,15 +80,15 @@
             </StackPanel>
 
             <controls:ClippingBorder x:Name="PART_ContentBorder"
-                            Grid.Column="1"
-                            Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
-                            Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
-                            MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
-                            HorizontalAlignment="Right"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
-                            BorderThickness="1"
-                            CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                     Grid.Column="1"
+                                     Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                                     Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                                     MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                                     HorizontalAlignment="Right"
+                                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
+                                     BorderThickness="1"
+                                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -202,6 +202,7 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner.Simplified"
                      TargetType="{x:Type Fluent:Spinner}">
+        <!-- todo: rounded corners? -->
         <Border x:Name="border"
                 Padding="{TemplateBinding Padding}"
                 Background="Transparent"

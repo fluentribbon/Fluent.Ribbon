@@ -103,12 +103,12 @@
         </ControlTemplate.Resources>
         <Grid>
             <controls:ClippingBorder x:Name="PART_ButtonBorder"
-                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                     Background="{TemplateBinding Background}"
+                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <StackPanel x:Name="stackPanel"
                             Margin="{TemplateBinding Padding}"
                             Orientation="Vertical">
@@ -198,12 +198,13 @@
                    BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
-            <Border x:Name="PART_ButtonBorder"
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}">
+            <controls:ClippingBorder x:Name="PART_ButtonBorder"
+                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                     Background="{TemplateBinding Background}"
+                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <Grid x:Name="stackPanel"
                       Margin="{TemplateBinding Padding}"
                       HorizontalAlignment="Stretch"
@@ -249,7 +250,7 @@
                                          HasTwoLines="False"
                                          Text="" />
                 </Grid>
-            </Border>
+            </controls:ClippingBorder>
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"

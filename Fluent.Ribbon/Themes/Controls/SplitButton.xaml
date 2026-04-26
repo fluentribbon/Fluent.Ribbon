@@ -71,11 +71,11 @@
         </ControlTemplate.Resources>
         <Grid>
             <controls:ClippingBorder Name="PART_ButtonBorder"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            BorderThickness="1"
-                            CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                     VerticalAlignment="Stretch"
+                                     Background="Transparent"
+                                     BorderBrush="Transparent"
+                                     BorderThickness="1"
+                                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <StackPanel Name="stackPanel"
                             KeyboardNavigation.TabNavigation="Local"
                             Orientation="Vertical">
@@ -196,6 +196,7 @@
                    BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
+            <!-- todo: rounded corners? -->
             <Border Name="PART_ButtonBorder"
                     VerticalAlignment="Stretch"
                     Background="Transparent"
