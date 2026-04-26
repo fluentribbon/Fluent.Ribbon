@@ -41,10 +41,12 @@ public class ClippingBorder : Border
     /// <inheritdoc />
     protected override Size ArrangeOverride(Size finalSize)
     {
-        // this.opacityBorder?.Width = this.ActualWidth;
-        // this.opacityBorder?.Height = this.ActualHeight;
-        this.opacityBorder?.Measure(finalSize);
-        this.opacityBorder?.Arrange(new(finalSize));
+        // Skip measure/arrange if opacity mask is not required
+        if (this.opacityMask is not null)
+        {
+            this.opacityBorder?.Measure(finalSize);
+            this.opacityBorder?.Arrange(new(finalSize));
+        }
 
         return base.ArrangeOverride(finalSize);
     }
@@ -69,9 +71,8 @@ public class ClippingBorder : Border
     private bool IsOpacityMaskRequired()
     {
         return this.Child is not null
-            && (this.CornerRadius.BottomLeft is not 0
-                || this.CornerRadius.BottomRight is not 0
-                || this.CornerRadius.TopLeft is not 0
-                || this.CornerRadius.TopRight is not 0);
+               && IsAllZero(this.CornerRadius) is false;
+
+        static bool IsAllZero(CornerRadius cr) => cr.TopLeft.IsZero() && cr.TopRight.IsZero() && cr.BottomLeft.IsZero() && cr.BottomRight.IsZero();
     }
 }
