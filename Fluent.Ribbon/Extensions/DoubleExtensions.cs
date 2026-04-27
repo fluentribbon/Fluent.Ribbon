@@ -4,6 +4,11 @@ using Fluent.Internal;
 
 internal static class DoubleExtensions
 {
+    public static bool IsZero(this double value)
+    {
+        return value.AlmostEquals(0);
+    }
+
     public static bool AlmostEquals(this double x, double y)
     {
         return DoubleUtil.AreClose(x, y);
