@@ -290,11 +290,11 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
         Bind(source, element, nameof(Opacity), OpacityProperty, BindingMode.OneWay);
         Bind(source, element, nameof(SnapsToDevicePixels), SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
-        Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
+        Bind(source, element, FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
 
-        Bind(source, element, new PropertyPath(InputControlProperties.InputMinWidthProperty), InputControlProperties.InputMinWidthProperty, BindingMode.OneWay);
-        Bind(source, element, new PropertyPath(InputControlProperties.InputWidthProperty), InputControlProperties.InputWidthProperty, BindingMode.OneWay);
-        Bind(source, element, new PropertyPath(InputControlProperties.InputHeightProperty), InputControlProperties.InputHeightProperty, BindingMode.OneWay);
+        Bind(source, element, InputControlProperties.InputMinWidthProperty, BindingMode.OneWay);
+        Bind(source, element, InputControlProperties.InputWidthProperty, BindingMode.OneWay);
+        Bind(source, element, InputControlProperties.InputHeightProperty, BindingMode.OneWay);
 
         if (source is IHeaderedControl headeredControl)
         {
@@ -320,6 +320,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
                 Bind(source, element, nameof(IHeaderedControl.Header), ToolTipProperty, BindingMode.OneWay);
             }
         }
+
+        Bind(source, element, RibbonProperties.CustomIconSizeProperty, BindingMode.OneWay);
 
         if (source is IRibbonControl ribbonControl)
         {
@@ -375,6 +377,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
             }
         }
 
+        Bind(source, element, new PropertyPath(RibbonProperties.QATIconSizeProperty), RibbonProperties.IconSizeProperty, BindingMode.OneWay);
+
         RibbonProperties.SetSize(element, RibbonControlSize.Small);
     }
 
@@ -400,6 +404,11 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     #endregion
 
     #region Binding
+
+    internal static void Bind(object source, FrameworkElement target, DependencyProperty property, BindingMode mode)
+    {
+        Bind(source, target, new PropertyPath(property), property, mode);
+    }
 
     internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
     {

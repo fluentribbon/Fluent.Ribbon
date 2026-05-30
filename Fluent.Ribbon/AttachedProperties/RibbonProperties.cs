@@ -406,6 +406,28 @@ public class RibbonProperties : DependencyObject
 
     #endregion
 
+    #region QATIconSize
+
+    /// <summary>
+    /// Defines the desired icon size when an element is in the Quick Access Toolbar.
+    /// </summary>
+    public static readonly DependencyProperty QATIconSizeProperty = DependencyProperty.RegisterAttached(
+        "QATIconSize", typeof(IconSize), typeof(RibbonProperties), new PropertyMetadata(IconSize.Small));
+
+    /// <summary>Helper for setting <see cref="QATIconSizeProperty"/> on <paramref name="element"/>.</summary>
+    public static void SetQATIconSize(DependencyObject element, IconSize value)
+    {
+        element.SetValue(QATIconSizeProperty, value);
+    }
+
+    /// <summary>Helper for getting <see cref="QATIconSizeProperty"/> from <paramref name="element"/>.</summary>
+    public static IconSize GetQATIconSize(DependencyObject element)
+    {
+        return (IconSize)element.GetValue(QATIconSizeProperty);
+    }
+
+    #endregion
+
     /// <summary>
     /// Defines the corner radius used in template parts.
     /// </summary>
