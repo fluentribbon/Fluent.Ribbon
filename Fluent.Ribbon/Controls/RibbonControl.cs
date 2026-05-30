@@ -331,7 +331,7 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
                     Height = 16,
                     Fill = new VisualBrush(iconVisual)
                 };
-                ((IRibbonControl)element).Icon = rect;
+                element.SetValue(IconProperty, rect);
             }
             else
             {
@@ -349,7 +349,7 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
                     Height = 24,
                     Fill = new VisualBrush(iconVisual)
                 };
-                ((IMediumIconProvider)element).MediumIcon = rect;
+                element.SetValue(MediumIconProviderProperties.MediumIconProperty, rect);
             }
             else
             {
@@ -367,7 +367,7 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
                     Height = 32,
                     Fill = new VisualBrush(iconVisual)
                 };
-                ((ILargeIconProvider)element).LargeIcon = rect;
+                element.SetValue(LargeIconProviderProperties.LargeIconProperty, rect);
             }
             else
             {
