@@ -104,9 +104,9 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     [Category("Action")]
     [Localizability(LocalizationCategory.NeverLocalize)]
     [Bindable(true)]
-    public ICommand Command
+    public ICommand? Command
     {
-        get => (ICommand)this.GetValue(CommandProperty);
+        get => (ICommand?)this.GetValue(CommandProperty);
 
         set => this.SetValue(CommandProperty, value);
     }
@@ -321,8 +321,7 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
             }
         }
 
-        var ribbonControl = source as IRibbonControl;
-        if (ribbonControl?.Icon is not null)
+        if (source is IRibbonControl ribbonControl)
         {
             if (ribbonControl.Icon is Visual iconVisual)
             {
@@ -337,6 +336,42 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
             else
             {
                 Bind(source, element, nameof(IRibbonControl.Icon), IconProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (source is IMediumIconProvider mediumIconProvider)
+        {
+            if (mediumIconProvider.MediumIcon is Visual iconVisual)
+            {
+                var rect = new Rectangle
+                {
+                    Width = 24,
+                    Height = 24,
+                    Fill = new VisualBrush(iconVisual)
+                };
+                ((IMediumIconProvider)element).MediumIcon = rect;
+            }
+            else
+            {
+                Bind(source, element, nameof(IMediumIconProvider.MediumIcon), MediumIconProviderProperties.MediumIconProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (source is ILargeIconProvider largeIconProvider)
+        {
+            if (largeIconProvider.LargeIcon is Visual iconVisual)
+            {
+                var rect = new Rectangle
+                {
+                    Width = 32,
+                    Height = 32,
+                    Fill = new VisualBrush(iconVisual)
+                };
+                ((ILargeIconProvider)element).LargeIcon = rect;
+            }
+            else
+            {
+                Bind(source, element, nameof(ILargeIconProvider.LargeIcon), LargeIconProviderProperties.LargeIconProperty, BindingMode.OneWay);
             }
         }
 
