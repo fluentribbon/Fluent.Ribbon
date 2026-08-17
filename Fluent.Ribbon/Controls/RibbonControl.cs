@@ -13,6 +13,8 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+
+using Fluent.Collections;
 using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal;
@@ -295,6 +297,35 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
         Bind(source, element, InputControlProperties.InputMinWidthProperty, BindingMode.OneWay);
         Bind(source, element, InputControlProperties.InputWidthProperty, BindingMode.OneWay);
         Bind(source, element, InputControlProperties.InputHeightProperty, BindingMode.OneWay);
+
+        if (source is ItemsControl itemsControl && element is ItemsControl targetItemsControl)
+        {
+            Bind(source, element, nameof(ItemsControl.AlternationCount), ItemsControl.AlternationCountProperty, BindingMode.OneWay);
+
+            Bind(source, element, nameof(ItemsControl.DisplayMemberPath), ItemsControl.DisplayMemberPathProperty, BindingMode.OneWay);
+
+            Bind(source, element, nameof(ItemsControl.ItemBindingGroup), ItemsControl.ItemBindingGroupProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(ItemsControl.ItemStringFormat), ItemsControl.ItemStringFormatProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(ItemsControl.ItemTemplate), ItemsControl.ItemTemplateProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(ItemsControl.ItemTemplateSelector), ItemsControl.ItemTemplateSelectorProperty, BindingMode.OneWay);
+
+            Bind(source, element, nameof(ItemsControl.ItemsPanel), ItemsControl.ItemsPanelProperty, BindingMode.OneWay);
+
+            Bind(source, element, nameof(ItemsControl.ItemContainerStyle), ItemsControl.ItemContainerStyleProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(ItemsControl.ItemContainerStyleSelector), ItemsControl.ItemContainerStyleSelectorProperty, BindingMode.OneWay);
+
+            Bind(source, element, nameof(ItemsControl.GroupStyleSelector), ItemsControl.GroupStyleSelectorProperty, BindingMode.OneWay);
+
+            // cannot "bind" to GroupStyle observable collection property, but can at least keep them in sync
+            _ = new CollectionSyncHelper<GroupStyle>(itemsControl.GroupStyle, targetItemsControl.GroupStyle);
+
+            if (source is Selector && element is Selector)
+            {
+                Bind(source, element, nameof(Selector.SelectedValuePath), Selector.SelectedValuePathProperty, BindingMode.OneWay);
+
+                Bind(source, element, nameof(Selector.IsSynchronizedWithCurrentItem), Selector.IsSynchronizedWithCurrentItemProperty, BindingMode.OneWay);
+            }
+        }
 
         if (source is IHeaderedControl headeredControl)
         {
