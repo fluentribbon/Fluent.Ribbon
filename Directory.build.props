@@ -39,6 +39,8 @@
     <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
     <Product>Fluent.Ribbon</Product>
     <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
+
+    <DeterministicTimestamp>false</DeterministicTimestamp>
   </PropertyGroup>
 
   <!-- Sign assembly -->
