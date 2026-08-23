@@ -2,6 +2,10 @@
 
 ## vNext
 
+### Bug fixes
+
+- [#1281](../../issues/1281) - SplitButton will not apply ItemTemplateSelector within QuickAccess (thanks @DoctorVanGogh)
+
 ### Enhancements/Features
 
 - [#1267](../../issues/1267) - Fluent ribbon startup time dominated by resource dictionary merging  
