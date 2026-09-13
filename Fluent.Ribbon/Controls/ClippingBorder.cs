@@ -1,6 +1,7 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,6 +35,10 @@ public class ClippingBorder : Border
         get => base.Child;
         set
         {
+#pragma warning disable WPF0041
+            base.Child?.OpacityMask = null;
+#pragma warning restore WPF0041
+
             base.Child = value;
 
             this.UpdateOpacityMask();
@@ -44,10 +49,14 @@ public class ClippingBorder : Border
     protected override Size ArrangeOverride(Size finalSize)
     {
         // Skip measure/arrange if opacity mask is not required
-        if (this.opacityMask is not null)
+        if (this.IsOpacityMaskRequired())
         {
-            this.opacityBorder?.Measure(finalSize);
-            this.opacityBorder?.Arrange(new(finalSize));
+            this.EnsureOpacityBorder();
+
+            this.opacityBorder!.SetCurrentValue(WidthProperty, finalSize.Width);
+            this.opacityBorder.SetCurrentValue(HeightProperty, finalSize.Height);
+            this.opacityBorder.Measure(finalSize);
+            this.opacityBorder.Arrange(new(finalSize));
         }
 
         return base.ArrangeOverride(finalSize);
@@ -55,21 +64,34 @@ public class ClippingBorder : Border
 
     private void UpdateOpacityMask()
     {
-        this.opacityBorder ??= new()
+        if (this.IsOpacityMaskRequired() is false)
         {
-            Background = Brushes.Magenta,
-            CornerRadius = this.CornerRadius
-        };
+            this.opacityBorder = null;
+            this.opacityMask = null;
+            return;
+        }
 
-        this.opacityMask = this.IsOpacityMaskRequired()
-            ? new VisualBrush(this.opacityBorder)
-            : null;
+        this.EnsureOpacityBorder();
 
-#pragma warning disable WPF0041
-        this.Child?.OpacityMask = this.opacityMask;
-#pragma warning restore WPF0041
+        this.opacityBorder!.SetCurrentValue(CornerRadiusProperty, this.CornerRadius);
+
+        this.opacityMask = new VisualBrush(this.opacityBorder);
+
+        this.Child!.OpacityMask = this.opacityMask;
     }
 
+    private void EnsureOpacityBorder()
+    {
+        this.opacityBorder ??= new()
+        {
+            Background = Brushes.Magenta
+        };
+    }
+
+#if netcore
+    [MemberNotNullWhen(true, nameof(Child))]
+    [MemberNotNullWhen(true, nameof(opacityBorder))]
+#endif
     private bool IsOpacityMaskRequired()
     {
         return this.Child is not null
