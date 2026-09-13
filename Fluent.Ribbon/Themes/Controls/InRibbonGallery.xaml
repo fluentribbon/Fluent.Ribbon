@@ -82,12 +82,13 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGalleryToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
-        <Border x:Name="border"
-                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="1">
+        <Fluent:ClippingBorder x:Name="border"
+                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                               VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               BorderThickness="1"
+                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <Grid>
                 <StackPanel x:Name="stackPanel"
                             Orientation="Vertical">
@@ -109,7 +110,7 @@
                                     Focusable="False" />
                 </StackPanel>
             </Grid>
-        </Border>
+        </Fluent:ClippingBorder>
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
@@ -148,13 +149,13 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
-        <!-- todo: rounded corners? -->
-        <Border x:Name="border"
-                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="{TemplateBinding BorderThickness}">
+        <Fluent:ClippingBorder x:Name="border"
+                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                               VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <Grid x:Name="stackPanel"
                   Margin="{TemplateBinding Padding}"
                   HorizontalAlignment="Stretch"
@@ -200,7 +201,7 @@
                                      HasTwoLines="False"
                                      Text="" />
             </Grid>
-        </Border>
+        </Fluent:ClippingBorder>
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -260,7 +261,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:ToggleButton}">
-                    <!-- todo: rounded corners? -->
+                    <!-- No rounded corners here. The button is clipped by the rounded border of the gallery. -->
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
@@ -432,15 +433,15 @@
         <Grid x:Name="PART_LayoutRoot"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
-            <!-- todo: rounded corners? -->
-            <Border x:Name="border"
-                    Height="{TemplateBinding GalleryPanelContainerHeight}"
-                    Margin="{TemplateBinding Padding}"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    ClipToBounds="True">
+            <Fluent:ClippingBorder x:Name="border"
+                                   Height="{TemplateBinding GalleryPanelContainerHeight}"
+                                   Margin="{TemplateBinding Padding}"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                   ClipToBounds="True"
+                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background}">
                     <ScrollViewer x:Name="ScrollViewer"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
@@ -487,7 +488,6 @@
                            Placement="Custom"
                            PlacementTarget="{Binding ElementName=PART_LayoutRoot}"
                            PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                        <!-- todo: rounded corners? -->
                         <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                          MinWidth="{TemplateBinding ActualWidth}"
                                                          MinHeight="{TemplateBinding ActualHeight}"
@@ -500,7 +500,8 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
-                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -541,7 +542,7 @@
                         </Fluent:ResizeableContentControl>
                     </Popup>
                 </Grid>
-            </Border>
+            </Fluent:ClippingBorder>
 
             <Fluent:ToggleButton x:Name="PART_DropDownButton"
                                  Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"

@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox"
                      TargetType="{x:Type Fluent:TextBox}">
         <Grid Background="Transparent">
@@ -35,19 +34,20 @@
                 </Grid>
             </StackPanel>
 
-            <Border x:Name="PART_ContentBorder"
-                    Grid.Column="1"
-                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
-                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
-                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
-                    HorizontalAlignment="Right"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
-                    BorderThickness="1">
+            <Fluent:ClippingBorder x:Name="PART_ContentBorder"
+                                   Grid.Column="1"
+                                   Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                                   Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                                   MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                                   HorizontalAlignment="Right"
+                                   Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                   BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
+                                   BorderThickness="1"
+                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <ScrollViewer x:Name="PART_ContentHost"
                               Margin="0"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-            </Border>
+            </Fluent:ClippingBorder>
         </Grid>
 
         <ControlTemplate.Triggers>
@@ -87,12 +87,12 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox.Simplified"
                      TargetType="{x:Type Fluent:TextBox}">
-        <!-- todo: rounded corners? -->
-        <Border x:Name="border"
-                Padding="{TemplateBinding Padding}"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="{TemplateBinding BorderThickness}">
+        <Fluent:ClippingBorder x:Name="border"
+                               Padding="{TemplateBinding Padding}"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -117,16 +117,17 @@
                                     Focusable="False" />
                 </StackPanel>
 
-                <Border x:Name="PART_ContentBorder"
-                        Grid.Column="1"
-                        Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
-                        Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
-                        MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
-                        BorderThickness="1">
+                <Fluent:ClippingBorder x:Name="PART_ContentBorder"
+                                       Grid.Column="1"
+                                       Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                                       Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                                       MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                       BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
+                                       BorderThickness="1"
+                                       CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                     <Grid>
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Margin="1"
@@ -143,9 +144,9 @@
                                         Visibility="Collapsed"
                                         Opacity="0.5" />
                     </Grid>
-                </Border>
+                </Fluent:ClippingBorder>
             </Grid>
-        </Border>
+        </Fluent:ClippingBorder>
 
         <ControlTemplate.Triggers>
             <MultiTrigger>

@@ -406,6 +406,7 @@ Fluent.Ribbon.Values.Arrow.Down
 Fluent.Ribbon.Values.Arrow.Left
 Fluent.Ribbon.Values.Arrow.Right
 Fluent.Ribbon.Values.Arrow.Up
+Fluent.Ribbon.Values.Default.CornerRadius
 Fluent.Ribbon.Values.Default.Margin
 Fluent.Ribbon.Values.Default.Padding
 Fluent.Ribbon.Values.MenuItem.IconColumnWidth

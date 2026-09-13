@@ -10,6 +10,12 @@
 
 - [#1267](../../issues/1267) - Fluent ribbon startup time dominated by resource dictionary merging  
   Added AppContext-Switch "Switch.Fluent.Ribbon.DisableDefaultStyleLoading" to disable default style loading.
+- Added support for rounded corners on controls
+  - Added `ClippingBorder`, a `Border` that clips its child to its `CornerRadius`
+  - Added resource `Fluent.Ribbon.Values.Default.CornerRadius` (default `3`)
+  - The following controls now use rounded corners: `Button`, `ToggleButton`, `DropDownButton`, `SplitButton`, `ComboBox`, `Spinner`, `TextBox`, `Gallery`, `InRibbonGallery`, `RibbonGroupBox`, `ResizeableContentControl` and `TransitioningControl`
+  - Added `CornerRadius` to `TransitioningControl`. The selected content of `RibbonTabControl` is now clipped to `Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius`
+  - Changed default value of `Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius` from `8` to `5`
 
 ## 11.0.2
 
