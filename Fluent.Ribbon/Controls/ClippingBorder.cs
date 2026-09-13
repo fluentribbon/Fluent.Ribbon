@@ -1,4 +1,5 @@
-﻿namespace Fluent.Controls;
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent;
 
 using System.Windows;
 using System.Windows.Controls;

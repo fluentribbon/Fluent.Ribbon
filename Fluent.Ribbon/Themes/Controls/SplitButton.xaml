@@ -1,10 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:controls="clr-namespace:Fluent.Controls"
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.RibbonSplitButton"
            TargetType="{x:Type Fluent:SplitButton}">
@@ -70,12 +69,12 @@
                    BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
-            <controls:ClippingBorder Name="PART_ButtonBorder"
-                                     VerticalAlignment="Stretch"
-                                     Background="Transparent"
-                                     BorderBrush="Transparent"
-                                     BorderThickness="1"
-                                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+            <Fluent:ClippingBorder Name="PART_ButtonBorder"
+                                   VerticalAlignment="Stretch"
+                                   Background="Transparent"
+                                   BorderBrush="Transparent"
+                                   BorderThickness="1"
+                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
                 <StackPanel Name="stackPanel"
                             KeyboardNavigation.TabNavigation="Local"
                             Orientation="Vertical">
@@ -112,7 +111,7 @@
                                              Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
                 </StackPanel>
-            </controls:ClippingBorder>
+            </Fluent:ClippingBorder>
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"

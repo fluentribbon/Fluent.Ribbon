@@ -5,7 +5,6 @@
                     xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:controls="clr-namespace:Fluent.Controls"
                     mc:Ignorable="d">
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands.CaptionButton"
@@ -64,13 +63,13 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button"
                      TargetType="{x:Type Fluent:Button}">
-        <controls:ClippingBorder x:Name="border"
-                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                 Background="{TemplateBinding Background}"
-                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+        <Fluent:ClippingBorder x:Name="border"
+                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                               VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <StackPanel x:Name="stackPanel"
                         Margin="{TemplateBinding Padding}"
                         Orientation="Vertical">
@@ -89,7 +88,7 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                 Focusable="False" />
             </StackPanel>
-        </controls:ClippingBorder>
+        </Fluent:ClippingBorder>
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 0" />
@@ -128,13 +127,13 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button.Simplified"
                      TargetType="{x:Type Fluent:Button}">
-        <controls:ClippingBorder x:Name="border"
-                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                 Background="{TemplateBinding Background}"
-                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+        <Fluent:ClippingBorder x:Name="border"
+                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                               VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
             <StackPanel x:Name="stackPanel"
                         Margin="{TemplateBinding Padding}"
                         VerticalAlignment="Stretch"
@@ -164,7 +163,7 @@
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                 Focusable="False" />
             </StackPanel>
-        </controls:ClippingBorder>
+        </Fluent:ClippingBorder>
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
