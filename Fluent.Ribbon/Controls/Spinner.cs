@@ -571,7 +571,9 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
     public override FrameworkElement CreateQuickAccessItem()
     {
         var spinner = new Spinner();
+
         this.BindQuickAccessItem(spinner);
+
         return spinner;
     }
 

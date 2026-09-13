@@ -822,14 +822,6 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
         };
 
         this.BindQuickAccessItem(button);
-        RibbonControl.Bind(this, button, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, button, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, button, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, button, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, button, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, button, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
-
-        RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
 
         this.BindQuickAccessItemDropDownEvents(button);
 
@@ -882,9 +874,10 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     protected virtual void BindQuickAccessItem(FrameworkElement element)
     {
         RibbonControl.BindQuickAccessItem(this, element);
-        RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-        RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
-        RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.Default);
+
+        RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+        RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
+        RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.OneWay);
     }
 
     /// <summary>

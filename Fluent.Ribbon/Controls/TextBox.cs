@@ -139,8 +139,6 @@ public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider
     {
         RibbonControl.BindQuickAccessItem(this, element);
 
-        RibbonControl.BindQuickAccessItem(this, element);
-
         RibbonControl.Bind(this, element, nameof(this.Text), TextProperty, BindingMode.TwoWay, UpdateSourceTrigger.PropertyChanged);
         RibbonControl.Bind(this, element, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, element, nameof(this.CharacterCasing), CharacterCasingProperty, BindingMode.TwoWay);

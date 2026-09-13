@@ -209,9 +209,9 @@ public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, 
     {
         var button = new RadioButton();
 
-        RibbonControl.Bind(this, button, nameof(this.IsChecked), IsCheckedProperty, BindingMode.TwoWay);
-        button.Click += (sender, e) => this.RaiseEvent(e);
         RibbonControl.BindQuickAccessItem(this, button);
+
+        button.Click += (sender, e) => this.RaiseEvent(e);
 
         return button;
     }

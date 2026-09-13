@@ -1164,18 +1164,12 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public virtual FrameworkElement CreateQuickAccessItem()
     {
-        var groupBox = new RibbonGroupBox();
+        var groupBox = new RibbonGroupBox { State = RibbonGroupBoxState.QuickAccess };
 
         RibbonControl.BindQuickAccessItem(this, groupBox);
 
-        groupBox.DropDownOpened += this.OnQuickAccessOpened;
-        groupBox.DropDownClosed += this.OnQuickAccessClosed;
-
-        groupBox.State = RibbonGroupBoxState.QuickAccess;
-
-        RibbonControl.Bind(this, groupBox, nameof(this.ItemTemplateSelector), ItemTemplateSelectorProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, groupBox, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.ItemsSource), ItemsSourceProperty, BindingMode.OneWay);
+
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommandParameter), LauncherCommandParameterProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommand), LauncherCommandProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommandTarget), LauncherCommandTargetProperty, BindingMode.OneWay);
@@ -1183,7 +1177,11 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherToolTip), LauncherToolTipProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherEnabled), IsLauncherEnabledProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherVisible), IsLauncherVisibleProperty, BindingMode.OneWay);
+
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherKeys), LauncherKeysProperty, BindingMode.OneWay);
+
+        groupBox.DropDownOpened += this.OnQuickAccessOpened;
+        groupBox.DropDownClosed += this.OnQuickAccessClosed;
         groupBox.LauncherClick += this.LauncherClick;
 
         if (this.Icon is not null)

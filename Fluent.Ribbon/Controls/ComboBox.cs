@@ -416,6 +416,7 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     public virtual FrameworkElement CreateQuickAccessItem()
     {
         var combo = new ComboBox();
+
         RibbonControl.BindQuickAccessItem(this, combo);
 
         RibbonControl.Bind(this, combo, nameof(this.ActualWidth), MaxWidthProperty, BindingMode.OneWay);
@@ -424,14 +425,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
         RibbonControl.Bind(this, combo, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, combo, nameof(this.Text), TextProperty, BindingMode.TwoWay);
 
-        RibbonControl.Bind(this, combo, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, combo, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, combo, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, combo, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, combo, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, combo, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, combo, nameof(this.SelectedValuePath), SelectedValuePathProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, combo, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
+
         combo.DropDownOpened += this.OnQuickAccessOpened;
 
         if (this.IsEditable)

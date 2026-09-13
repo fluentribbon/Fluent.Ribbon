@@ -211,7 +211,6 @@ public class CheckBox : System.Windows.Controls.CheckBox, IRibbonControl, IQuick
     {
         var button = new CheckBox();
 
-        RibbonControl.Bind(this, button, nameof(this.IsChecked), IsCheckedProperty, BindingMode.TwoWay);
         button.Click += (sender, e) => this.RaiseEvent(e);
         RibbonControl.BindQuickAccessItem(this, button);
 

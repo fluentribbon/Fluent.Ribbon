@@ -450,12 +450,14 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
             CanAddButtonToQuickAccessToolBar = false
         };
 
+        RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);
+
+        this.BindQuickAccessItem(buttonForQAT);
+        this.BindQuickAccessItemDropDownEvents(buttonForQAT);
+
         buttonForQAT.Click += (sender, e) => this.RaiseEvent(e);
         buttonForQAT.DropDownOpened += this.OnQuickAccessOpened;
 
-        RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);
-        this.BindQuickAccessItem(buttonForQAT);
-        this.BindQuickAccessItemDropDownEvents(buttonForQAT);
         this.quickAccessButton = buttonForQAT;
         return buttonForQAT;
     }
@@ -463,12 +465,8 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
     /// <inheritdoc />
     protected override void BindQuickAccessItem(FrameworkElement element)
     {
-        RibbonControl.Bind(this, element, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, element, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, element, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, element, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, element, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, element, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
+        RibbonControl.BindQuickAccessItem(this, element);
+
         RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, element, nameof(this.IsChecked), IsCheckedProperty, BindingMode.TwoWay);
         RibbonControl.Bind(this, element, nameof(this.DropDownToolTip), DropDownToolTipProperty, BindingMode.TwoWay);
@@ -478,8 +476,6 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
 
         RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
         RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.Default);
-
-        RibbonControl.BindQuickAccessItem(this, element);
     }
 
     /// <summary>
