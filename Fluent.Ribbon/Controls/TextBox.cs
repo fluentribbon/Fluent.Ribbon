@@ -20,6 +20,22 @@ public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider
 
     #region Properties (Dependency)
 
+    #region CornerRadius
+
+    /// <summary>
+    /// Gets or sets the degree to which the corners of the control are rounded.
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)this.GetValue(CornerRadiusProperty);
+        set => this.SetValue(CornerRadiusProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="CornerRadius"/> dependency property.</summary>
+    public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(TextBox));
+
+    #endregion
+
     #region IsSimplified
 
     /// <summary>

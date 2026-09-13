@@ -39,6 +39,22 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
 
     #region Properties
 
+    #region CornerRadius
+
+    /// <summary>
+    /// Gets or sets the degree to which the corners of the control are rounded.
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)this.GetValue(CornerRadiusProperty);
+        set => this.SetValue(CornerRadiusProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="CornerRadius"/> dependency property.</summary>
+    public static readonly DependencyProperty CornerRadiusProperty = System.Windows.Controls.Border.CornerRadiusProperty.AddOwner(typeof(Spinner));
+
+    #endregion
+
     #region SimplifiedSizeDefinition
 
     /// <inheritdoc />

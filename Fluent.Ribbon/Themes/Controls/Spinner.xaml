@@ -87,7 +87,7 @@
                                    Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                                    BorderThickness="1"
-                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                   CornerRadius="{TemplateBinding CornerRadius}">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -206,7 +206,7 @@
                                Background="Transparent"
                                BorderBrush="Transparent"
                                BorderThickness="{TemplateBinding BorderThickness}"
-                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                               CornerRadius="{TemplateBinding CornerRadius}">
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -242,7 +242,7 @@
                                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                                        BorderThickness="1"
-                                       CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                       CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -368,6 +368,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Spinner"
            TargetType="{x:Type Fluent:Spinner}">
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Focusable" Value="False" />

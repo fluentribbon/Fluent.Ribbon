@@ -43,7 +43,7 @@
                                    Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                                    BorderThickness="1"
-                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                   CornerRadius="{TemplateBinding CornerRadius}">
                 <ScrollViewer x:Name="PART_ContentHost"
                               Margin="0"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
@@ -92,7 +92,7 @@
                                Background="Transparent"
                                BorderBrush="Transparent"
                                BorderThickness="{TemplateBinding BorderThickness}"
-                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                               CornerRadius="{TemplateBinding CornerRadius}">
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -127,7 +127,7 @@
                                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                                        BorderThickness="1"
-                                       CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                       CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid>
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Margin="1"
@@ -220,6 +220,7 @@
            TargetType="{x:Type Fluent:TextBox}"
            BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="CaretBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="Fluent:InputControlProperties.InputMinWidth" Value="30" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />

@@ -13,8 +13,8 @@
 - Added support for rounded corners on controls
   - Added `ClippingBorder`, a `Border` that clips its child to its `CornerRadius`
   - Added resource `Fluent.Ribbon.Values.Default.CornerRadius` (default `3`)
-  - The following controls now use rounded corners: `Button`, `ToggleButton`, `DropDownButton`, `SplitButton`, `ComboBox`, `Spinner`, `TextBox`, `Gallery`, `InRibbonGallery`, `RibbonGroupBox`, `ResizeableContentControl` and `TransitioningControl`
-  - Added `CornerRadius` to `TransitioningControl`. The selected content of `RibbonTabControl` is now clipped to `Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius`
+  - The following controls now use rounded corners: `Button`, `ToggleButton`, `DropDownButton`, `SplitButton`, `ComboBox`, `Spinner`, `TextBox`, `Gallery`, `InRibbonGallery`, `RibbonGroupBox` and `ResizeableContentControl`
+  - Added property `CornerRadius` to all of these controls. Its default value is set by their styles to `Fluent.Ribbon.Values.Default.CornerRadius`
   - Changed default value of `Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius` from `8` to `5`
 
 ## 11.0.2

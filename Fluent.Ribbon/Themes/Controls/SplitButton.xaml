@@ -8,6 +8,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.RibbonSplitButton"
            TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="Fluent:KeyTip.AutoPlacement" Value="False" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
@@ -74,7 +75,7 @@
                                    Background="Transparent"
                                    BorderBrush="Transparent"
                                    BorderThickness="1"
-                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                   CornerRadius="{TemplateBinding CornerRadius}">
                 <StackPanel Name="stackPanel"
                             KeyboardNavigation.TabNavigation="Local"
                             Orientation="Vertical">
@@ -200,7 +201,7 @@
                                    Background="Transparent"
                                    BorderBrush="Transparent"
                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                   CornerRadius="{TemplateBinding CornerRadius}">
                 <Grid Name="stackPanel"
                       KeyboardNavigation.TabNavigation="Local">
                     <Grid.ColumnDefinitions>

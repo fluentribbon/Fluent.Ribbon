@@ -9,6 +9,7 @@
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ResizeableContentControl}" />
     </Style>
 
@@ -21,7 +22,7 @@
                                Background="{TemplateBinding Background}"
                                BorderBrush="{TemplateBinding BorderBrush}"
                                BorderThickness="{TemplateBinding BorderThickness}"
-                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}"
+                               CornerRadius="{TemplateBinding CornerRadius}"
                                SnapsToDevicePixels="True">
             <Grid Margin="1"
                   HorizontalAlignment="Stretch"

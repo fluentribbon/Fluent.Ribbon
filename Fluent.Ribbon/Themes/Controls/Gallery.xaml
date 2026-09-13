@@ -90,9 +90,9 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Gallery"
                      TargetType="{x:Type Fluent:Gallery}">
         <Fluent:ClippingBorder x:Name="layoutRoot"
-                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{TemplateBinding CornerRadius}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -141,6 +141,7 @@
            TargetType="{x:Type Fluent:Gallery}">
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}" />
         <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="1" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />

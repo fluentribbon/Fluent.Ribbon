@@ -38,6 +38,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGalleryToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header}" />
         <Setter Property="Height" Value="68" />
@@ -88,7 +89,7 @@
                                Background="Transparent"
                                BorderBrush="Transparent"
                                BorderThickness="1"
-                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                               CornerRadius="{TemplateBinding CornerRadius}">
             <Grid>
                 <StackPanel x:Name="stackPanel"
                             Orientation="Vertical">
@@ -155,7 +156,7 @@
                                Background="Transparent"
                                BorderBrush="Transparent"
                                BorderThickness="{TemplateBinding BorderThickness}"
-                               CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                               CornerRadius="{TemplateBinding CornerRadius}">
             <Grid x:Name="stackPanel"
                   Margin="{TemplateBinding Padding}"
                   HorizontalAlignment="Stretch"
@@ -441,7 +442,7 @@
                                    BorderBrush="{TemplateBinding BorderBrush}"
                                    BorderThickness="{TemplateBinding BorderThickness}"
                                    ClipToBounds="True"
-                                   CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                   CornerRadius="{TemplateBinding CornerRadius}">
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.InRibbonGallery.Content.Background}">
                     <ScrollViewer x:Name="ScrollViewer"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
@@ -501,7 +502,7 @@
                                 </Grid.RowDefinitions>
                                 <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}">
+                                        CornerRadius="{TemplateBinding CornerRadius}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -602,6 +603,7 @@
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.Default.CornerRadius}" />
         <Setter Property="ExpandButtonContentTemplate">
             <Setter.Value>
                 <DataTemplate>
