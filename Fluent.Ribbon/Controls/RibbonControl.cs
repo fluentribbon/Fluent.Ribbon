@@ -298,7 +298,7 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
             }
         }
 
-        if (source is System.Windows.Controls.Primitives.ToggleButton
+        if (source is System.Windows.Controls.Primitives.ToggleButton or System.Windows.Controls.MenuItem
             && target is System.Windows.Controls.Primitives.ToggleButton)
         {
             Bind(source, target, nameof(System.Windows.Controls.Primitives.ToggleButton.IsChecked), System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BindingMode.TwoWay);
@@ -336,18 +336,20 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
             }
         }
 
-        if (source is IHeaderedControl sourceHeaderedControl)
+        if (source is IHeaderedControl
+            && target is IHeaderedControl)
         {
-            if (sourceHeaderedControl is HeaderedItemsControl)
+            Bind(source, target, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
+
+            // The header properties of HeaderedItemsControl are different from the ones of RibbonControl (and its derived/AddOwner types),
+            // so we can only use them if both, source and target, are a HeaderedItemsControl.
+            if (source is HeaderedItemsControl
+                && target is HeaderedItemsControl)
             {
                 Bind(source, target, nameof(HeaderedItemsControl.Header), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
                 Bind(source, target, nameof(HeaderedItemsControl.HeaderStringFormat), HeaderedItemsControl.HeaderStringFormatProperty, BindingMode.OneWay);
                 Bind(source, target, nameof(HeaderedItemsControl.HeaderTemplate), HeaderedItemsControl.HeaderTemplateProperty, BindingMode.OneWay);
                 Bind(source, target, nameof(HeaderedItemsControl.HeaderTemplateSelector), HeaderedItemsControl.HeaderTemplateSelectorProperty, BindingMode.OneWay);
-            }
-            else
-            {
-                Bind(source, target, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
             }
 
             if (source.ToolTip is not null
