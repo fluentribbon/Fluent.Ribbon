@@ -135,6 +135,57 @@ public class RibbonToolBarChildrenTests
         }
     }
 
+    [Test]
+    public void Child_replaced_by_itself_keeps_the_toolbar_as_parent()
+    {
+        var button = new Fluent.Button { Header = "Same" };
+        var toolBar = new RibbonToolBar();
+        toolBar.Children.Add(button);
+
+        using (new TestRibbonWindow(toolBar))
+        {
+            UIHelper.DoEvents();
+
+            toolBar.Visibility = Visibility.Collapsed;
+            UIHelper.DoEvents();
+
+            toolBar.Children[0] = button;
+
+            Assert.That(LogicalTreeHelper.GetParent(button), Is.SameAs(toolBar), "A child that is still in the toolbar keeps it as its logical parent");
+            Assert.That(VisualTreeHelper.GetParent(button), Is.SameAs(toolBar), "A child that is still in the toolbar keeps it as its visual parent");
+        }
+    }
+
+    [Test]
+    public void Cleared_children_of_a_toolbar_with_a_layout_definition_are_released()
+    {
+        var inGroup = new Fluent.Button { Name = "InGroup", Header = "In group" };
+        var direct = new Fluent.Button { Name = "Direct", Header = "Direct" };
+        var toolBar = new RibbonToolBar();
+        toolBar.Children.Add(inGroup);
+        toolBar.Children.Add(direct);
+
+        var group = new RibbonToolBarControlGroupDefinition();
+        group.Children.Add(new RibbonToolBarControlDefinition { Target = "InGroup" });
+        var row = new RibbonToolBarRow();
+        row.Children.Add(group);
+        row.Children.Add(new RibbonToolBarControlDefinition { Target = "Direct" });
+        var layout = new RibbonToolBarLayoutDefinition();
+        layout.Rows.Add(row);
+        toolBar.LayoutDefinitions.Add(layout);
+
+        using (new TestRibbonWindow(toolBar))
+        {
+            UIHelper.DoEvents();
+
+            toolBar.Children.Clear();
+
+            Assert.That(LogicalTreeHelper.GetParent(inGroup), Is.Null, "Clear must release a child shown inside a control group");
+            Assert.That(VisualTreeHelper.GetParent(inGroup), Is.Null, "Clear must release the visual parent of a child shown inside a control group");
+            Assert.That(LogicalTreeHelper.GetParent(direct), Is.Null, "Clear must release a child shown directly");
+        }
+    }
+
     /// <summary>
     /// Guard: children that stay in the toolbar keep it as their parent after another child is removed.
     /// </summary>
