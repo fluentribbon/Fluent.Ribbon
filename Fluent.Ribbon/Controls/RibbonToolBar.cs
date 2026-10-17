@@ -269,7 +269,9 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
         {
             foreach (var item in e.OldItems)
             {
-                if (item is FrameworkElement element)
+                // A child replaced by itself is still part of the toolbar
+                if (item is FrameworkElement element
+                    && e.NewItems?.Contains(element) != true)
                 {
                     this.ReleaseChild(element);
                 }
