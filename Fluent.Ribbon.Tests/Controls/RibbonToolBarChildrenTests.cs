@@ -87,6 +87,54 @@ public class RibbonToolBarChildrenTests
         }
     }
 
+    [Test]
+    public void Child_removed_from_a_toolbar_with_a_layout_definition_is_released()
+    {
+        var inGroup = new Fluent.Button { Name = "InGroup", Header = "In group" };
+        var direct = new Fluent.Button { Name = "Direct", Header = "Direct" };
+        var kept = new Fluent.Button { Name = "Kept", Header = "Kept" };
+        var toolBar = new RibbonToolBar();
+        toolBar.Children.Add(inGroup);
+        toolBar.Children.Add(direct);
+        toolBar.Children.Add(kept);
+
+        var group = new RibbonToolBarControlGroupDefinition();
+        group.Children.Add(new RibbonToolBarControlDefinition { Target = "InGroup" });
+        group.Children.Add(new RibbonToolBarControlDefinition { Target = "Kept" });
+        var row = new RibbonToolBarRow();
+        row.Children.Add(group);
+        row.Children.Add(new RibbonToolBarControlDefinition { Target = "Direct" });
+        var layout = new RibbonToolBarLayoutDefinition();
+        layout.Rows.Add(row);
+        toolBar.LayoutDefinitions.Add(layout);
+
+        var otherPanel = new StackPanel();
+        var root = new StackPanel { Children = { toolBar, otherPanel } };
+
+        using (new TestRibbonWindow(root))
+        {
+            UIHelper.DoEvents();
+
+            Assert.That(LogicalTreeHelper.GetParent(inGroup), Is.InstanceOf<RibbonToolBarControlGroup>(), "Precondition: the button is shown inside a control group");
+            Assert.That(LogicalTreeHelper.GetParent(direct), Is.SameAs(toolBar), "Precondition: the toolbar is the direct button's logical parent");
+
+            toolBar.Visibility = Visibility.Collapsed;
+            UIHelper.DoEvents();
+
+            toolBar.Children.Remove(inGroup);
+            toolBar.Children.Remove(direct);
+
+            Assert.That(() => otherPanel.Children.Add(inGroup), Throws.Nothing, "A child removed from a control group must be released");
+            Assert.That(() => otherPanel.Children.Add(direct), Throws.Nothing, "A child removed from the toolbar must be released");
+
+            toolBar.Visibility = Visibility.Visible;
+            UIHelper.DoEvents();
+
+            Assert.That(LogicalTreeHelper.GetParent(kept), Is.InstanceOf<RibbonToolBarControlGroup>(), "The remaining child is still shown inside its control group");
+            Assert.That(kept.IsVisible, Is.True, "The remaining child is still shown");
+        }
+    }
+
     /// <summary>
     /// Guard: children that stay in the toolbar keep it as their parent after another child is removed.
     /// </summary>
