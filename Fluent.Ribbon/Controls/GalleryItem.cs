@@ -170,12 +170,12 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
 
         if (e.OldValue is ICommand oldCommand)
         {
-            oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
+            CanExecuteChangedEventManager.RemoveHandler(oldCommand, control.OnCommandCanExecuteChanged);
         }
 
         if (e.NewValue is ICommand newCommand)
         {
-            newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
+            CanExecuteChangedEventManager.AddHandler(newCommand, control.OnCommandCanExecuteChanged);
         }
 
         control.UpdateCanExecute();
