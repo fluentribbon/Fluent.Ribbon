@@ -211,6 +211,37 @@ public class DropDownButtonDismissOnClickOutsideTests
     }
 
     /// <summary>
+    /// The inner drop down loses the capture to another element in the outer drop down (that popup also shows the inner one):
+    /// the inner one closes, the outer one stays open.
+    /// </summary>
+    [Test]
+    public void Inner_drop_down_losing_the_capture_to_an_element_in_the_outer_drop_down_closes()
+    {
+        var (outer, _, panel) = CreateContent(dismissOnClickOutside: true);
+        var inner = new DropDownButton
+        {
+            Header = "Inner",
+            Items = { new Fluent.MenuItem { Header = "Inner item" } }
+        };
+        var otherInOuter = new System.Windows.Controls.Button { Content = "Other in outer" };
+        outer.Items.Add(inner);
+        outer.Items.Add(otherInOuter);
+
+        using (new TestRibbonWindow(panel))
+        {
+            Open(outer);
+            Open(inner);
+
+            Assert.That(otherInOuter.CaptureMouse(), Is.True, "Precondition: the other element in the outer drop down should be able to take the mouse capture");
+            UIHelper.DoEvents();
+
+            Assert.That(inner.IsDropDownOpen, Is.False, "The inner drop down lost the capture, so it closes");
+            Assert.That(outer.IsDropDownOpen, Is.True, "The outer drop down must stay open");
+            Assert.That(Mouse.Captured, Is.SameAs(otherInOuter), "The element that took the capture must keep it");
+        }
+    }
+
+    /// <summary>
     /// Guard: a popup that isn't part of the drop down (for example the calendar of a date picker in it, created in code)
     /// can take the capture without closing the drop down, the same exception outside clicks make for such popups.
     /// </summary>
