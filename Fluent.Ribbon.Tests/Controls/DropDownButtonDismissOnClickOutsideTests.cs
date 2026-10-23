@@ -178,6 +178,71 @@ public class DropDownButtonDismissOnClickOutsideTests
         }
     }
 
+    /// <summary>
+    /// A drop down inside the drop down of another one loses the capture to the outer one
+    /// (the outer one takes it back for example when the user clicks elsewhere in its drop down).
+    /// Only the inner drop down closes: the outer one holds the capture, so it stays open.
+    /// </summary>
+    [Test]
+    public void Inner_drop_down_losing_the_capture_to_the_outer_one_leaves_the_outer_one_open(
+        [Values(true, false)] bool dismissOnClickOutside)
+    {
+        var (outer, _, panel) = CreateContent(dismissOnClickOutside: true);
+        var inner = new DropDownButton
+        {
+            Header = "Inner",
+            DismissOnClickOutside = dismissOnClickOutside,
+            Items = { new Fluent.MenuItem { Header = "Inner item" } }
+        };
+        outer.Items.Add(inner);
+
+        using (new TestRibbonWindow(panel))
+        {
+            Open(outer);
+            Open(inner);
+
+            Mouse.Capture(outer, CaptureMode.SubTree);
+            UIHelper.DoEvents();
+
+            Assert.That(outer.IsDropDownOpen, Is.True, "The outer drop down holds the capture and must stay open");
+            Assert.That(Mouse.Captured, Is.SameAs(outer), "The outer drop down must keep the capture");
+            Assert.That(inner.IsDropDownOpen, Is.False, "The inner drop down lost the capture, so it closes");
+        }
+    }
+
+    /// <summary>
+    /// Guard: a popup that isn't part of the drop down (for example the calendar of a date picker in it, created in code)
+    /// can take the capture without closing the drop down, the same exception outside clicks make for such popups.
+    /// </summary>
+    [Test]
+    public void Capture_taken_by_another_popup_keeps_the_drop_down_open()
+    {
+        var (dropDownButton, _, panel) = CreateContent(dismissOnClickOutside: true);
+        var popupButton = new System.Windows.Controls.Button { Content = "In popup" };
+        var popup = new System.Windows.Controls.Primitives.Popup { Child = popupButton, Placement = System.Windows.Controls.Primitives.PlacementMode.Mouse };
+
+        using (new TestRibbonWindow(panel))
+        {
+            Open(dropDownButton);
+
+            popup.IsOpen = true;
+            UIHelper.DoEvents();
+
+            try
+            {
+                Assert.That(popupButton.CaptureMouse(), Is.True, "Precondition: the button in the other popup should be able to take the mouse capture");
+                UIHelper.DoEvents();
+
+                Assert.That(dropDownButton.IsDropDownOpen, Is.True, "Another popup taking the capture must not close the drop down");
+            }
+            finally
+            {
+                popupButton.ReleaseMouseCapture();
+                popup.IsOpen = false;
+            }
+        }
+    }
+
     private static (DropDownButton DropDownButton, System.Windows.Controls.Button OtherButton, StackPanel Panel) CreateContent(bool dismissOnClickOutside)
     {
         var dropDownButton = new DropDownButton
