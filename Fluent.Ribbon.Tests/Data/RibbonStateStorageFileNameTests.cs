@@ -14,9 +14,9 @@ public class RibbonStateStorageFileNameTests
     /// <summary>
     /// Guard: the file name is the same as in earlier versions, so a state saved by an earlier version is still found.
     /// </summary>
-    [TestCase("")]
-    [TestCase("MainRibbon")]
-    public void File_name_is_the_same_as_in_earlier_versions(string ribbonName)
+    [TestCase("", "Fluent.Ribbon.State.D98C1DD4")]
+    [TestCase("MainRibbon", "Fluent.Ribbon.State.4498E39")]
+    public void File_name_is_the_same_as_in_earlier_versions(string ribbonName, string earlierFileName)
     {
         var ribbon = new Ribbon { Name = ribbonName };
         var storage = new FileNameStorage(ribbon);
@@ -28,6 +28,7 @@ public class RibbonStateStorageFileNameTests
             var expected = "Fluent.Ribbon.State." + BitConverter.ToInt32(md5.ComputeHash(Encoding.Default.GetBytes(stringForHash)), 0).ToString("X");
 
             Assert.That(storage.FileName, Is.EqualTo(expected));
+            Assert.That(storage.FileName, Is.EqualTo(earlierFileName), "The name an earlier version gave this ribbon.");
         }
     }
 
