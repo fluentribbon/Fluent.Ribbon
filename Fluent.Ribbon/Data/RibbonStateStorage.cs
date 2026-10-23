@@ -17,8 +17,6 @@ using Fluent.Internal.KnownBoxes;
 /// </summary>
 public class RibbonStateStorage : IRibbonStateStorage
 {
-    private static readonly MD5 md5Hasher = MD5.Create();
-
     private readonly Ribbon ribbon;
 
     // Name of the isolated storage file
@@ -87,8 +85,47 @@ public class RibbonStateStorage : IRibbonStateStorage
                 stringForHash += "." + this.ribbon.Name;
             }
 
-            this.isolatedStorageFileName = "Fluent.Ribbon.State." + BitConverter.ToInt32(md5Hasher.ComputeHash(Encoding.Default.GetBytes(stringForHash)), 0).ToString("X");
+            this.isolatedStorageFileName = "Fluent.Ribbon.State." + GetHashForFileName(stringForHash).ToString("X");
             return this.isolatedStorageFileName;
+        }
+    }
+
+    /// <summary>
+    /// Gets the hash used in the name of the isolated storage file.
+    /// It's the same as in earlier versions (the first 4 bytes of the MD5 hash), so saved states are still found.
+    /// </summary>
+    /// <remarks>
+    /// On .NET Framework MD5 can't be created when Windows only allows FIPS validated algorithms, so a simple, stable hash is used then.
+    /// A new hasher is created for each call, because a shared one isn't thread-safe and ribbons on different UI threads can get their names at the same time.
+    /// </remarks>
+    internal static int GetHashForFileName(string value)
+    {
+        var bytes = Encoding.Default.GetBytes(value);
+
+        if (CryptoConfig.AllowOnlyFipsAlgorithms)
+        {
+            return GetStableHash(bytes);
+        }
+
+        using (var md5Hasher = MD5.Create())
+        {
+            return BitConverter.ToInt32(md5Hasher.ComputeHash(bytes), 0);
+        }
+    }
+
+    // FNV-1a, which gives the same result on every run and every .NET version (unlike string.GetHashCode).
+    internal static int GetStableHash(byte[] bytes)
+    {
+        unchecked
+        {
+            var hash = (int)2166136261;
+
+            foreach (var b in bytes)
+            {
+                hash = (hash ^ b) * 16777619;
+            }
+
+            return hash;
         }
     }
 
