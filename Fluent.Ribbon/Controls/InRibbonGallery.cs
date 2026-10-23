@@ -538,8 +538,9 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
             return null;
         }
 
+        // Each menu item has its filter as Tag. Titles can be the same, or change after the menu item was created.
         return this.groupsMenuButton?.Items.Cast<MenuItem>()
-            .FirstOrDefault(item => item is not null && item.Header.ToString() == filter.Title);
+            .FirstOrDefault(item => item is not null && ReferenceEquals(item.Tag, filter));
     }
 
     #endregion
