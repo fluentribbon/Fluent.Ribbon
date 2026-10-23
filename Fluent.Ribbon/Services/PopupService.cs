@@ -242,6 +242,17 @@ public static class PopupService
                     RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
                 }
             }
+            else if (sender is DropDownButton
+                     && (Mouse.Captured is null
+                         || (IsAncestorOf(popup, Mouse.Captured as DependencyObject) == false
+                             && IsAncestorOf(sender as DependencyObject, Mouse.Captured as DependencyObject) == false)))
+            {
+                // The drop down lost the capture to nothing (Windows cancels it when another window takes it) or to an element outside of it.
+                // Without the capture outside clicks no longer reach it, so they couldn't close it any more,
+                // and with DismissOnClickOutside = false the rest of the window would become clickable while it stays open.
+                // Close it, like WPF's ComboBox does when it loses the capture.
+                RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
+            }
 
             return;
         }
