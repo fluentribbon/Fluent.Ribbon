@@ -246,8 +246,9 @@ public static class PopupService
             else if (sender is DropDownButton
                      && (Mouse.Captured is null
                          || (IsAncestorOf(sender as DependencyObject, Mouse.Captured as DependencyObject) == false
-                             // Similar to the exception for outside clicks: unknown popups (for example datepickers used in the drop down)
-                             && IsInPopup(Mouse.Captured as DependencyObject) == false)))
+                             // Similar to the exception for outside clicks: other popups (for example datepickers used in the drop down),
+                             // but not a popup the drop down itself is shown in (for example the one of the drop down it is in)
+                             && IsInOtherPopup(Mouse.Captured as DependencyObject, sender as DependencyObject) == false)))
             {
                 // The drop down lost the capture to nothing (Windows cancels it when another window takes it) or to an element outside of it.
                 // Without the capture outside clicks no longer reach it, so they couldn't close it any more,
@@ -452,8 +453,8 @@ public static class PopupService
         }
     }
 
-    // Whether the element is shown in a popup (its visual root is a popup's root).
-    private static bool IsInPopup(DependencyObject? element)
+    // Whether the element is shown in a popup (its visual root is a popup's root) that doesn't also show the other element.
+    private static bool IsInOtherPopup(DependencyObject? element, DependencyObject? other)
     {
         while (element is Visual
                && VisualTreeHelper.GetParent(element) is { } parent)
@@ -461,7 +462,8 @@ public static class PopupService
             element = parent;
         }
 
-        return IsPopupRoot(element);
+        return IsPopupRoot(element)
+               && IsAncestorOf(element, other) == false;
     }
 
     private static bool IsPopupRoot(object? obj)
