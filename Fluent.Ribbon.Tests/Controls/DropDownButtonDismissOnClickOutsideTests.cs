@@ -89,19 +89,19 @@ public class DropDownButtonDismissOnClickOutsideTests
     /// The open drop down can lose the mouse capture without being closed by a click: Windows cancels it when another
     /// window takes it, and any element in the application can take it. WPF then raises LostMouseCapture on the
     /// drop down button, exactly as <see cref="Mouse.Capture(IInputElement)"/> does here.
-    /// Without the capture WPF no longer sends outside clicks to it, so an open drop down would no longer be closed by them,
-    /// and with DismissOnClickOutside = false the rest of the window would become clickable while it stays open.
+    /// Without the capture WPF no longer sends outside clicks to it, so an open drop down would no longer be closed by them.
     /// So it closes, like WPF's ComboBox does when it loses the capture.
+    /// With DismissOnClickOutside = false it stays open instead: see
+    /// <see cref="Losing_mouse_capture_keeps_the_drop_down_open_when_DismissOnClickOutside_is_false"/>.
     /// A Ribbon in the window is tested too: its KeyTipService closes popups only when the window is deactivated,
     /// which losing the capture alone does not do.
     /// </summary>
     [Test]
     public void Losing_mouse_capture_closes_the_drop_down(
-        [Values(true, false)] bool dismissOnClickOutside,
         [Values(false, true)] bool withRibbon,
         [Values(false, true)] bool takenByOtherElement)
     {
-        var (dropDownButton, otherButton, panel) = CreateContent(dismissOnClickOutside);
+        var (dropDownButton, otherButton, panel) = CreateContent(dismissOnClickOutside: true);
 
         object content = panel;
 
@@ -147,6 +147,86 @@ public class DropDownButtonDismissOnClickOutsideTests
             {
                 Assert.That(Mouse.Captured, Is.SameAs(otherButton), "The element that took the capture must keep it");
             }
+        }
+    }
+
+    /// <summary>
+    /// DismissOnClickOutside = false was added (upstream #1048) for drop downs used like a dialog: they must not close
+    /// "unless the user clicks over the DropDownButton". Losing the mouse capture is not such a click, so it stays open
+    /// (it still closes by its button or Escape).
+    /// </summary>
+    [Test]
+    public void Losing_mouse_capture_keeps_the_drop_down_open_when_DismissOnClickOutside_is_false(
+        [Values(false, true)] bool takenByOtherElement)
+    {
+        var (dropDownButton, otherButton, panel) = CreateContent(dismissOnClickOutside: false);
+
+        using (new TestRibbonWindow(panel))
+        {
+            Open(dropDownButton);
+
+            if (takenByOtherElement)
+            {
+                Assert.That(otherButton.CaptureMouse(), Is.True, "Precondition: the other button should be able to take the mouse capture");
+            }
+            else
+            {
+                Mouse.Capture(null);
+            }
+
+            UIHelper.DoEvents();
+
+            Assert.That(dropDownButton.IsDropDownOpen, Is.True, "With DismissOnClickOutside = false only the drop down's button or Escape closes it");
+
+            if (takenByOtherElement)
+            {
+                Assert.That(Mouse.Captured, Is.SameAs(otherButton), "The element that took the capture must keep it");
+            }
+        }
+    }
+
+    /// <summary>
+    /// The use case of DismissOnClickOutside = false (upstream #1048): the drop down holds a form, and the form opens a dialog
+    /// (for example a message box). Windows cancels the capture when the dialog disables the window, so the drop down
+    /// loses it, but it must still be open when the dialog shows and after it closes.
+    /// </summary>
+    [Test]
+    public void Opening_a_dialog_from_the_drop_down_keeps_it_open_when_DismissOnClickOutside_is_false()
+    {
+        var (dropDownButton, _, panel) = CreateContent(dismissOnClickOutside: false);
+
+        using (var window = new TestRibbonWindow(panel))
+        {
+            Open(dropDownButton);
+
+            bool? openWhileTheDialogIsShown = null;
+            var dialog = new Window
+            {
+                Width = 100,
+                Height = 100,
+                ShowInTaskbar = false,
+                ShowActivated = false,
+                Owner = window,
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                Left = window.Left,
+                Top = window.Top
+            };
+
+            // Loaded always comes (ContentRendered doesn't for a window that's off screen and not activated).
+            // The check waits until the dispatcher is idle, so the lost capture has been handled by then.
+            dialog.Loaded += (_, _) => dialog.Dispatcher.BeginInvoke(
+                System.Windows.Threading.DispatcherPriority.ApplicationIdle,
+                new System.Action(() =>
+                {
+                    openWhileTheDialogIsShown = dropDownButton.IsDropDownOpen;
+                    dialog.Close();
+                }));
+
+            dialog.ShowDialog();
+            UIHelper.DoEvents();
+
+            Assert.That(openWhileTheDialogIsShown, Is.True, "The drop down must stay open while the dialog is shown");
+            Assert.That(dropDownButton.IsDropDownOpen, Is.True, "The drop down must still be open after the dialog closed");
         }
     }
 
