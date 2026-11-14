@@ -222,8 +222,17 @@ public class DropDownButtonDismissOnClickOutsideTests
                     dialog.Close();
                 }));
 
+            var lostTheCapture = false;
+            dropDownButton.LostMouseCapture += (_, _) => lostTheCapture = true;
+
             dialog.ShowDialog();
             UIHelper.DoEvents();
+
+            // Without a lost capture the test would pass without checking anything.
+            if (lostTheCapture == false)
+            {
+                Assert.Inconclusive("Showing the dialog didn't take the mouse capture away from the drop down in this test environment.");
+            }
 
             Assert.That(openWhileTheDialogIsShown, Is.True, "The drop down must stay open while the dialog is shown");
             Assert.That(dropDownButton.IsDropDownOpen, Is.True, "The drop down must still be open after the dialog closed");
