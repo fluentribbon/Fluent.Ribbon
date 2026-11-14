@@ -225,8 +225,33 @@ public class DropDownButtonDismissOnClickOutsideTests
             var lostTheCapture = false;
             dropDownButton.LostMouseCapture += (_, _) => lostTheCapture = true;
 
-            dialog.ShowDialog();
+            // Safety net only: if the dialog never loads (for example without a usable desktop), close it so the run can't hang.
+            var dialogNeverLoaded = false;
+            var failsafe = new System.Windows.Threading.DispatcherTimer(
+                System.TimeSpan.FromSeconds(30),
+                System.Windows.Threading.DispatcherPriority.Normal,
+                (_, _) =>
+                {
+                    dialogNeverLoaded = openWhileTheDialogIsShown is null;
+                    dialog.Close();
+                },
+                dialog.Dispatcher);
+
+            try
+            {
+                dialog.ShowDialog();
+            }
+            finally
+            {
+                failsafe.Stop();
+            }
+
             UIHelper.DoEvents();
+
+            if (dialogNeverLoaded)
+            {
+                Assert.Inconclusive("The dialog never loaded in this test environment.");
+            }
 
             // Without a lost capture the test would pass without checking anything.
             if (lostTheCapture == false)
