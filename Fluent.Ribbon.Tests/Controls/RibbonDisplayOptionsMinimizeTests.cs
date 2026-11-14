@@ -98,6 +98,39 @@ public class RibbonDisplayOptionsMinimizeTests
         }
     }
 
+    /// <summary>
+    /// Guard: a <see cref="RibbonTabControl"/> used without a ribbon has no ribbon to change, so the menu items must minimize and restore
+    /// the tabs themselves (<see cref="RibbonTabControl.SetIsMinimizedFromUserAction"/> sets <see cref="RibbonTabControl.IsMinimized"/> then),
+    /// and their check marks must show the state.
+    /// </summary>
+    [Test]
+    public void Menu_items_minimize_and_restore_tabs_without_a_ribbon()
+    {
+        var tabControl = new RibbonTabControl { CanMinimize = true };
+        tabControl.Items.Add(new RibbonTabItem { Header = "Home" });
+
+        using (new TestRibbonWindow(tabControl))
+        {
+            tabControl.ApplyTemplate();
+            UIHelper.DoEvents();
+
+            var minimize = GetMenuItem(tabControl, RibbonLocalization.Current.Localization.MinimizeRibbon);
+            var expand = GetMenuItem(tabControl, RibbonLocalization.Current.Localization.ExpandRibbon);
+
+            Assert.That(tabControl.IsMinimized, Is.False, "Precondition: the tabs are not minimized.");
+
+            Click(minimize);
+            Assert.That(tabControl.IsMinimized, Is.True, "Minimize must minimize the tabs.");
+            Assert.That(minimize.IsChecked, Is.True, "Minimize must be checked while the tabs are minimized.");
+            Assert.That(expand.IsChecked, Is.False, "Expand must not be checked while the tabs are minimized.");
+
+            Click(expand);
+            Assert.That(tabControl.IsMinimized, Is.False, "Expand must restore the tabs.");
+            Assert.That(minimize.IsChecked, Is.False, "Minimize must not be checked while the tabs are expanded.");
+            Assert.That(expand.IsChecked, Is.True, "Expand must be checked while the tabs are expanded.");
+        }
+    }
+
     private static Ribbon CreateRibbon(RibbonSettings settings, BindingMode mode)
     {
         var ribbon = new Ribbon { CanMinimize = true, AutomaticStateManagement = false };
@@ -117,7 +150,12 @@ public class RibbonDisplayOptionsMinimizeTests
 
     private static System.Windows.Controls.MenuItem GetMenuItem(Ribbon ribbon, string header)
     {
-        var button = ribbon.TabControl!.Template.FindName("PART_DisplayOptionsButton", ribbon.TabControl) as DropDownButton;
+        return GetMenuItem(ribbon.TabControl!, header);
+    }
+
+    private static System.Windows.Controls.MenuItem GetMenuItem(RibbonTabControl tabControl, string header)
+    {
+        var button = tabControl.Template.FindName("PART_DisplayOptionsButton", tabControl) as DropDownButton;
         Assert.That(button, Is.Not.Null, "Precondition: the tab control template must have the display options button.");
 
         var item = button!.Items.OfType<System.Windows.Controls.MenuItem>().FirstOrDefault(x => Equals(x.Header, header));
