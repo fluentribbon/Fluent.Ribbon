@@ -235,6 +235,48 @@ public class BackstageReopenDuringCloseTests
         }
     }
 
+    /// <summary>
+    /// A new template (for example from an app style) also replaces the adorner, without an unload.
+    /// When that happens during the close animation, the end of the animation must still give the ribbon its normal state back.
+    /// </summary>
+    [Test]
+    public void New_template_during_the_close_animation_still_restores_the_ribbon()
+    {
+        var backstage = new Backstage { Content = new System.Windows.Controls.Button { Content = "Inside" }, AreAnimationsEnabled = true };
+        var ribbon = new Ribbon { Menu = backstage };
+
+        using (new TestRibbonWindow(ribbon))
+        {
+            UIHelper.DoEvents();
+
+            var open = UseOpenStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = true;
+            WaitUntilCompleted(open, "open");
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.True, "Precondition: the ribbon is in backstage mode while the backstage is open");
+
+            // Long enough to still be running after the new template (that takes a fraction of a second).
+            var close = UseCloseStoryboard(backstage, TimeSpan.FromSeconds(3));
+            backstage.IsOpen = false;
+
+            backstage.Template = new System.Windows.Controls.ControlTemplate(typeof(Backstage))
+            {
+                VisualTree = new FrameworkElementFactory(typeof(System.Windows.Controls.Border))
+            };
+            backstage.ApplyTemplate();
+            UIHelper.DoEvents();
+
+            Assert.That(close.IsCompleted, Is.False, "Precondition: the close animation is still running");
+
+            WaitUntilCompleted(close, "close");
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The ribbon must leave backstage mode when the close animation ends");
+                Assert.That(ribbon.TabControl.HighlightSelectedItem, Is.True, "The selected tab must be highlighted again when the close animation ends");
+            }
+        }
+    }
+
     private static UIElement GetAdorner(Backstage backstage)
     {
         return backstage.GetFieldValue<UIElement>("adorner");
