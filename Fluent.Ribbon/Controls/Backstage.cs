@@ -810,13 +810,15 @@ public class Backstage : RibbonControl
     {
         this.RemoveHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnDismissPopup);
 
+        // Unloaded while open or while the close animation is running. The adorner is destroyed below, and
+        // neither Hide() nor the end of the close animation can be relied on to restore the ribbon and the
+        // window any more (the animation of a removed backstage may never end, and its end is skipped when
+        // the backstage is shown again elsewhere), so restore them now. Nothing to do when it's closed.
+        this.RestoreParentProperties();
+
         if (this.IsOpen)
         {
-            // Unloaded while open. The adorner is destroyed below, and Hide() can't restore the ribbon
-            // without it, so restore it now. IsOpen stays true: like a backstage opened before it was
-            // loaded, it's shown again when it's loaded again.
-            this.RestoreParentProperties();
-
+            // IsOpen stays true: like a backstage opened before it was loaded, it's shown again when it's loaded again.
             this.Loaded -= this.OnDelayedShow;
             this.Loaded += this.OnDelayedShow;
         }
