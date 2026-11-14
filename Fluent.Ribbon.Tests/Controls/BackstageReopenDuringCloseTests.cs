@@ -242,7 +242,7 @@ public class BackstageReopenDuringCloseTests
     /// The end of the animation must not change anything after that.
     /// </summary>
     [Test]
-    public void New_template_during_the_close_animation_still_restores_the_ribbon()
+    public void New_template_during_the_close_animation_restores_the_ribbon_right_away()
     {
         var backstage = new Backstage { Content = new System.Windows.Controls.Button { Content = "Inside" }, AreAnimationsEnabled = true };
         var ribbon = new Ribbon { Menu = backstage };
