@@ -88,7 +88,12 @@ public class StartScreen : Backstage
             return false;
         }
 
-        this.Shown = true;
+        // Only written once: when it's displayed again after a reload, an app's OneWay binding on Shown is kept.
+        if (this.Shown == false)
+        {
+            this.Shown = true;
+        }
+
         this.isDisplayed = true;
         this.showAgainWhenLoaded = false;
 
@@ -108,7 +113,7 @@ public class StartScreen : Backstage
 
         this.isDisplayed = false;
 
-        // Closed while unloaded: not displayed again when it's loaded again.
+        // Hidden (closed, or a new template) while unloaded: not displayed again when it's loaded again.
         this.showAgainWhenLoaded = false;
 
         this.RestoreTitleBar();

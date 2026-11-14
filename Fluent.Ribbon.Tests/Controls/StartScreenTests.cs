@@ -85,6 +85,7 @@ public class StartScreenTests
 
             Assert.That(startScreen.IsLoaded, Is.False, "Precondition: the start screen was unloaded.");
             Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "Precondition: unloading gives the ribbon its normal state back.");
+            Assert.That(titleBar.IsCollapsed, Is.False, "Unloading the displayed start screen gives the title bar back.");
 
             window.Content = ribbon;
             UIHelper.DoEvents();
@@ -107,6 +108,64 @@ public class StartScreenTests
                 Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "Closing it gives the ribbon its normal state back.");
                 Assert.That(titleBar.IsCollapsed, Is.False, "Closing it restores the title bar as it was before the start screen was first displayed.");
             }
+
+            // It was shown once: opening it again still displays nothing.
+            startScreen.IsOpen = true;
+            UIHelper.DoEvents();
+
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "A start screen that was closed after it was shown is not displayed again.");
+            startScreen.IsOpen = false;
+        }
+    }
+
+    /// <summary>
+    /// A displayed start screen closed while it's unloaded is not displayed again when it's loaded again, nor when it's opened again.
+    /// </summary>
+    [Test]
+    public void StartScreen_closed_while_unloaded_is_not_displayed_again()
+    {
+        var titleBar = new RibbonTitleBar();
+        var startScreen = new StartScreen
+        {
+            Content = new StartScreenTabControl(),
+            AreAnimationsEnabled = false
+        };
+        var ribbon = new Ribbon
+        {
+            TitleBar = titleBar,
+            StartScreen = startScreen,
+            AutomaticStateManagement = false
+        };
+
+        using (var window = new TestRibbonWindow(ribbon))
+        {
+            UIHelper.DoEvents();
+
+            startScreen.IsOpen = true;
+            UIHelper.DoEvents();
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.True, "Precondition: the start screen is displayed.");
+
+            window.Content = null;
+            UIHelper.DoEvents();
+
+            startScreen.IsOpen = false;
+
+            window.Content = ribbon;
+            UIHelper.DoEvents();
+            UIHelper.DoEvents();
+
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "A start screen closed while unloaded is not displayed when it's loaded again.");
+
+            startScreen.IsOpen = true;
+            UIHelper.DoEvents();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "It was shown once: opening it again displays nothing.");
+                Assert.That(titleBar.IsCollapsed, Is.False, "The title bar stays as it was.");
+            }
+
+            startScreen.IsOpen = false;
         }
     }
 }
