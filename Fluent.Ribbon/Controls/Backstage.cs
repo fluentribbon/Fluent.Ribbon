@@ -879,7 +879,7 @@ public class Backstage : RibbonControl
         }
 
         // Like an unload: the close animation of the adorner destroyed below may never end, so restore the ribbon
-        // and the window now. Nothing to do when it's closed and its close animation has ended; Show below collects them again when it's open.
+        // and the window now. Nothing to do when it's closed and its close animation has ended; Show below collects them again if it shows it.
         this.RestoreParentProperties();
 
         this.DestroyAdorner();
