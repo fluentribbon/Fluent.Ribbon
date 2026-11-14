@@ -582,14 +582,6 @@ public class Backstage : RibbonControl
                 return;
             }
 
-            // The backstage was unloaded (removed, or moved to another window) while this close animation was running.
-            // Unloading destroyed the adorner this animation ran on and already restored the ribbon and the window.
-            // Focusing the backstage now would take the keyboard focus from wherever the user is working by then.
-            if (ReferenceEquals(this.adorner, adornerAtClose) == false)
-            {
-                return;
-            }
-
             if (this.adorner is not null)
             {
                 this.adorner.Visibility = Visibility.Collapsed;
@@ -602,7 +594,13 @@ public class Backstage : RibbonControl
 
             this.RestoreParentProperties();
 
-            this.Focus();
+            // Not when the adorner this animation ran on was replaced meanwhile: an unload (the backstage was removed,
+            // or moved to another window) or a new template destroyed it. Focusing the backstage now would take the
+            // keyboard focus from wherever the user is working by then.
+            if (ReferenceEquals(this.adorner, adornerAtClose))
+            {
+                this.Focus();
+            }
         }
     }
 
