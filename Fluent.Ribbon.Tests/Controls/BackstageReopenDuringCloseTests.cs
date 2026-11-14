@@ -187,6 +187,54 @@ public class BackstageReopenDuringCloseTests
         }
     }
 
+    /// <summary>
+    /// The end of a close animation gives the keyboard focus back to the backstage button.
+    /// When the backstage was moved to another window during that animation, the move already restored everything,
+    /// and the user may be working in the other window by the time the old animation ends:
+    /// it must not take the keyboard focus there.
+    /// </summary>
+    [Test]
+    public void Moving_to_another_window_during_the_close_animation_leaves_the_focus_alone_there()
+    {
+        var backstage = new Backstage { Content = new System.Windows.Controls.Button { Content = "Inside" }, AreAnimationsEnabled = true };
+        var otherButton = new System.Windows.Controls.Button { Content = "Other" };
+        var secondWindowContent = new System.Windows.Controls.StackPanel();
+        secondWindowContent.Children.Add(otherButton);
+
+        using (var firstWindow = new TestRibbonWindow(backstage))
+        using (var secondWindow = new TestRibbonWindow(secondWindowContent))
+        {
+            UIHelper.DoEvents();
+
+            var open = UseOpenStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = true;
+            WaitUntilCompleted(open, "open");
+
+            // Long enough to still be running after the move and the focus change below (they take a fraction of a second).
+            var close = UseCloseStoryboard(backstage, TimeSpan.FromSeconds(3));
+            backstage.IsOpen = false;
+
+            firstWindow.Content = null;
+            secondWindowContent.Children.Insert(0, backstage);
+            UIHelper.DoEvents();
+
+            secondWindow.Activate();
+            otherButton.Focus();
+            UIHelper.DoEvents();
+            if (otherButton.IsKeyboardFocused == false)
+            {
+                Assert.Inconclusive("Keyboard focus is not available in this test environment.");
+            }
+
+            Assert.That(close.IsCompleted, Is.False, "Precondition: the close animation is still running");
+
+            WaitUntilCompleted(close, "abandoned close");
+
+            UIHelper.InconclusiveIfKeyboardFocusLost("after the close animation ended");
+            Assert.That(Keyboard.FocusedElement, Is.SameAs(otherButton), "The end of the old close animation must not move the focus to the moved backstage");
+        }
+    }
+
     private static UIElement GetAdorner(Backstage backstage)
     {
         return backstage.GetFieldValue<UIElement>("adorner");
