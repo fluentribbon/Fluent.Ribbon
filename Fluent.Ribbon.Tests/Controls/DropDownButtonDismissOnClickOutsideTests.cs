@@ -261,7 +261,8 @@ public class DropDownButtonDismissOnClickOutsideTests
     /// <summary>
     /// A drop down inside the drop down of another one loses the capture to the outer one
     /// (the outer one takes it back for example when the user clicks elsewhere in its drop down).
-    /// Only the inner drop down closes: the outer one holds the capture, so it stays open.
+    /// The outer one holds the capture, so it stays open. The inner one closes, unless it has DismissOnClickOutside = false
+    /// (for it, that click in the outer drop down is an outside click).
     /// </summary>
     [Test]
     public void Inner_drop_down_losing_the_capture_to_the_outer_one_leaves_the_outer_one_open(
@@ -286,7 +287,7 @@ public class DropDownButtonDismissOnClickOutsideTests
 
             Assert.That(outer.IsDropDownOpen, Is.True, "The outer drop down holds the capture and must stay open");
             Assert.That(Mouse.Captured, Is.SameAs(outer), "The outer drop down must keep the capture");
-            Assert.That(inner.IsDropDownOpen, Is.False, "The inner drop down lost the capture, so it closes");
+            Assert.That(inner.IsDropDownOpen, Is.EqualTo(!dismissOnClickOutside), dismissOnClickOutside ? "The inner drop down lost the capture, so it closes" : "With DismissOnClickOutside = false the inner drop down stays open");
         }
     }
 
