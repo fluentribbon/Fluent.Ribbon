@@ -89,6 +89,9 @@ public class StartScreenTests
             window.Content = ribbon;
             UIHelper.DoEvents();
 
+            // An open backstage that is loaded shows itself one dispatcher pass later (Backstage.OnDelayedShow).
+            UIHelper.DoEvents();
+
             using (Assert.EnterMultipleScope())
             {
                 Assert.That(startScreen.IsOpen, Is.True, "The start screen is still open.");
