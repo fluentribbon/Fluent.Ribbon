@@ -17,6 +17,9 @@ using NUnit.Framework;
 [TestFixture]
 public class RibbonMovedToOtherWindowTests
 {
+    // QuickAccessToolBarHeight set by the new style in the style tests. Differs from the height the title bar gives.
+    private const double StyleQuickAccessToolBarHeight = 42D;
+
     /// <summary>
     /// The title bar of the new RibbonWindow must show the quick access toolbar and contextual groups of the moved ribbon,
     /// and the title bar of the old window must no longer show them.
@@ -320,6 +323,97 @@ public class RibbonMovedToOtherWindowTests
         {
             window.Close();
         }
+    }
+
+    /// <summary>
+    /// Baseline, without a move: TitleBar and QuickAccessToolBarHeight come from setters in the ribbon style,
+    /// so a new style with its own setters for them takes effect.
+    /// </summary>
+    [Test]
+    public void New_Style_sets_TitleBar_and_QuickAccessToolBarHeight_of_a_ribbon_that_was_not_moved()
+    {
+        var ribbon = new Ribbon();
+
+        using (var window = new TestRibbonWindow(ribbon))
+        {
+            UIHelper.DoEvents();
+
+            Assert.That(ribbon.TitleBar, Is.SameAs(window.TitleBar), "Precondition: the ribbon uses the title bar of its window");
+            Assert.That(GetBaseValueSource(ribbon, Ribbon.TitleBarProperty), Is.EqualTo(BaseValueSource.Style), "Precondition: TitleBar comes from the ribbon style");
+            Assert.That(GetBaseValueSource(ribbon, Ribbon.QuickAccessToolBarHeightProperty), Is.EqualTo(BaseValueSource.Style), "Precondition: QuickAccessToolBarHeight comes from the ribbon style");
+
+            ribbon.Style = CreateStyleWithOwnTitleBarSetters(ribbon);
+            UIHelper.DoEvents();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(ribbon.QuickAccessToolBarHeight, Is.EqualTo(StyleQuickAccessToolBarHeight), "The QuickAccessToolBarHeight setter of the new style must take effect");
+                Assert.That(ribbon.TitleBar, Is.Null, "The TitleBar setter of the new style must take effect");
+                Assert.That(GetBaseValueSource(ribbon, Ribbon.QuickAccessToolBarHeightProperty), Is.EqualTo(BaseValueSource.Style), "QuickAccessToolBarHeight must come from the new style");
+                Assert.That(GetBaseValueSource(ribbon, Ribbon.TitleBarProperty), Is.EqualTo(BaseValueSource.Style), "TitleBar must come from the new style");
+            }
+        }
+    }
+
+    /// <summary>
+    /// KNOWN RISK, this test records today's behaviour, it does not describe the wanted behaviour.
+    /// When the ribbon is loaded in another RibbonWindow, Ribbon.OnLoaded sets the TitleBar and QuickAccessToolBarHeight bindings again
+    /// with BindingOperations.SetBinding (Ribbon.RefreshBinding), so they look for the new window.
+    /// SetBinding makes them local values of the ribbon. In WPF a local value wins over every style setter,
+    /// so after a move the setters of a new style (set by the app or by a theme change) for these two properties are ignored:
+    /// the ribbon keeps the bindings it had, which still point to the title bar of the new window.
+    /// Since the bindings are only set again when the ribbon really changed windows (or had no title bar and is now in a RibbonWindow),
+    /// a ribbon that was never moved is not affected (see the baseline test above).
+    /// If this test fails because the new style now takes effect, the risk was fixed: replace this test with a normal guard.
+    /// </summary>
+    [Test]
+    public void KnownRisk_New_Style_does_not_set_TitleBar_and_QuickAccessToolBarHeight_of_a_moved_ribbon()
+    {
+        var ribbon = new Ribbon();
+
+        using (var windowA = new TestRibbonWindow(ribbon))
+        using (var windowB = new TestRibbonWindow())
+        {
+            UIHelper.DoEvents();
+
+            Assert.That(GetBaseValueSource(ribbon, Ribbon.TitleBarProperty), Is.EqualTo(BaseValueSource.Style), "Precondition: before the move TitleBar comes from the ribbon style");
+            Assert.That(GetBaseValueSource(ribbon, Ribbon.QuickAccessToolBarHeightProperty), Is.EqualTo(BaseValueSource.Style), "Precondition: before the move QuickAccessToolBarHeight comes from the ribbon style");
+
+            MoveRibbon(ribbon, windowA, windowB);
+
+            Assert.That(ribbon.TitleBar, Is.SameAs(windowB.TitleBar), "Precondition: the moved ribbon uses the title bar of its new window");
+            Assert.That(GetBaseValueSource(ribbon, Ribbon.TitleBarProperty), Is.EqualTo(BaseValueSource.Local), "Known risk: after the move TitleBar is a local binding");
+            Assert.That(GetBaseValueSource(ribbon, Ribbon.QuickAccessToolBarHeightProperty), Is.EqualTo(BaseValueSource.Local), "Known risk: after the move QuickAccessToolBarHeight is a local binding");
+
+            var quickAccessToolBarHeightBeforeNewStyle = ribbon.QuickAccessToolBarHeight;
+
+            Assert.That(quickAccessToolBarHeightBeforeNewStyle, Is.Not.EqualTo(StyleQuickAccessToolBarHeight), "Precondition: the new style uses a different QuickAccessToolBarHeight");
+
+            ribbon.Style = CreateStyleWithOwnTitleBarSetters(ribbon);
+            UIHelper.DoEvents();
+
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(ribbon.QuickAccessToolBarHeight, Is.EqualTo(quickAccessToolBarHeightBeforeNewStyle), "Known risk: the QuickAccessToolBarHeight setter of the new style is ignored after a move");
+                Assert.That(ribbon.TitleBar, Is.SameAs(windowB.TitleBar), "Known risk: the TitleBar setter of the new style is ignored after a move");
+                Assert.That(GetBaseValueSource(ribbon, Ribbon.QuickAccessToolBarHeightProperty), Is.EqualTo(BaseValueSource.Local), "Known risk: QuickAccessToolBarHeight stays a local binding");
+                Assert.That(GetBaseValueSource(ribbon, Ribbon.TitleBarProperty), Is.EqualTo(BaseValueSource.Local), "Known risk: TitleBar stays a local binding");
+            }
+        }
+    }
+
+    private static BaseValueSource GetBaseValueSource(DependencyObject target, DependencyProperty property)
+    {
+        return DependencyPropertyHelper.GetValueSource(target, property).BaseValueSource;
+    }
+
+    // A style based on the current ribbon style, with its own (plain value) setters for TitleBar and QuickAccessToolBarHeight.
+    private static Style CreateStyleWithOwnTitleBarSetters(Ribbon ribbon)
+    {
+        var style = new Style(typeof(Ribbon), (Style)ribbon.FindResource(typeof(Ribbon)));
+        style.Setters.Add(new Setter(Ribbon.QuickAccessToolBarHeightProperty, StyleQuickAccessToolBarHeight));
+        style.Setters.Add(new Setter(Ribbon.TitleBarProperty, null));
+        return style;
     }
 
     private static void AssertShownInTitleBarOf(Ribbon ribbon, TestRibbonWindow window)
