@@ -73,7 +73,8 @@ public class StartScreen : Backstage
     /// </summary>
     /// <returns>
     /// <c>true</c> if the <see cref="StartScreen"/> was made visible.
-    /// <c>false</c> if the <see cref="StartScreen"/> was previously shown and was not made visible during this call.
+    /// <c>false</c> if the <see cref="StartScreen"/> was previously shown and was not made visible during this call
+    /// (it's made visible again when it's loaded again while it's still open).
     /// </returns>
     protected override bool Show()
     {
@@ -88,7 +89,7 @@ public class StartScreen : Backstage
             return false;
         }
 
-        // Only written once: when it's displayed again after a reload, an app's OneWay binding on Shown is kept.
+        // Not written when it's already true: when it's displayed again after a reload, an app's OneWay binding on Shown is kept.
         if (this.Shown == false)
         {
             this.Shown = true;
