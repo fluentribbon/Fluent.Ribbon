@@ -548,6 +548,7 @@ public class Backstage : RibbonControl
         }
 
         var showCountAtClose = this.showCount;
+        var adornerAtClose = this.adorner;
 
         if (this.AreAnimationsEnabled
             && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
@@ -577,6 +578,14 @@ public class Backstage : RibbonControl
             // Hiding the adorner and restoring the ribbon now would hide the open backstage.
             // Not "IsOpen": IsOpen can be true again without a new show (a StartScreen is only shown once, a show can be delayed until Loaded).
             if (this.showCount != showCountAtClose)
+            {
+                return;
+            }
+
+            // The backstage was unloaded (removed, or moved to another window) while this close animation was running.
+            // Unloading destroyed the adorner this animation ran on and already restored the ribbon and the window.
+            // Focusing the backstage now would take the keyboard focus from wherever the user is working by then.
+            if (ReferenceEquals(this.adorner, adornerAtClose) == false)
             {
                 return;
             }
