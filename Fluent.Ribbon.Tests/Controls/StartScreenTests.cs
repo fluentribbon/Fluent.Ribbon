@@ -212,4 +212,41 @@ public class StartScreenTests
             Assert.That(titleBar.IsCollapsed, Is.False, "The title bar stays as it was.");
         }
     }
+
+    /// <summary>
+    /// Guard for #445: a displayed start screen hidden through its Visibility (not closed) expands the title bar, and collapses it again when it's visible again.
+    /// </summary>
+    [Test]
+    public void Visibility_of_a_displayed_StartScreen_collapses_and_expands_the_title_bar()
+    {
+        var titleBar = new RibbonTitleBar();
+        var startScreen = new StartScreen
+        {
+            Content = new StartScreenTabControl(),
+            AreAnimationsEnabled = false
+        };
+        var ribbon = new Ribbon
+        {
+            TitleBar = titleBar,
+            StartScreen = startScreen,
+            AutomaticStateManagement = false
+        };
+
+        using (new TestRibbonWindow(ribbon))
+        {
+            UIHelper.DoEvents();
+
+            startScreen.IsOpen = true;
+            Assert.That(titleBar.IsCollapsed, Is.True, "Precondition: the displayed start screen collapses the title bar.");
+
+            startScreen.Visibility = System.Windows.Visibility.Collapsed;
+            Assert.That(titleBar.IsCollapsed, Is.False, "Hiding the displayed start screen through its Visibility expands the title bar.");
+
+            startScreen.Visibility = System.Windows.Visibility.Visible;
+            Assert.That(titleBar.IsCollapsed, Is.True, "Making it visible again collapses the title bar again.");
+
+            startScreen.IsOpen = false;
+            Assert.That(titleBar.IsCollapsed, Is.False, "Closing it restores the title bar.");
+        }
+    }
 }
