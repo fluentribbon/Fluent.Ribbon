@@ -56,7 +56,7 @@ public class StartScreen : Backstage
     // This is required for scenarios like in #445 where the start screen is shown, but never hidden through Hide() but made hidden by changing just it's visibility.
     private void UpdateIsTitleBarCollapsed()
     {
-        // Only while it's displayed: when it's open but not displayed (it was already shown once), nothing gives the title bar back.
+        // Only while it's displayed: when it's open but not displayed (for example it was already shown once), nothing gives the title bar back.
         if (this.isDisplayed == false)
         {
             return;
