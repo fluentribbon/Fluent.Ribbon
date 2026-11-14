@@ -363,6 +363,191 @@ public class StatusBarTests
         }
     }
 
+    // Visibility can also come from a Style trigger instead of a local value or a binding.
+    [Test]
+    public void Style_Trigger_Changing_Item_Visibility_Should_Update_Separators()
+    {
+        var (statusBar, _, _, b, _, _) = CreateStatusBarWithSeparators();
+
+        var trigger = new Trigger { Property = FrameworkElement.TagProperty, Value = "Hidden" };
+        trigger.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+        var style = new Style(typeof(StatusBarItem));
+        style.Triggers.Add(trigger);
+        b.Style = style;
+
+        using (new TestRibbonWindow(statusBar))
+        {
+            UIHelper.DoEvents();
+
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Visible }), "Precondition: both separators are visible.");
+
+            b.Tag = "Hidden";
+            UIHelper.DoEvents();
+
+            Assert.That(b.Visibility, Is.EqualTo(Visibility.Collapsed), "Precondition: the style trigger collapsed B.");
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Collapsed }), "B is collapsed through the style trigger, so the second separator should be collapsed.");
+
+            b.Tag = null;
+            UIHelper.DoEvents();
+
+            Assert.That(b.Visibility, Is.EqualTo(Visibility.Visible), "Precondition: the style trigger no longer applies.");
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Visible }), "B is visible again, so both separators should be visible again.");
+        }
+    }
+
+    // Unchecking an item forces (coerces) its Visibility to Collapsed, whatever its binding says.
+    // Both ways of hiding have to work together: the binding must not show an unchecked item,
+    // and once the item is checked again the binding decides again.
+    [Test]
+    public void Unchecked_Item_Should_Stay_Hidden_When_Its_Visibility_Binding_Changes()
+    {
+        var (statusBar, _, _, b, _, _) = CreateStatusBarWithSeparators();
+        var state = new VisibilityState { Visibility = Visibility.Visible };
+        b.SetBinding(UIElement.VisibilityProperty, new Binding(nameof(VisibilityState.Visibility)) { Source = state, Mode = BindingMode.OneWay });
+
+        using (new TestRibbonWindow(statusBar))
+        {
+            UIHelper.DoEvents();
+
+            b.IsChecked = false;
+            UIHelper.DoEvents();
+
+            Assert.That(b.Visibility, Is.EqualTo(Visibility.Collapsed), "Unchecking collapses B although the binding says visible.");
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Collapsed }));
+
+            state.Visibility = Visibility.Collapsed;
+            UIHelper.DoEvents();
+            state.Visibility = Visibility.Visible;
+            UIHelper.DoEvents();
+
+            Assert.That(b.Visibility, Is.EqualTo(Visibility.Collapsed), "An unchecked item stays collapsed whatever the binding says.");
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Collapsed }));
+
+            state.Visibility = Visibility.Collapsed;
+            b.IsChecked = true;
+            UIHelper.DoEvents();
+
+            Assert.That(b.Visibility, Is.EqualTo(Visibility.Collapsed), "Checked again, but the binding still collapses B.");
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Collapsed }));
+
+            state.Visibility = Visibility.Visible;
+            UIHelper.DoEvents();
+
+            Assert.That(b.Visibility, Is.EqualTo(Visibility.Visible), "Checked and the binding says visible, so B is shown again.");
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Visible }));
+        }
+    }
+
+    // An app may hide an item before the status bar is shown, when its containers are not generated yet.
+    // That must not fail, and the separators must be right once the status bar is shown.
+    [Test]
+    public void Item_Visibility_Changed_Before_StatusBar_Is_Shown_Should_Be_Respected()
+    {
+        var (statusBar, _, _, b, _, _) = CreateStatusBarWithSeparators();
+
+        b.Visibility = Visibility.Collapsed;
+        b.Visibility = Visibility.Visible;
+        b.Visibility = Visibility.Collapsed;
+
+        using (new TestRibbonWindow(statusBar))
+        {
+            UIHelper.DoEvents();
+
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Collapsed }), "B was collapsed before the status bar was shown, so the second separator should be collapsed.");
+
+            b.Visibility = Visibility.Visible;
+            UIHelper.DoEvents();
+
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Visible }));
+        }
+    }
+
+    // Common MVVM use: the status bar items are generated from view models through ItemsSource
+    // and their Visibility is bound in the ItemContainerStyle.
+    [Test]
+    public void Generated_Item_Visibility_Bound_In_ItemContainerStyle_Should_Update_Separators()
+    {
+        var a = new VisibilityState { Visibility = Visibility.Visible };
+        var b = new VisibilityState { Visibility = Visibility.Visible };
+        var c = new VisibilityState { Visibility = Visibility.Visible };
+
+        var itemStyle = new Style(typeof(StatusBarItem));
+        itemStyle.Setters.Add(new Setter(UIElement.VisibilityProperty, new Binding(nameof(VisibilityState.Visibility))));
+
+        var statusBar = new StatusBar
+        {
+            ItemsSource = new ObservableCollection<object> { a, new System.Windows.Controls.Separator(), b, new System.Windows.Controls.Separator(), c },
+            ItemContainerStyleSelector = new StatusBarItemStyleSelector(itemStyle)
+        };
+
+        using (new TestRibbonWindow(statusBar))
+        {
+            UIHelper.DoEvents();
+
+            Assert.That(statusBar.ItemContainerGenerator.ContainerFromItem(b), Is.InstanceOf<StatusBarItem>(), "Precondition: B is shown in a generated StatusBarItem.");
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Visible }), "Precondition: both separators are visible.");
+
+            b.Visibility = Visibility.Collapsed;
+            UIHelper.DoEvents();
+
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Collapsed }), "B's item is collapsed, so the second separator should be collapsed.");
+
+            a.Visibility = Visibility.Collapsed;
+            UIHelper.DoEvents();
+
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Collapsed, Visibility.Collapsed }), "Nothing visible stands before either separator now.");
+
+            a.Visibility = Visibility.Visible;
+            b.Visibility = Visibility.Visible;
+            UIHelper.DoEvents();
+
+            AssertSeparatorsFollowRule(statusBar);
+            Assert.That(GetSeparatorVisibilities(statusBar), Is.EqualTo(new[] { Visibility.Visible, Visibility.Visible }));
+        }
+    }
+
+    // StatusBarItem adds its own handling to the Visibility property; WPF's own handling must keep working,
+    // so a collapsed item really leaves the layout and a shown one comes back.
+    [Test]
+    public void Collapsed_Item_Should_Leave_The_Layout_And_Come_Back_When_Shown()
+    {
+        var (statusBar, _, _, b, _, _) = CreateStatusBarWithSeparators();
+
+        // StatusBarPanel only gives space to items aligned left or right.
+        b.HorizontalAlignment = HorizontalAlignment.Left;
+
+        using (new TestRibbonWindow(statusBar))
+        {
+            UIHelper.DoEvents();
+            statusBar.UpdateLayout();
+
+            Assert.That(b.IsVisible, Is.True, "Precondition: B is visible.");
+            Assert.That(b.DesiredSize.Width, Is.GreaterThan(0), "Precondition: B takes up space.");
+
+            b.Visibility = Visibility.Collapsed;
+            statusBar.UpdateLayout();
+
+            Assert.That(b.IsVisible, Is.False);
+            Assert.That(b.DesiredSize, Is.EqualTo(default(Size)), "A collapsed item should take up no space.");
+
+            b.Visibility = Visibility.Visible;
+            statusBar.UpdateLayout();
+
+            Assert.That(b.IsVisible, Is.True);
+            Assert.That(b.DesiredSize.Width, Is.GreaterThan(0), "B should take up space again.");
+        }
+    }
+
     private static (StatusBar StatusBar, StatusBarItem A, System.Windows.Controls.Separator S1, StatusBarItem B, System.Windows.Controls.Separator S2, StatusBarItem C) CreateStatusBarWithSeparators()
     {
         var a = new StatusBarItem { Title = "A", Value = "A" };
@@ -460,7 +645,7 @@ public class StatusBarTests
 
                 visibleItemSinceLastSeparator = false;
             }
-            else if (statusBar.Items[i] is StatusBarItem { Visibility: Visibility.Visible })
+            else if (statusBar.ItemContainerGenerator.ContainerFromItem(statusBar.Items[i]) is StatusBarItem { Visibility: Visibility.Visible })
             {
                 visibleItemSinceLastSeparator = true;
             }
@@ -506,6 +691,24 @@ public class StatusBarTests
                 this.visibility = value;
                 this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Visibility)));
             }
+        }
+    }
+
+    // Gives generated StatusBarItems the given style and leaves separators alone.
+    private sealed class StatusBarItemStyleSelector : System.Windows.Controls.StyleSelector
+    {
+        private readonly Style itemStyle;
+
+        public StatusBarItemStyleSelector(Style itemStyle)
+        {
+            this.itemStyle = itemStyle;
+        }
+
+        public override Style SelectStyle(object item, DependencyObject container)
+        {
+            return container is StatusBarItem
+                ? this.itemStyle
+                : base.SelectStyle(item, container);
         }
     }
 }
