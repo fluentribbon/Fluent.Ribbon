@@ -237,7 +237,9 @@ public class BackstageReopenDuringCloseTests
 
     /// <summary>
     /// A new template (for example from an app style) also replaces the adorner, without an unload.
-    /// When that happens during the close animation, the end of the animation must still give the ribbon its normal state back.
+    /// When that happens during the close animation, the ribbon must get its normal state back right away, like when the
+    /// backstage is removed: the animation of the destroyed adorner may never end (WPF holds its clock only weakly).
+    /// The end of the animation must not change anything after that.
     /// </summary>
     [Test]
     public void New_template_during_the_close_animation_still_restores_the_ribbon()
@@ -267,12 +269,18 @@ public class BackstageReopenDuringCloseTests
 
             Assert.That(close.IsCompleted, Is.False, "Precondition: the close animation is still running");
 
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The ribbon must leave backstage mode when the closing backstage gets a new template");
+                Assert.That(ribbon.TabControl.HighlightSelectedItem, Is.True, "The selected tab must be highlighted again when the closing backstage gets a new template");
+            }
+
             WaitUntilCompleted(close, "close");
 
             using (Assert.EnterMultipleScope())
             {
-                Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The ribbon must leave backstage mode when the close animation ends");
-                Assert.That(ribbon.TabControl.HighlightSelectedItem, Is.True, "The selected tab must be highlighted again when the close animation ends");
+                Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The end of the close animation changes nothing");
+                Assert.That(ribbon.TabControl.HighlightSelectedItem, Is.True, "The end of the close animation changes nothing");
             }
         }
     }
