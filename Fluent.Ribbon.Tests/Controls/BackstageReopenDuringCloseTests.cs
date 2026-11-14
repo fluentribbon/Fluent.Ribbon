@@ -4,6 +4,10 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using Fluent.Tests.Helper;
 using Fluent.Tests.TestClasses;
 using NUnit.Framework;
@@ -75,9 +79,237 @@ public class BackstageReopenDuringCloseTests
         }
     }
 
+    /// <summary>
+    /// The backstage is removed (for example from <see cref="Ribbon.Menu"/>) while its close animation is running.
+    /// The ribbon must leave backstage mode right away: the animation of a removed backstage may never raise Completed
+    /// (WPF only holds its clock weakly once nothing animates with it), so the end of the animation can't be relied on.
+    /// </summary>
+    [Test]
+    public void Removing_the_backstage_during_the_close_animation_restores_the_ribbon()
+    {
+        var backstage = new Backstage { Content = new System.Windows.Controls.Button { Content = "Inside" }, AreAnimationsEnabled = true };
+        var ribbon = new Ribbon { Menu = backstage };
+
+        using (new TestRibbonWindow(ribbon))
+        {
+            UIHelper.DoEvents();
+
+            var firstOpen = UseOpenStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = true;
+            WaitUntilCompleted(firstOpen, "first open");
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.True, "Precondition: the ribbon is in backstage mode while the backstage is open");
+
+            // Long enough to still be running when the backstage has been removed (that takes a fraction of a second).
+            var close = UseCloseStoryboard(backstage, TimeSpan.FromSeconds(5));
+            backstage.IsOpen = false;
+
+            ribbon.Menu = null;
+            UIHelper.DoEvents();
+
+            Assert.That(backstage.IsLoaded, Is.False, "Precondition: the backstage was unloaded");
+            Assert.That(close.IsCompleted, Is.False, "Precondition: the close animation is still running");
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The ribbon must leave backstage mode when the closing backstage is removed");
+            Assert.That(ribbon.TabControl.HighlightSelectedItem, Is.True, "The selected tab must be highlighted again when the closing backstage is removed");
+
+            // Let the abandoned close animation end too, so it isn't still running during other tests.
+            WaitUntilCompleted(close, "abandoned close");
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The end of the abandoned close animation changes nothing");
+
+            // Put back, the backstage still opens and closes normally.
+            ribbon.Menu = backstage;
+            UIHelper.DoEvents();
+
+            var reopen = UseOpenStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = true;
+            WaitUntilCompleted(reopen, "open after putting the backstage back");
+
+            Assert.That(GetAdorner(backstage).Visibility, Is.EqualTo(Visibility.Visible), "The backstage put back is displayed when opened");
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.True, "The ribbon is in backstage mode again");
+
+            var finalClose = UseCloseStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = false;
+            WaitUntilCompleted(finalClose, "final close");
+
+            Assert.That(GetAdorner(backstage).Visibility, Is.EqualTo(Visibility.Collapsed), "The final close hides the backstage");
+            Assert.That(ribbon.IsBackstageOrStartScreenOpen, Is.False, "The final close restores the ribbon");
+        }
+    }
+
+    /// <summary>
+    /// The backstage is moved to another window while its close animation is running and opened there.
+    /// The end of the first close is skipped (it was shown again), so the first window must have been let go
+    /// when the backstage left it: Esc there must not close the backstage that is open in the second window.
+    /// </summary>
+    [Test]
+    public void Reopening_in_another_window_during_the_close_animation_stops_listening_to_the_first_window()
+    {
+        var backstage = new Backstage { Content = new System.Windows.Controls.Button { Content = "Inside" }, AreAnimationsEnabled = true };
+
+        using (var firstWindow = new TestRibbonWindow(backstage))
+        using (var secondWindow = new TestRibbonWindow())
+        {
+            UIHelper.DoEvents();
+
+            var firstOpen = UseOpenStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = true;
+            WaitUntilCompleted(firstOpen, "first open");
+
+            // Long enough to still be running when Esc is pressed below (the steps until then take a fraction of a second).
+            var close = UseCloseStoryboard(backstage, TimeSpan.FromSeconds(5));
+            backstage.IsOpen = false;
+
+            firstWindow.Content = null;
+            secondWindow.Content = backstage;
+            UIHelper.DoEvents();
+
+            var reopen = UseOpenStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            backstage.IsOpen = true;
+            WaitUntilCompleted(reopen, "reopen in the second window");
+
+            Assert.That(close.IsCompleted, Is.False, "Precondition: the close animation is still running");
+            Assert.That(GetAdorner(backstage).Visibility, Is.EqualTo(Visibility.Visible), "Precondition: the backstage is displayed in the second window");
+
+            PressEscape(firstWindow);
+
+            Assert.That(backstage.IsOpen, Is.True, "Esc in the first window must not close the backstage that is open in the second window");
+
+            var finalClose = UseCloseStoryboard(backstage, TimeSpan.FromMilliseconds(10));
+            PressEscape(secondWindow);
+
+            Assert.That(backstage.IsOpen, Is.False, "Esc in the window that shows the backstage closes it");
+
+            WaitUntilCompleted(finalClose, "final close");
+            Assert.That(GetAdorner(backstage).Visibility, Is.EqualTo(Visibility.Collapsed), "The final close hides the backstage");
+
+            // Let the abandoned close animation end too, so it isn't still running during other tests.
+            WaitUntilCompleted(close, "abandoned close");
+            Assert.That(GetAdorner(backstage).Visibility, Is.EqualTo(Visibility.Collapsed), "The end of the abandoned close animation changes nothing");
+        }
+    }
+
     private static UIElement GetAdorner(Backstage backstage)
     {
         return backstage.GetFieldValue<UIElement>("adorner");
+    }
+
+    private static void PressEscape(Window window)
+    {
+        var args = new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(window), 0, Key.Escape)
+        {
+            RoutedEvent = Keyboard.KeyDownEvent
+        };
+
+        window.RaiseEvent(args);
+    }
+
+    private static StoryboardRun UseOpenStoryboard(Backstage backstage, TimeSpan duration)
+    {
+        return UseStoryboard(backstage, "Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard", new Thickness(-125, 0, 0, 0), new Thickness(0), duration);
+    }
+
+    private static StoryboardRun UseCloseStoryboard(Backstage backstage, TimeSpan duration)
+    {
+        return UseStoryboard(backstage, "Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard", new Thickness(0), new Thickness(-125, 0, 0, 0), duration);
+    }
+
+    // Same kind of animation as the default storyboards, with the given duration, put into the backstage's resources
+    // where it looks them up. The backstage clones the storyboard it finds and begins the clone. A clone doesn't copy
+    // event handlers, but it is created by the storyboard's CreateInstanceCore, so the clone of a RecordingStoryboard
+    // reports to the same run, and the returned run learns when the backstage's copy has raised Completed.
+    // A 10 ms animation completes before a longer one that was started at the same time or later, however slow the
+    // machine is, so the order of the steps is fixed without waiting for a fixed time.
+    private static StoryboardRun UseStoryboard(Backstage backstage, string key, Thickness from, Thickness to, TimeSpan duration)
+    {
+        var animation = new ThicknessAnimation(from, to, new Duration(duration));
+        Storyboard.SetTargetProperty(animation, new PropertyPath(FrameworkElement.MarginProperty));
+
+        var run = new StoryboardRun();
+
+        var storyboard = new RecordingStoryboard(run);
+        storyboard.Children.Add(animation);
+
+        backstage.Resources[key] = storyboard;
+
+        return run;
+    }
+
+    // Pumps the dispatcher (animation frames are rendered by it) until the storyboard has completed.
+    private static void WaitUntilCompleted(StoryboardRun run, string step)
+    {
+        var waitTimeout = TimeSpan.FromSeconds(30);
+
+        if (run.IsCompleted == false)
+        {
+            var frame = new DispatcherFrame();
+            run.Frame = frame;
+
+            var timeoutTimer = new DispatcherTimer(waitTimeout, DispatcherPriority.Normal, (_, _) => frame.Continue = false, Dispatcher.CurrentDispatcher);
+
+            // Keeps animation frames coming, even when nothing else is invalidated.
+            EventHandler keepRendering = (_, _) => { };
+            CompositionTarget.Rendering += keepRendering;
+
+            try
+            {
+                Dispatcher.PushFrame(frame);
+            }
+            finally
+            {
+                CompositionTarget.Rendering -= keepRendering;
+                timeoutTimer.Stop();
+                run.Frame = null;
+            }
+        }
+
+        Assert.That(run.IsCompleted, Is.True, $"The {step} animation did not complete within {waitTimeout.TotalSeconds} seconds.");
+
+        UIHelper.DoEvents();
+    }
+
+    private sealed class RecordingStoryboard : Storyboard
+    {
+        private readonly StoryboardRun run;
+
+        public RecordingStoryboard(StoryboardRun run)
+        {
+            this.run = run;
+            this.Completed += run.HandleCompleted;
+        }
+
+        protected override Freezable CreateInstanceCore()
+        {
+            return new RecordingStoryboard(this.run);
+        }
+
+        // WPF holds the clocks of a running storyboard only weakly once nothing animates with them any more
+        // (for example after another storyboard replaced the animation, or after the animated adorner was destroyed),
+        // so a garbage collection can end them without Completed ever being raised.
+        // The run keeps the clock alive, so the test always gets to the moment the abandoned animation ends.
+        protected override Clock AllocateClock()
+        {
+            var clock = base.AllocateClock();
+            this.run.Clock = clock;
+            return clock;
+        }
+    }
+
+    private sealed class StoryboardRun
+    {
+        public bool IsCompleted { get; private set; }
+
+        public DispatcherFrame Frame { get; set; }
+
+        public Clock Clock { get; set; }
+
+        public void HandleCompleted(object sender, EventArgs e)
+        {
+            this.IsCompleted = true;
+
+            if (this.Frame is not null)
+            {
+                this.Frame.Continue = false;
+            }
+        }
     }
 
     // WPF animation clocks run in real time, so the dispatcher has to keep running while time passes.
