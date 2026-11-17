@@ -74,22 +74,25 @@ public class RibbonSplitButtonAutomationPeer : RibbonDropDownButtonAutomationPee
     /// <inheritdoc />
     protected override string? GetNameCore()
     {
-        var name = base.GetNameCore();
+        // The command text and the button's content (see GetOwnNameFallback) come before the ScreenTip title, as they were the name before it was considered.
+        return base.GetNameCore();
+    }
 
-        if (string.IsNullOrEmpty(name))
+    /// <inheritdoc />
+    private protected override string? GetOwnNameFallback()
+    {
+        if (this.SplitButtonOnwer.Command is RoutedUICommand routedUiCommand
+            && string.IsNullOrEmpty(routedUiCommand.Text) == false)
         {
-            if (this.SplitButtonOnwer.Command is RoutedUICommand routedUiCommand
-                && string.IsNullOrEmpty(routedUiCommand.Text) == false)
-            {
-                name = routedUiCommand.Text;
-            }
-            else if (this.SplitButtonOnwer.Button?.Content is string buttonContent)
-            {
-                name = AccessTextHelper.RemoveAccessKeyMarker(buttonContent);
-            }
+            return routedUiCommand.Text;
         }
 
-        return name;
+        if (this.SplitButtonOnwer.Button?.Content is string buttonContent)
+        {
+            return AccessTextHelper.RemoveAccessKeyMarker(buttonContent);
+        }
+
+        return null;
     }
 
     /// <inheritdoc />

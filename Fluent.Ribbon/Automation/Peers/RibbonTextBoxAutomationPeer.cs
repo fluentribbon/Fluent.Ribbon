@@ -19,14 +19,8 @@ public class RibbonTextBoxAutomationPeer : System.Windows.Automation.Peers.TextB
     /// <inheritdoc />
     protected override string? GetNameCore()
     {
-        var name = base.GetNameCore();
-
-        if (string.IsNullOrEmpty(name))
-        {
-            name = (this.Owner as IHeaderedControl)?.Header as string;
-        }
-
-        return name;
+        // Explicit name, then the text header, then the ScreenTip title (for icon-only controls).
+        return AutomationPeerHelper.GetName(this.Owner, base.GetNameCore());
     }
 
     /// <inheritdoc />

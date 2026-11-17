@@ -452,7 +452,8 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
         }
 
         // The text box takes the focus, so a screen reader announces it: give it the spinner's name,
-        // the app's AutomationProperties.Name or else a text header (never the type name of a header that isn't text).
+        // the app's AutomationProperties.Name or else a text header (never the type name of a header that isn't text)
+        // or else the title of the spinner's ScreenTip.
         // Not when the template already names it (an app's own Spinner template).
         if (DependencyPropertyHelper.GetValueSource(this.textBox, System.Windows.Automation.AutomationProperties.NameProperty).BaseValueSource == BaseValueSource.Default)
         {
@@ -684,12 +685,37 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
             Bindings =
             {
                 new Binding { Source = this, Path = new PropertyPath(System.Windows.Automation.AutomationProperties.NameProperty), Mode = BindingMode.OneWay },
-                new Binding { Source = this, Path = new PropertyPath(HeaderProperty), Mode = BindingMode.OneWay }
+                new Binding { Source = this, Path = new PropertyPath(HeaderProperty), Mode = BindingMode.OneWay },
+                new Binding { Source = this, Path = new PropertyPath(ScreenTipTitleProperty), Mode = BindingMode.OneWay }
             }
         });
     }
 
-    // Name for the spinner's text box: the spinner's AutomationProperties.Name, else its Header if that is text (without the access key marker).
+    // The title of the spinner's ScreenTip, kept up to date for the name of the text box (see SetTextBoxNameBinding).
+    // Bound to the current ScreenTip only, so no path through ToolTip that would log binding errors for a plain text ToolTip.
+    private static readonly DependencyProperty ScreenTipTitleProperty =
+        DependencyProperty.Register("ScreenTipTitle", typeof(string), typeof(Spinner), new PropertyMetadata(default(string)));
+
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+
+        if (e.Property == ToolTipProperty)
+        {
+            if (e.NewValue is ScreenTip screenTip)
+            {
+                this.SetBinding(ScreenTipTitleProperty, new Binding { Source = screenTip, Path = new PropertyPath(ScreenTip.TitleProperty), Mode = BindingMode.OneWay });
+            }
+            else
+            {
+                this.ClearValue(ScreenTipTitleProperty);
+            }
+        }
+    }
+
+    // Name for the spinner's text box: the spinner's AutomationProperties.Name, else its Header if that is text (without the access key marker),
+    // else the title of its ScreenTip.
     private sealed class TextBoxNameConverter : IMultiValueConverter
     {
         public static readonly TextBoxNameConverter Instance = new();
@@ -703,9 +729,16 @@ public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonCont
             }
 
             if (values.Length > 1
-                && values[1] is string header)
+                && values[1] is string { Length: > 0 } header
+                && AccessTextHelper.RemoveAccessKeyMarker(header) is { Length: > 0 } headerText)
             {
-                return AccessTextHelper.RemoveAccessKeyMarker(header) ?? string.Empty;
+                return headerText;
+            }
+
+            if (values.Length > 2
+                && values[2] is string { Length: > 0 } screenTipTitle)
+            {
+                return screenTipTitle;
             }
 
             return string.Empty;
