@@ -112,6 +112,64 @@ public class RibbonSelectedTabOneWayBindingTests
         }
     }
 
+    /// <summary>
+    /// Guard: inserting a tab before the selected one moves its index, which the ribbon updates itself.
+    /// That update must not replace the app's OneWay binding either.
+    /// </summary>
+    [Test]
+    public void Inserting_a_tab_before_the_selected_tab_keeps_a_OneWay_binding_on_SelectedTabIndex()
+    {
+        var model = new TabModel { Index = 1 };
+        var (ribbon, tabs) = CreateRibbon();
+        ribbon.SetBinding(Ribbon.SelectedTabIndexProperty, new Binding(nameof(TabModel.Index)) { Source = model, Mode = BindingMode.OneWay });
+
+        using (new TestRibbonWindow(ribbon))
+        {
+            Prepare(ribbon);
+            Assert.That(ribbon.SelectedTabItem, Is.SameAs(tabs[1]), "Precondition: the view model's tab is selected.");
+
+            ribbon.Tabs.Insert(0, new RibbonTabItem { Header = "Inserted" });
+            UIHelper.DoEvents();
+
+            Assert.That(ribbon.SelectedTabItem, Is.SameAs(tabs[1]), "Precondition: the selected tab stays selected.");
+            Assert.That(ribbon.SelectedTabIndex, Is.EqualTo(2), "Precondition: the index follows the selected tab.");
+
+            model.Index = 0;
+
+            Assert.That(BindingOperations.GetBindingExpression(ribbon, Ribbon.SelectedTabIndexProperty), Is.Not.Null, "The app's OneWay binding on SelectedTabIndex was lost.");
+            Assert.That(ribbon.SelectedTabIndex, Is.EqualTo(0), "The view model must still select tabs.");
+        }
+    }
+
+    /// <summary>
+    /// Guard: moving the selected tab moves its index, which the ribbon updates itself.
+    /// That update must not replace the app's OneWay binding either.
+    /// </summary>
+    [Test]
+    public void Moving_the_selected_tab_keeps_a_OneWay_binding_on_SelectedTabIndex()
+    {
+        var model = new TabModel { Index = 0 };
+        var (ribbon, tabs) = CreateRibbon();
+        ribbon.SetBinding(Ribbon.SelectedTabIndexProperty, new Binding(nameof(TabModel.Index)) { Source = model, Mode = BindingMode.OneWay });
+
+        using (new TestRibbonWindow(ribbon))
+        {
+            Prepare(ribbon);
+            Assert.That(ribbon.SelectedTabItem, Is.SameAs(tabs[0]), "Precondition: the view model's tab is selected.");
+
+            ribbon.Tabs.Move(0, 2);
+            UIHelper.DoEvents();
+
+            Assert.That(ribbon.SelectedTabItem, Is.SameAs(tabs[0]), "Precondition: the moved tab stays selected.");
+            Assert.That(ribbon.SelectedTabIndex, Is.EqualTo(2), "Precondition: the index follows the moved tab.");
+
+            model.Index = 1;
+
+            Assert.That(BindingOperations.GetBindingExpression(ribbon, Ribbon.SelectedTabIndexProperty), Is.Not.Null, "The app's OneWay binding on SelectedTabIndex was lost.");
+            Assert.That(ribbon.SelectedTabItem, Is.SameAs(ribbon.Tabs[1]), "The view model must still select tabs.");
+        }
+    }
+
     private static (Ribbon Ribbon, RibbonTabItem[] Tabs) CreateRibbon()
     {
         var tabs = new[]
