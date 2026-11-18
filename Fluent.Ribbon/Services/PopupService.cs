@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using Fluent.Extensions;
 using Fluent.Internal;
 
@@ -242,6 +243,21 @@ public static class PopupService
                     RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
                 }
             }
+            else if (sender is DropDownButton { DismissOnClickOutside: true }
+                     && (Mouse.Captured is null
+                         || (IsAncestorOf(sender as DependencyObject, Mouse.Captured as DependencyObject) == false
+                             // Similar to the exception for outside clicks: other popups (for example datepickers used in the drop down),
+                             // but not a popup the drop down itself is shown in (for example the one of the drop down it is in)
+                             && IsInOtherPopup(Mouse.Captured as DependencyObject, sender as DependencyObject) == false)))
+            {
+                // The drop down lost the capture to nothing (Windows cancels it when another window takes it) or to an element outside of it.
+                // Without the capture outside clicks no longer reach it, so they couldn't close it any more.
+                // Close it, like WPF's ComboBox does when it loses the capture.
+                // Not with DismissOnClickOutside = false: such a drop down closes only by its button or Escape (#1048),
+                // for example while it opens a dialog, which makes Windows cancel the capture.
+                // Only this drop down: a dismiss event would bubble and also close the drop downs it is in, which may hold the capture now.
+                DropDownControlHelper.SetIsDropDownOpenCurrentValue(control, false);
+            }
 
             return;
         }
@@ -436,6 +452,19 @@ public static class PopupService
                 RaiseDismissPopupEvent(e.OriginalSource, DismissPopupMode.MouseNotOver);
             }
         }
+    }
+
+    // Whether the element is shown in a popup (its visual root is a popup's root) that doesn't also show the other element.
+    private static bool IsInOtherPopup(DependencyObject? element, DependencyObject? other)
+    {
+        while (element is Visual
+               && VisualTreeHelper.GetParent(element) is { } parent)
+        {
+            element = parent;
+        }
+
+        return IsPopupRoot(element)
+               && IsAncestorOf(element, other) == false;
     }
 
     private static bool IsPopupRoot(object? obj)

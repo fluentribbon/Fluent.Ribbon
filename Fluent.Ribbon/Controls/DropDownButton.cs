@@ -921,7 +921,13 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
                 this.Focus();
             }
 
-            Mouse.Capture(null);
+            // Only release a capture the drop down (or something in it) holds: when it closes because another element took the capture, that element keeps it.
+            if (Mouse.Captured is DependencyObject captured
+                && (PopupService.IsAncestorOf(this, captured)
+                    || PopupService.IsAncestorOf(this.DropDownPopup, captured)))
+            {
+                Mouse.Capture(null);
+            }
 
             this.OnDropDownClosed();
         }
