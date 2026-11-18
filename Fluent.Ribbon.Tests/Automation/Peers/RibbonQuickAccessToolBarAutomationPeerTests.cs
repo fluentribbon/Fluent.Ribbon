@@ -44,6 +44,11 @@ public class RibbonQuickAccessToolBarAutomationPeerTests
             var peer = UIElementAutomationPeer.CreatePeerForElement(quickAccessToolBar);
             Assert.That(peer, Is.InstanceOf<Fluent.Automation.Peers.RibbonQuickAccessToolBarAutomationPeer>(), "Precondition");
 
+            // CreatePeerForElement returns the existing peer if one was created earlier, e.g. by a UI Automation client
+            // (screen reader, accessibility tool) that inspected the window before HasOverflowItems was set above.
+            // Such a peer keeps the child list it built back then, so rebuild it to see the buttons the toolbar shows now.
+            peer.ResetChildrenCache();
+
             var childNames = peer.GetChildren().Select(x => x.GetName()).ToList();
 
             var localization = RibbonLocalization.Current.Localization;

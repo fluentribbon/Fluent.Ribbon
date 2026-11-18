@@ -81,8 +81,28 @@ public class RibbonLibraryThemeProviderHighContrastTests
 
         Assert.That(libraryTheme, Is.Not.Null);
 
-        AssertTextContrast(libraryTheme, "Gallery.Header.Foreground", "Gallery.Header.Background");
-        AssertTextContrast(libraryTheme, "Gallery.Header.MouseOver.Foreground", "Gallery.Header.MouseOver.Background");
+        // WHY two parts: the provider reads the live SystemColors, so the generated theme only shows the colors of the
+        // machine that runs the tests. Those are a High Contrast theme only while Windows High Contrast is on.
+        // On a machine with the normal Windows colors (e.g. white HighlightText on Highlight #0078D7 is 4.499:1, just under 4.5:1)
+        // the live colors say nothing about High Contrast, so the label is checked against the built-in Windows contrast themes instead.
+
+        // Part 1: the label uses exactly these system color pairs, so the check of the built-in themes below is about the real provider output.
+        AssertUsesSystemColorPair(libraryTheme, "Gallery.Header.Foreground", nameof(SystemColors.WindowColor), "Gallery.Header.Background", nameof(SystemColors.WindowTextColor));
+        AssertUsesSystemColorPair(libraryTheme, "Gallery.Header.MouseOver.Foreground", nameof(SystemColors.HighlightTextColor), "Gallery.Header.MouseOver.Background", nameof(SystemColors.HighlightColor));
+
+        // Part 2: these pairs are readable in every built-in Windows contrast theme, whatever theme this machine has.
+        foreach (var theme in WindowsContrastThemes())
+        {
+            AssertTextContrast(theme.Name, "Gallery.Header.Foreground", theme.Window, "Gallery.Header.Background", theme.WindowText);
+            AssertTextContrast(theme.Name, "Gallery.Header.MouseOver.Foreground", theme.HighlightText, "Gallery.Header.MouseOver.Background", theme.Highlight);
+        }
+
+        // Part 3: when High Contrast is on, the live colors are the user's chosen (possibly customized) theme, so check them too.
+        if (SystemParameters.HighContrast)
+        {
+            AssertTextContrast(libraryTheme, "Gallery.Header.Foreground", "Gallery.Header.Background");
+            AssertTextContrast(libraryTheme, "Gallery.Header.MouseOver.Foreground", "Gallery.Header.MouseOver.Background");
+        }
     }
 
     [Test]
@@ -158,15 +178,41 @@ public class RibbonLibraryThemeProviderHighContrastTests
         yield return new object[] { "Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground", nameof(SystemColors.HighlightTextColor) };
     }
 
+    /// <summary>
+    /// The colors of the built-in Windows contrast themes (Settings > Accessibility > Contrast themes).
+    /// </summary>
+    /// <remarks>
+    /// The values are the "[Control Panel\Colors]" entries of the theme files Windows ships in
+    /// "%WINDIR%\Resources\Ease of Access Themes" (read from Windows 11): Window, WindowText, Hilight and HilightText.
+    /// File names: hcblack.theme = Aquatic, hcwhite.theme = Desert, hc1.theme = Dusk, hc2.theme = Night sky.
+    /// Microsoft documents which colors pair with which at https://learn.microsoft.com/windows/apps/design/accessibility/high-contrast-themes
+    /// (WindowText on Window, HighlightText on Highlight).
+    /// </remarks>
+    private static IEnumerable<ContrastTheme> WindowsContrastThemes()
+    {
+        yield return new ContrastTheme("Aquatic", window: Color.FromRgb(32, 32, 32), windowText: Color.FromRgb(255, 255, 255), highlight: Color.FromRgb(142, 227, 240), highlightText: Color.FromRgb(38, 59, 80));
+        yield return new ContrastTheme("Desert", window: Color.FromRgb(255, 250, 239), windowText: Color.FromRgb(61, 61, 61), highlight: Color.FromRgb(144, 57, 9), highlightText: Color.FromRgb(255, 245, 227));
+        yield return new ContrastTheme("Dusk", window: Color.FromRgb(45, 50, 54), windowText: Color.FromRgb(255, 255, 255), highlight: Color.FromRgb(161, 191, 222), highlightText: Color.FromRgb(33, 45, 59));
+        yield return new ContrastTheme("Night sky", window: Color.FromRgb(0, 0, 0), windowText: Color.FromRgb(255, 255, 255), highlight: Color.FromRgb(214, 180, 253), highlightText: Color.FromRgb(43, 43, 43));
+    }
+
+    private static void AssertUsesSystemColorPair(LibraryTheme libraryTheme, string foregroundKey, string foregroundSystemColorName, string backgroundKey, string backgroundSystemColorName)
+    {
+        Assert.That(GetBrushColor(libraryTheme, foregroundKey), Is.EqualTo(GetSystemColor(foregroundSystemColorName)), $"{foregroundKey} must be {foregroundSystemColorName}.");
+        Assert.That(GetBrushColor(libraryTheme, backgroundKey), Is.EqualTo(GetSystemColor(backgroundSystemColorName)), $"{backgroundKey} must be {backgroundSystemColorName}.");
+    }
+
     private static void AssertTextContrast(LibraryTheme libraryTheme, string foregroundKey, string backgroundKey)
     {
-        var foreground = GetBrushColor(libraryTheme, foregroundKey);
-        var background = GetBrushColor(libraryTheme, backgroundKey);
+        AssertTextContrast("the current system colors", foregroundKey, GetBrushColor(libraryTheme, foregroundKey), backgroundKey, GetBrushColor(libraryTheme, backgroundKey));
+    }
 
+    private static void AssertTextContrast(string themeName, string foregroundKey, Color foreground, string backgroundKey, Color background)
+    {
         var ratio = ContrastHelper.GetContrastRatio(foreground, background);
 
         // WCAG 1.4.3 (text contrast): normal size text needs 4.5:1.
-        Assert.That(ratio, Is.GreaterThanOrEqualTo(4.5), $"{foregroundKey} ({foreground}) on {backgroundKey} ({background}) has a contrast ratio of {ratio:0.00}:1, needs 4.5:1.");
+        Assert.That(ratio, Is.GreaterThanOrEqualTo(4.5), $"With {themeName}: {foregroundKey} ({foreground}) on {backgroundKey} ({background}) has a contrast ratio of {ratio:0.00}:1, needs 4.5:1.");
     }
 
     private static void AssertIsHighContrastPair(LibraryTheme libraryTheme, string foregroundKey, string backgroundKey)
@@ -216,5 +262,27 @@ public class RibbonLibraryThemeProviderHighContrastTests
         var options = new RuntimeThemeOptions(false, isHighContrast, null, null);
 
         return RuntimeThemeGenerator.Current.GetColors(GetAccentColor(), options);
+    }
+
+    private sealed class ContrastTheme
+    {
+        public ContrastTheme(string name, Color window, Color windowText, Color highlight, Color highlightText)
+        {
+            this.Name = name;
+            this.Window = window;
+            this.WindowText = windowText;
+            this.Highlight = highlight;
+            this.HighlightText = highlightText;
+        }
+
+        public string Name { get; }
+
+        public Color Window { get; }
+
+        public Color WindowText { get; }
+
+        public Color Highlight { get; }
+
+        public Color HighlightText { get; }
     }
 }
