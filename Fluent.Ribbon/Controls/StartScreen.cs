@@ -24,6 +24,23 @@ public class StartScreen : Backstage
 
     private bool? originalTitleBarIsCollapsed;
 
+    // The title bar collapsed by the last Show, until it's restored.
+    private RibbonTitleBar? collapsedTitleBar;
+
+    // Displayed by the last Show, until it's hidden or unloaded.
+    private bool isDisplayed;
+
+    // Unloaded while displayed: it's still open, so it's displayed again when it's loaded again.
+    private bool showAgainWhenLoaded;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StartScreen"/> class.
+    /// </summary>
+    public StartScreen()
+    {
+        this.Unloaded += this.OnStartScreenUnloaded;
+    }
+
     static StartScreen()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(StartScreen), new FrameworkPropertyMetadata(typeof(StartScreen)));
@@ -39,7 +56,8 @@ public class StartScreen : Backstage
     // This is required for scenarios like in #445 where the start screen is shown, but never hidden through Hide() but made hidden by changing just it's visibility.
     private void UpdateIsTitleBarCollapsed()
     {
-        if (this.IsOpen == false)
+        // Only while it's displayed: when it's open but not displayed (for example it was already shown once), nothing gives the title bar back.
+        if (this.isDisplayed == false)
         {
             return;
         }
@@ -56,26 +74,36 @@ public class StartScreen : Backstage
     /// </summary>
     /// <returns>
     /// <c>true</c> if the <see cref="StartScreen"/> was made visible.
-    /// <c>false</c> if the <see cref="StartScreen"/> was previously shown and was not made visible during this call.
+    /// <c>false</c> if the <see cref="StartScreen"/> was previously shown and was not made visible during this call
+    /// (it's made visible again when it's loaded again while it's still open).
     /// </returns>
     protected override bool Show()
     {
-        if (this.Shown)
+        if (this.Shown
+            && this.showAgainWhenLoaded == false)
         {
             return false;
         }
 
-        this.Shown = base.Show();
-
-        if (this.Shown)
+        if (base.Show() == false)
         {
-            var parentRibbon = GetParentRibbon(this);
-
-            this.originalTitleBarIsCollapsed = parentRibbon?.TitleBar?.IsCollapsed;
-            parentRibbon?.TitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, BooleanBoxes.TrueBox);
+            return false;
         }
 
-        return this.Shown;
+        // Not written when it's already true: when it's displayed again after a reload, an app's OneWay binding on Shown is kept.
+        if (this.Shown == false)
+        {
+            this.Shown = true;
+        }
+
+        this.isDisplayed = true;
+        this.showAgainWhenLoaded = false;
+
+        this.collapsedTitleBar = GetParentRibbon(this)?.TitleBar;
+        this.originalTitleBarIsCollapsed = this.collapsedTitleBar?.IsCollapsed;
+        this.collapsedTitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, BooleanBoxes.TrueBox);
+
+        return true;
     }
 
     /// <summary>
@@ -83,22 +111,41 @@ public class StartScreen : Backstage
     /// </summary>
     protected override void Hide()
     {
-        var wasShown = this.Shown;
-
         base.Hide();
 
-        if (wasShown)
+        this.isDisplayed = false;
+
+        // Hidden (closed, or a new template) while unloaded: not displayed again when it's loaded again.
+        this.showAgainWhenLoaded = false;
+
+        this.RestoreTitleBar();
+    }
+
+    private void OnStartScreenUnloaded(object sender, RoutedEventArgs e)
+    {
+        // The backstage part hides it and gives the ribbon its normal state back when it's unloaded while displayed.
+        // Give the title bar back too, and display it again when it's loaded again (it's still open).
+        if (this.isDisplayed == false)
         {
-            var parentRibbon = GetParentRibbon(this);
-
-            if (this.originalTitleBarIsCollapsed.HasValue)
-            {
-                parentRibbon?.TitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, this.originalTitleBarIsCollapsed.Value);
-
-                // Shown stays true forever, so without clearing the saved value every later close
-                // (where Show returned early and never touched the title bar) would overwrite IsCollapsed again.
-                this.originalTitleBarIsCollapsed = null;
-            }
+            return;
         }
+
+        this.isDisplayed = false;
+        this.RestoreTitleBar();
+        this.showAgainWhenLoaded = this.IsOpen;
+    }
+
+    // Shown stays true forever, so the saved value is cleared once restored: later closes
+    // (where Show returned early and never touched the title bar) must not overwrite IsCollapsed again.
+    private void RestoreTitleBar()
+    {
+        if (this.collapsedTitleBar is not null
+            && this.originalTitleBarIsCollapsed.HasValue)
+        {
+            this.collapsedTitleBar.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, this.originalTitleBarIsCollapsed.Value);
+        }
+
+        this.collapsedTitleBar = null;
+        this.originalTitleBarIsCollapsed = null;
     }
 }

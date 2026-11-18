@@ -548,6 +548,7 @@ public class Backstage : RibbonControl
         }
 
         var showCountAtClose = this.showCount;
+        var adornerAtClose = this.adorner;
 
         if (this.AreAnimationsEnabled
             && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
@@ -593,7 +594,13 @@ public class Backstage : RibbonControl
 
             this.RestoreParentProperties();
 
-            this.Focus();
+            // Not when the adorner this animation ran on was replaced meanwhile: an unload (the backstage was removed,
+            // or moved to another window) or a new template destroyed it, and with it the content that had the focus.
+            // The user may be working elsewhere by then, even in another window, so the focus is left alone.
+            if (ReferenceEquals(this.adorner, adornerAtClose))
+            {
+                this.Focus();
+            }
         }
     }
 
@@ -810,13 +817,15 @@ public class Backstage : RibbonControl
     {
         this.RemoveHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnDismissPopup);
 
+        // Unloaded while open or while the close animation is running. The adorner is destroyed below, and
+        // neither Hide() nor the end of the close animation can be relied on to restore the ribbon and the
+        // window any more (the animation of a removed backstage may never end, and its end is skipped when
+        // the backstage is shown again elsewhere), so restore them now. Nothing to do when it's closed.
+        this.RestoreParentProperties();
+
         if (this.IsOpen)
         {
-            // Unloaded while open. The adorner is destroyed below, and Hide() can't restore the ribbon
-            // without it, so restore it now. IsOpen stays true: like a backstage opened before it was
-            // loaded, it's shown again when it's loaded again.
-            this.RestoreParentProperties();
-
+            // IsOpen stays true: like a backstage opened before it was loaded, it's shown again when it's loaded again.
             this.Loaded -= this.OnDelayedShow;
             this.Loaded += this.OnDelayedShow;
         }
@@ -868,6 +877,10 @@ public class Backstage : RibbonControl
         {
             this.Hide();
         }
+
+        // Like an unload: the close animation of the adorner destroyed below may never end, so restore the ribbon
+        // and the window now. Nothing to do when it's closed and its close animation has ended; Show below collects them again if it shows it.
+        this.RestoreParentProperties();
 
         this.DestroyAdorner();
 
