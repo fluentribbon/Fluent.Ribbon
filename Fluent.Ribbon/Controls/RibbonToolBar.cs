@@ -258,9 +258,65 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
             }
         }
 
+        // Removed children must be released right away, so the app can put them somewhere else.
+        // The rebuild below only runs on the next measure pass, which never comes for a collapsed toolbar.
+        if (e.Action == NotifyCollectionChangedAction.Reset)
+        {
+            this.ReleaseActualChildren();
+        }
+        else if (e.Action != NotifyCollectionChangedAction.Move
+                 && e.OldItems is not null)
+        {
+            foreach (var item in e.OldItems)
+            {
+                // A child replaced by itself is still part of the toolbar
+                if (item is FrameworkElement element
+                    && e.NewItems?.Contains(element) != true)
+                {
+                    this.ReleaseChild(element);
+                }
+            }
+        }
+
         // Children have changed, reset layouts
         this.rebuildVisualAndLogicalChildren = true;
         this.InvalidateMeasure();
+    }
+
+    /// <summary>
+    /// Removes all actual children (controls, control groups and separators) from the visual and logical tree.
+    /// </summary>
+    private void ReleaseActualChildren()
+    {
+        foreach (var child in this.actualChildren)
+        {
+            var controlGroup = child as RibbonToolBarControlGroup;
+            controlGroup?.Items.Clear();
+
+            this.RemoveVisualChild(child);
+            this.RemoveLogicalChild(child);
+        }
+
+        this.actualChildren.Clear();
+        this.cachedControlGroups.Clear();
+    }
+
+    /// <summary>
+    /// Removes a single child, that is no longer part of <see cref="Children"/>, from the visual and logical tree.
+    /// </summary>
+    private void ReleaseChild(FrameworkElement child)
+    {
+        if (this.actualChildren.Remove(child))
+        {
+            this.RemoveVisualChild(child);
+            this.RemoveLogicalChild(child);
+        }
+
+        // With a layout definition the child might be shown inside a control group
+        foreach (var controlGroup in this.cachedControlGroups.Values)
+        {
+            controlGroup.Items.Remove(child);
+        }
     }
 
     #endregion
@@ -365,17 +421,7 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
         if (this.rebuildVisualAndLogicalChildren)
         {
             // Clear previous children
-            foreach (var child in this.actualChildren)
-            {
-                var controlGroup = child as RibbonToolBarControlGroup;
-                controlGroup?.Items.Clear();
-
-                this.RemoveVisualChild(child);
-                this.RemoveLogicalChild(child);
-            }
-
-            this.actualChildren.Clear();
-            this.cachedControlGroups.Clear();
+            this.ReleaseActualChildren();
         }
 
         if (layoutDefinition is null)
