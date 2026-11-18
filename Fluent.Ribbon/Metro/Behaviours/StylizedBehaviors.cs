@@ -1,6 +1,5 @@
 ﻿namespace Fluent.Metro.Behaviours;
 
-using System.Diagnostics;
 using System.Windows;
 using Microsoft.Xaml.Behaviors;
 
@@ -81,13 +80,6 @@ public static class StylizedBehaviors
         {
             frameworkElement.Unloaded += FrameworkElementUnloaded;
         }
-
-        frameworkElement.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-    }
-
-    private static void Dispatcher_ShutdownStarted(object? sender, System.EventArgs e)
-    {
-        Debug.WriteLine("Dispatcher.ShutdownStarted");
     }
 
     private static void FrameworkElementUnloaded(object sender, RoutedEventArgs e)
