@@ -445,12 +445,8 @@ public class Gallery : ListBox
             return null;
         }
 
-        return this.groupsMenuButton?.Items.Cast<MenuItem>().FirstOrDefault(item => (item is not null) && (item.Header.ToString() == filter.Title));
-        /*foreach (MenuItem item in groupsMenuButton.Items)
-        {
-            if ((item!=null)&&(item.Header == filter.Title)) return item;
-        }
-        return null;*/
+        // Each menu item has its filter as Tag. Titles can be the same, or change after the menu item was created.
+        return this.groupsMenuButton?.Items.Cast<MenuItem>().FirstOrDefault(item => item is not null && ReferenceEquals(item.Tag, filter));
     }
 
     #endregion
