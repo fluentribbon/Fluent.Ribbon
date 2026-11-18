@@ -157,12 +157,12 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
 
         if (e.OldValue is ICommand oldCommand)
         {
-            oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
+            CanExecuteChangedEventManager.RemoveHandler(oldCommand, control.OnCommandCanExecuteChanged);
         }
 
         if (e.NewValue is ICommand newCommand)
         {
-            newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
+            CanExecuteChangedEventManager.AddHandler(newCommand, control.OnCommandCanExecuteChanged);
 
             if (e.NewValue is RoutedUICommand routedUiCommand
                 && control.Header is null)
